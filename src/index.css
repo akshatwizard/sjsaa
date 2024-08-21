@@ -2242,12 +2242,13 @@ label {
   width: 100%;
   display: flex;
   justify-content: flex-end;
+  gap: 20px;
+  
 }
 
 .filterSection {
   padding: 10px;
   background-color: var(--secondry-color);
-  margin-bottom: 30px;
   display: flex;
   justify-content: center;
   gap: 20px;
@@ -2271,6 +2272,7 @@ label {
 @media (max-width: 768px) {
   .memberFilter {
     justify-content: center;
+    flex-direction: column;
   }
   .filterSection {
     flex-direction: column;

@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import { scrollToTop } from "../../helper/scroll.js";
 import axios from "axios";
 import { Context } from "../../context/Context.jsx";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 export default function OurAlumni() {
-  const {setLoginModal} = useContext(Context)
+  const { setLoginModal } = useContext(Context);
   const [memberData, setMemberData] = useState([]);
   const [filterValue, setFilterValue] = useState("");
   const [filterCategory, setFilterCategory] = useState("membernace");
@@ -41,7 +43,7 @@ export default function OurAlumni() {
 
   const handleFilterValueChange = (e) => {
     setFilterValue(e.target.value);
-    setCurrentPage(1); 
+    setCurrentPage(1);
   };
 
   const handleFilterCategoryChange = (e) => {
@@ -152,13 +154,56 @@ export default function OurAlumni() {
     return pages;
   };
 
+  const handleDownloadPDF = () => {
+    const doc = new jsPDF();
+  
+    const img = "/images/8.png"
+  
+    doc.addImage(img, 'PNG', 10, 10, 30, 30); 
+    doc.setFontSize(25);
+    doc.text("St John's School Alumni Association", 50, 25); 
+    
+    doc.setLineWidth(0.5);
+    doc.line(10, 45, 200, 45); 
+
+    const tableColumn = [
+      "Sr. No.",
+      "Name",
+      "Joined Year",
+      "Batch",
+      "Qualification",
+      "Date of Birth",
+      "Profession & Working As",
+      "Current Location",
+    ];
+    const tableRows = [];
+  
+    memberData.forEach((member, index) => {
+      const memberDetails = [
+        index + 1,
+        member.membernace,
+        member.joiningyear,
+        member.batch,
+        "NA", 
+        "NA", 
+        "NA", 
+        member.location,
+      ];
+      tableRows.push(memberDetails);
+    });
+  
+    doc.autoTable(tableColumn, tableRows, { startY: 50 }); 
+  
+    doc.save("members_list.pdf");
+  };
+
   return (
     <section className="sectionContainer">
       <div className="container">
         <div className="title">
           <h1>Members Details</h1>
         </div>
-        <div className="row">
+        <div className="row row-gap-4">
           <div className="col-lg-12">
             <div className="memberFilter">
               <div className="filterSection">
@@ -180,8 +225,16 @@ export default function OurAlumni() {
                   placeholder="Search..."
                 />
               </div>
+              <button
+                className="btn btn-primary"
+                onClick={handleDownloadPDF}
+                style={{ height: "65px", width: "170px" }}
+              >
+                Download PDF
+              </button>
             </div>
-
+          </div>
+          <div className="col-lg-12">
             <div className="table-responsive">
               <table className="table">
                 <thead>
@@ -218,7 +271,12 @@ export default function OurAlumni() {
                       <td>{product.location}</td>
                       <td>
                         {product?.email ? (
-                          <div className="btn btn-primary" onClick={()=>setLoginModal(true)}>Login</div>
+                          <div
+                            className="btn btn-primary"
+                            onClick={() => setLoginModal(true)}
+                          >
+                            Login
+                          </div>
                         ) : (
                           <div
                             className="btn btn-light"
@@ -233,10 +291,9 @@ export default function OurAlumni() {
                 </tbody>
               </table>
             </div>
-
-            <div className="pagination">
-              {renderPagination()}
-            </div>
+          </div>
+          <div className="col-lg-12">
+            <div className="pagination">{renderPagination()}</div>
           </div>
         </div>
       </div>
