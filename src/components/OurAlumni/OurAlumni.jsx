@@ -5,6 +5,7 @@ import axios from "axios";
 import { Context } from "../../context/Context.jsx";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import UpdateEmail from "../UpdateEmail/UpdateEmail.jsx";
 
 export default function OurAlumni() {
   const { setLoginModal } = useContext(Context);
@@ -12,6 +13,8 @@ export default function OurAlumni() {
   const [filterValue, setFilterValue] = useState("");
   const [filterCategory, setFilterCategory] = useState("membernace");
   const [currentPage, setCurrentPage] = useState(1);
+  const [updateEmailModal,setUpdateEmailModal] = useState(false)
+  const [updateEmailDetails,setupdateEmailDetails] = useState(null)
   const rowsPerPage = 20;
 
   useEffect(() => {
@@ -197,6 +200,26 @@ export default function OurAlumni() {
     doc.save("members_list.pdf");
   };
 
+  useEffect(() => {
+    if (updateEmailModal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [updateEmailModal]);
+
+
+  function handleUpdateEmail(product){
+    setUpdateEmailModal(true)
+    setupdateEmailDetails(product)
+  }
+  function handleClose(){
+    setUpdateEmailModal(false)
+  }
+
   return (
     <section className="sectionContainer">
       <div className="container">
@@ -281,6 +304,7 @@ export default function OurAlumni() {
                           <div
                             className="btn btn-light"
                             style={{ padding: "5px", fontSize: "15px" }}
+                            onClick={()=>handleUpdateEmail(product)}
                           >
                             Update Email
                           </div>
@@ -297,6 +321,7 @@ export default function OurAlumni() {
           </div>
         </div>
       </div>
+      {updateEmailModal && <UpdateEmail closeBtn={handleClose} userDetails={updateEmailDetails}/>}
     </section>
   );
 }

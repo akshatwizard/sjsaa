@@ -1300,7 +1300,8 @@ table {
 }
 
 .loginModalContainer,
-.successMessgaeContainer {
+.successMessgaeContainer,
+.updateEmailContainer {
   position: fixed;
   top: 0;
   left: 0;
@@ -1324,15 +1325,18 @@ table {
     padding: 20px;
     border-radius: 10px;
 
-    .LoginTitle {
+    .LoginTitle , .updateTitle{
       width: 100%;
       text-align: center;
       color: var(--third-color);
       font-weight: 600;
       text-transform: uppercase;
     }
-
-    .form {
+    .message{
+      text-align: center;
+      color: var(--text-color);
+    }
+    .form{
       position: relative;
       width: 100%;
       display: flex;
