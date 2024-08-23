@@ -1,11 +1,19 @@
-import React, { useState, useEffect, useMemo, useContext } from "react";
+import React, {
+  useState,
+  useEffect,
+  useMemo,
+  useContext,
+  lazy,
+  Suspense,
+} from "react";
 import { Link } from "react-router-dom";
 import { scrollToTop } from "../../helper/scroll.js";
 import axios from "axios";
 import { Context } from "../../context/Context.jsx";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
-import UpdateEmail from "../UpdateEmail/UpdateEmail.jsx";
+import Loader from "../Loader/Loader.jsx";
+const UpdateEmail = lazy(() => import("../UpdateEmail/UpdateEmail.jsx"));
 
 export default function OurAlumni() {
   const { setLoginModal } = useContext(Context);
@@ -13,8 +21,8 @@ export default function OurAlumni() {
   const [filterValue, setFilterValue] = useState("");
   const [filterCategory, setFilterCategory] = useState("membernace");
   const [currentPage, setCurrentPage] = useState(1);
-  const [updateEmailModal,setUpdateEmailModal] = useState(false)
-  const [updateEmailDetails,setupdateEmailDetails] = useState(null)
+  const [updateEmailModal, setUpdateEmailModal] = useState(false);
+  const [updateEmailDetails, setupdateEmailDetails] = useState(null);
   const rowsPerPage = 20;
 
   useEffect(() => {
@@ -56,6 +64,7 @@ export default function OurAlumni() {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
+    scrollToTop()
   };
 
   const renderPagination = () => {
@@ -159,15 +168,15 @@ export default function OurAlumni() {
 
   const handleDownloadPDF = () => {
     const doc = new jsPDF();
-  
-    const img = "/images/8.png"
-  
-    doc.addImage(img, 'PNG', 10, 10, 30, 30); 
+
+    const img = "/images/8.png";
+
+    doc.addImage(img, "PNG", 10, 10, 30, 30);
     doc.setFontSize(25);
-    doc.text("St John's School Alumni Association", 50, 25); 
-    
+    doc.text("St John's School Alumni Association", 50, 25);
+
     doc.setLineWidth(0.5);
-    doc.line(10, 45, 200, 45); 
+    doc.line(10, 45, 200, 45);
 
     const tableColumn = [
       "Sr. No.",
@@ -180,23 +189,23 @@ export default function OurAlumni() {
       "Current Location",
     ];
     const tableRows = [];
-  
+
     memberData.forEach((member, index) => {
       const memberDetails = [
         index + 1,
         member.membernace,
         member.joiningyear,
         member.batch,
-        "NA", 
-        "NA", 
-        "NA", 
+        "NA",
+        "NA",
+        "NA",
         member.location,
       ];
       tableRows.push(memberDetails);
     });
-  
-    doc.autoTable(tableColumn, tableRows, { startY: 50 }); 
-  
+
+    doc.autoTable(tableColumn, tableRows, { startY: 50 });
+
     doc.save("members_list.pdf");
   };
 
@@ -211,13 +220,12 @@ export default function OurAlumni() {
     };
   }, [updateEmailModal]);
 
-
-  function handleUpdateEmail(product){
-    setUpdateEmailModal(true)
-    setupdateEmailDetails(product)
+  function handleUpdateEmail(product) {
+    setUpdateEmailModal(true);
+    setupdateEmailDetails(product);
   }
-  function handleClose(){
-    setUpdateEmailModal(false)
+  function handleClose() {
+    setUpdateEmailModal(false);
   }
 
   return (
@@ -304,7 +312,7 @@ export default function OurAlumni() {
                           <div
                             className="btn btn-light"
                             style={{ padding: "5px", fontSize: "15px" }}
-                            onClick={()=>handleUpdateEmail(product)}
+                            onClick={() => handleUpdateEmail(product)}
                           >
                             Update Email
                           </div>
@@ -321,7 +329,14 @@ export default function OurAlumni() {
           </div>
         </div>
       </div>
-      {updateEmailModal && <UpdateEmail closeBtn={handleClose} userDetails={updateEmailDetails}/>}
+      {updateEmailModal && (
+        <Suspense fallback={<Loader/>}>
+          <UpdateEmail
+            closeBtn={handleClose}
+            userDetails={updateEmailDetails}
+          />
+        </Suspense>
+      )}
     </section>
   );
 }
