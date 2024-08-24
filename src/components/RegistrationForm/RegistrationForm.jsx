@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import SuccessMessage from "../SuccessMessage/SuccessMessage";
 import { Context } from "../../context/Context";
-import ComponentLoader from '../ComponentLoader/ComponentLoader.jsx'
+import ComponentLoader from "../ComponentLoader/ComponentLoader.jsx";
 
 export default function RegistrationForm() {
   const [isRegistrationSuccess, setIsRegistrationSuccess] = useState(false);
@@ -48,8 +48,28 @@ export default function RegistrationForm() {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setProfilePic(file);
+      const fileType = file.type;
+      const fileSize = file.size;
+      const maxSizeInBytes = 2 * 1024 * 1024; 
+      const validImageTypes = ["image/jpeg", "image/png", "image/jpg"];
+
+      if (fileSize > maxSizeInBytes) {
+        setErrors({ ...errors, profilePic: "File size should not exceed 2MB." });
+        setProfilePic(null);
+        return;
+      }
+
+      if (validImageTypes.includes(fileType)) {
+        setProfilePic(file);
+      } else {
+        setProfilePic(null);
+        setErrors({
+          ...errors,
+          profilePic: "Only JPEG and PNG images are allowed.",
+        });
+      }
     }
+    console.log(file);
   };
 
   const validateForm = () => {
@@ -64,8 +84,6 @@ export default function RegistrationForm() {
     if (!profilePic) newErrors.profilePic = "Profile picture is required";
 
     setErrors(newErrors);
-
-    // Return true if no errors
     return Object.keys(newErrors).length === 0;
   };
 
@@ -84,6 +102,9 @@ export default function RegistrationForm() {
       formData.append(key, userData[key]);
     });
 
+    // for (let [key, value] of formData.entries()) {
+    //   console.log(`${key}: ${value}`);
+    // }
     try {
       const response = await axios.post(
         "https://www.gdsons.co.in/draft/sjs/get-members-data",
@@ -95,7 +116,6 @@ export default function RegistrationForm() {
         }
       );
 
-      console.log("Registration successful:", response.data);
       setLoading(false);
       setIsRegistrationSuccess(true);
     } catch (error) {
@@ -116,7 +136,6 @@ export default function RegistrationForm() {
               <div className="row">
                 <div className="col-lg-9">
                   <div className="row row-gap-4">
-                    {/* Form Fields */}
                     <div className="col-lg-6">
                       <label htmlFor="name">
                         Name<sup>*</sup>{" "}
@@ -243,6 +262,7 @@ export default function RegistrationForm() {
                       name="profile"
                       id="profile"
                       onChange={handleFileChange}
+                      accept="image/jpeg, image/png, image/jpg"
                       style={{
                         opacity: 0,
                         position: "absolute",
@@ -253,7 +273,7 @@ export default function RegistrationForm() {
                       required
                     />
                   </div>
-                  <span>200w X 250h</span>
+                  <span>245w X 250h</span>
                   {errors.profilePic && (
                     <p className="error">{errors.profilePic}</p>
                   )}
