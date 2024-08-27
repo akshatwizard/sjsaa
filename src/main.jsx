@@ -16,6 +16,7 @@ const UserProfile = lazy(() => import('./components/UserProfile/UserProfile.jsx'
 const AllManagingMembers = lazy(() => import('./components/AllManagingMembers/AllManagingMembers.jsx'));
 import Loader from './components/Loader/Loader.jsx'
 import UpdateGallery from './components/AdminDashboard/UpdateGallery.jsx'
+import RegisterSuccess from './components/RegistrationForm/RegisterSuccess.jsx'
 const MovieGallery = lazy(()=>import("./components/MovieGallery/MovieGallery.jsx"))
 const AGMElection = lazy(()=>import("./components/AGMElection/AGMElection.jsx"))
 const RegistrationForm = lazy(()=>import("./components/RegistrationForm/RegistrationForm.jsx"))
@@ -130,6 +131,12 @@ const router = createBrowserRouter(
           //   <Up />
           // </Suspense>
           <UpdateGallery/>
+        }
+      />
+      <Route
+        path='/registration-success'
+        element={
+          <RegisterSuccess/>
         }
       />
       

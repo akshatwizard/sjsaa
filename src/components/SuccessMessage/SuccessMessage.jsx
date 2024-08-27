@@ -49,6 +49,7 @@ export default function SuccessMessage({ status }) {
                 <img src="/images/or.jpeg" alt="" />
               </div>
             </div>
+            After making the payment, send the receipt/copy/pic of payment to our EMail ID : sjsaadlwvns@gmail.com
           </div>
         </div>
         <div className="success-close-btn">
