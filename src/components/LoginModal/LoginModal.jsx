@@ -14,7 +14,7 @@ export default function LoginModal() {
     password: "",
     Mod: "loginMember",
   });
-  const navigator = useNavigate()
+  const navigator = useNavigate();
 
   const [error, setError] = useState(false);
 
@@ -59,15 +59,21 @@ export default function LoginModal() {
           },
         }
       );
-      Cookies.set("mnid", response.data.mnid, { expires: 7 });
-      setLoading(false);
-      setLoginModal(false)
-      setIsLogedIn(true)
-      navigator('/profile')
+      if (response.data.login === "success") {
+        Cookies.set("mnid", response.data.mnid, { expires: 7 });
+        setLoading(false);
+        setLoginModal(false);
+        setIsLogedIn(true);
+        navigator("/profile");
+        setWrongOTP(false);
+      } else {
+        setLoading(false);
+        setWrongOTP(true);
+      }
     } catch (error) {
-      console.error("Login failed:", error);
+      console.error("Failed to send OTP:", error);
       setLoading(false);
-      setIsLogedIn(false)
+      setOtpSentMessage("Failed to send OTP. Please try again.");
     }
   }
 
@@ -108,7 +114,7 @@ export default function LoginModal() {
       console.error("Failed to send OTP:", error);
       setLoading(false);
       setOtpSentMessage("Failed to send OTP. Please try again.");
-      setIsLogedIn(false)
+      setIsLogedIn(false);
     }
   }
 
@@ -136,9 +142,9 @@ export default function LoginModal() {
       // console.log(response.data);
       Cookies.set("mnid", response.data.mnid, { expires: 7 });
       setLoading(false);
-      setLoginModal(false)
-      setIsLogedIn(true)
-      navigator('/profile')
+      setLoginModal(false);
+      setIsLogedIn(true);
+      navigator("/profile");
     } catch (error) {
       console.error("Failed to send OTP:", error);
       setLoading(false);
