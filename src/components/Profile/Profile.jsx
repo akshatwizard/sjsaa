@@ -99,12 +99,7 @@ export default function Profile() {
                   <div className="summary">
                     <h6>About Me</h6>
                     <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Neque amet aliquid quis modi nulla saepe debitis illo ad
-                      laborum possimus necessitatibus tempore eaque tempora
-                      sapiente enim ipsam beatae pariatur tenetur, nemo aut
-                      aperiam maxime assumenda. Atque mollitia molestias earum
-                      quia.
+                     
                     </p>
                   </div>
                   {/* <div className="buttonContainer">
