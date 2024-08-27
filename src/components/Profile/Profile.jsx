@@ -111,13 +111,9 @@ export default function Profile() {
                   <form>
                     <input
                       type="text"
-                      placeholder="First Name"
-                      disabled={!isFormEditable}
-                    />
-                    <input
-                      type="text"
-                      placeholder="Second Name"
-                      disabled={!isFormEditable}
+                      placeholder="Name"
+                      disabled
+                      value={userData.title}
                     />
                     <input
                       type="text"
