@@ -1732,18 +1732,18 @@ table {
       }
     }
 
-    .editForm,
-    form {
+    .editForm{
       width: 100%;
       position: relative;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      justify-content: center;
-      flex-wrap: wrap;
+      
+      form{
+        width: 100%;
+        position: relative;
+      }
 
       input,
       textarea {
+        width: 100%;
         position: relative;
         background-color: var(--primary-color);
         border: none;
@@ -1752,17 +1752,6 @@ table {
         font-size: 20px;
         border-radius: 10px;
         color: var(--text-color);
-
-        &:first-child,
-        &:nth-child(3),
-        &:nth-child(5),
-        &:nth-child(7) {
-          width: 50%;
-        }
-      }
-      .largeInput,
-      textarea {
-        width: 100%;
       }
       button {
         position: relative;
