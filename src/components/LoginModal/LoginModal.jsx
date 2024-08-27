@@ -28,6 +28,7 @@ export default function LoginModal() {
   const [otpButtonClicked, setOtpButtonClicked] = useState(false);
   const [loading, setLoading] = useState(false);
   const [otpSentMessage, setOtpSentMessage] = useState("");
+  const { isLogedIn, setIsLogedIn } = useContext(Context);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -61,10 +62,12 @@ export default function LoginModal() {
       Cookies.set("mnid", response.data.mnid, { expires: 7 });
       setLoading(false);
       setLoginModal(false)
+      setIsLogedIn(true)
       navigator('/profile')
     } catch (error) {
       console.error("Login failed:", error);
       setLoading(false);
+      setIsLogedIn(false)
     }
   }
 
@@ -97,7 +100,7 @@ export default function LoginModal() {
           },
         }
       );
-      console.log(response.data);
+      // console.log(response.data);
       setIsOtpSend(true);
       setOtpSentMessage("OTP sent successfully!");
       setLoading(false);
@@ -105,6 +108,7 @@ export default function LoginModal() {
       console.error("Failed to send OTP:", error);
       setLoading(false);
       setOtpSentMessage("Failed to send OTP. Please try again.");
+      setIsLogedIn(false)
     }
   }
 
@@ -133,6 +137,7 @@ export default function LoginModal() {
       Cookies.set("mnid", response.data.mnid, { expires: 7 });
       setLoading(false);
       setLoginModal(false)
+      setIsLogedIn(true)
       navigator('/profile')
     } catch (error) {
       console.error("Failed to send OTP:", error);

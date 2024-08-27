@@ -13,6 +13,7 @@ import { Context } from "../../context/Context.jsx";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import Loader from "../Loader/Loader.jsx";
+import Fancybox from "../ImageZoom/Fancybox.jsx";
 const UpdateEmail = lazy(() => import("../UpdateEmail/UpdateEmail.jsx"));
 
 export default function OurAlumni() {
@@ -24,6 +25,7 @@ export default function OurAlumni() {
   const [updateEmailModal, setUpdateEmailModal] = useState(false);
   const [updateEmailDetails, setupdateEmailDetails] = useState(null);
   const rowsPerPage = 20;
+  const { isLogedIn, setIsLogedIn } = useContext(Context);
 
   useEffect(() => {
     async function fetchMember() {
@@ -64,7 +66,7 @@ export default function OurAlumni() {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    scrollToTop()
+    scrollToTop();
   };
 
   const renderPagination = () => {
@@ -227,6 +229,7 @@ export default function OurAlumni() {
   function handleClose() {
     setUpdateEmailModal(false);
   }
+  console.log(memberData);
 
   return (
     <section className="sectionContainer">
@@ -278,7 +281,9 @@ export default function OurAlumni() {
                     <th>Date of Birth</th>
                     <th>Profession & Working As</th>
                     <th>Current Location</th>
-                    <th>Action</th>
+                    {isLogedIn && <th>Contact No</th>}
+                    {isLogedIn && <th>Email</th>}
+                    {isLogedIn ? "" : <th>Action</th>}
                   </tr>
                 </thead>
                 <tbody>
@@ -286,6 +291,37 @@ export default function OurAlumni() {
                     <tr key={index}>
                       <td>{(currentPage - 1) * rowsPerPage + index + 1}</td>
                       <td>
+                        {product.profile_pic ? (
+                          <Fancybox
+                            options={{
+                              Carousel: {
+                                infinite: false,
+                              },
+                            }}
+                          >
+                            <div
+                              data-fancybox="gallery"
+                              src={product?.profile_pic}
+                              style={{ display: "inline-block" }}
+                            >
+                              <img
+                                src={product?.profile_pic}
+                                alt=""
+                                style={{
+                                  width: "30px",
+                                  height: "30px",
+                                  borderRadius: "50%",
+                                  display: "inline-block",
+                                  marginRight: "7px",
+                                  cursor: "pointer",
+                                }}
+                              />
+                            </div>
+                          </Fancybox>
+                        ) : (
+                          ""
+                        )}
+
                         <Link
                           to={`/user/profile/${product.membernace}`}
                           className="nameLink"
@@ -295,29 +331,42 @@ export default function OurAlumni() {
                         </Link>
                       </td>
                       <td>{product.joiningyear}</td>
-                      <td>{product.batch}</td>
+                      <td>{product?.batch || "not provided"}</td>
                       <td>NA</td>
                       <td>NA</td>
                       <td>NA</td>
-                      <td>{product.location}</td>
-                      <td>
-                        {product?.email ? (
-                          <div
-                            className="btn btn-primary"
-                            onClick={() => setLoginModal(true)}
-                          >
-                            Login
-                          </div>
-                        ) : (
-                          <div
-                            className="btn btn-light"
-                            style={{ padding: "5px", fontSize: "15px" }}
-                            onClick={() => handleUpdateEmail(product)}
-                          >
-                            Update Email
-                          </div>
-                        )}
-                      </td>
+                      <td>{product?.location || "not provided"}</td>
+                      {isLogedIn && (
+                        <td>
+                          {product?.mobile_number_one || "Not available"}
+                          {product?.mobile_number_two
+                            ? `, ${product.mobile_number_two}`
+                            : ""}
+                        </td>
+                      )}
+                      {isLogedIn && <td>{product?.email || "not avilable"}</td>}
+                      {isLogedIn ? (
+                        ""
+                      ) : (
+                        <td>
+                          {product?.email ? (
+                            <div
+                              className="btn btn-primary"
+                              onClick={() => setLoginModal(true)}
+                            >
+                              Login
+                            </div>
+                          ) : (
+                            <div
+                              className="btn btn-light"
+                              style={{ padding: "5px", fontSize: "15px" }}
+                              onClick={() => handleUpdateEmail(product)}
+                            >
+                              Update Email
+                            </div>
+                          )}
+                        </td>
+                      )}
                     </tr>
                   ))}
                 </tbody>
@@ -330,7 +379,7 @@ export default function OurAlumni() {
         </div>
       </div>
       {updateEmailModal && (
-        <Suspense fallback={<Loader/>}>
+        <Suspense fallback={<Loader />}>
           <UpdateEmail
             closeBtn={handleClose}
             userDetails={updateEmailDetails}

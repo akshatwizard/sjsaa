@@ -48,7 +48,6 @@ export default function Profile() {
     fetchUserDetails();
   }, [isLogedIn, navigator]);
 
-  // console.log(userData);
   
   return (
     <section className="sectionContainer">

@@ -5,7 +5,7 @@ import { Context } from "../../context/Context";
 import ComponentLoader from "../ComponentLoader/ComponentLoader.jsx";
 
 export default function RegistrationForm() {
-  const [isRegistrationSuccess, setIsRegistrationSuccess] = useState(true);
+  const [isRegistrationSuccess, setIsRegistrationSuccess] = useState(false);
   const [profilePic, setProfilePic] = useState(null);
   const [errors, setErrors] = useState({});
   const [userData, setUserData] = useState({

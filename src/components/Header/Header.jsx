@@ -7,6 +7,7 @@ import { Context } from "../../context/Context";
 import { scrollToTop } from "../../helper/scroll.js";
 import Loader from "../Loader/Loader.jsx";
 const LoginModal = lazy(() => import("../LoginModal/LoginModal"));
+import Cookies from "js-cookie";
 
 gsap.registerPlugin(useGSAP);
 
@@ -21,6 +22,8 @@ export default function Header() {
     setIsOpened(!isOpened);
     setDropOpen(false);
   };
+
+  const { isLogedIn, setIsLogedIn } = useContext(Context);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,6 +60,12 @@ export default function Header() {
       document.body.style.overflow = "auto";
     };
   }, [loginModal]);
+
+  const handleLogout = () => {
+    Cookies.remove("mnid");
+    setIsLogedIn(false);
+    setIsOpened(false); 
+  };
 
   return (
     <header className="header" ref={container}>
@@ -145,7 +154,9 @@ export default function Header() {
                   setIsOpened(false);
                 }}
               >
-                <Link to="/new-member-registration">New Member Registration</Link>{" "}
+                <Link to="/new-member-registration">
+                  New Member Registration
+                </Link>{" "}
               </li>
               <li
                 onClick={() => {
@@ -221,11 +232,31 @@ export default function Header() {
               Gallery
             </NavLink>
           </div>
+          {isLogedIn && (
+            <div className="lkns">
+              <NavLink
+                to="/profile"
+                className={({ isActive }) => (isActive ? "act" : "navLinks")}
+                onClick={() => {
+                  setIsOpened(false);
+                  setDropOpen(false);
+                  scrollToTop();
+                  setMemberDropDownOpen(false);
+                }}
+              >
+                Profile
+              </NavLink>
+            </div>
+          )}
         </div>
         <div className="btnContainer">
-          <button className="loginBtn" onClick={() => setLoginModal(true)}>
-            Login
-          </button>
+          {isLogedIn ? (
+            <button className="loginBtn" onClick={handleLogout}>Logout</button>
+          ) : (
+            <button className="loginBtn" onClick={() => setLoginModal(true)}>
+              Login
+            </button>
+          )}
 
           <div className="menuBtnContainer">
             <button
