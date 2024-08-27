@@ -24,7 +24,7 @@ export default function RegistrationForm() {
     wedding: "",
     address: "",
     Mod: "addMember",
-    joiningYear:""
+    joiningYear: "",
   });
   const { loading, setLoading } = useContext(Context);
 
@@ -379,9 +379,22 @@ export default function RegistrationForm() {
               </div>
             </div>
 
-{/*             <div style={{width:"100%",display:"flex",alignItems:"center",justifyContent:"center",marginTop:"20px"}}>
-            <Link style={{color:"var(--third-color)",textDecoration:"none"}} to='/registration-success'>Click Here to fild registration process</Link>
-            </div> */}
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: "20px",
+              }}
+            >
+              <Link
+                to="/registration-success"
+                style={{ color: "var(--third-color)", textDecoration: "none" }}
+              >
+                Click Here to fild registration process
+              </Link>
+            </div>
           </div>
         </div>
       </div>
