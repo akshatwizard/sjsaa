@@ -3,6 +3,7 @@ import axios from "axios";
 import SuccessMessage from "../SuccessMessage/SuccessMessage";
 import { Context } from "../../context/Context";
 import ComponentLoader from "../ComponentLoader/ComponentLoader.jsx";
+import { Link } from "react-router-dom";
 
 export default function RegistrationForm() {
   const [isRegistrationSuccess, setIsRegistrationSuccess] = useState(false);
@@ -376,6 +377,10 @@ export default function RegistrationForm() {
                   {loading ? <ComponentLoader /> : "Register"}
                 </button>
               </div>
+            </div>
+
+            <div style={{width:"100%",display:"flex",alignItems:"center",justifyContent:"center",marginTop:"20px"}}>
+            <Link style={{color:"var(--third-color)",textDecoration:"none"}} to='/registration-success'>Click Here to fild registration process</Link>
             </div>
           </div>
         </div>
