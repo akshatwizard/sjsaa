@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import SuccessMessage from "../SuccessMessage/SuccessMessage";
 import { Context } from "../../context/Context";
-import ComponentLoader from '../ComponentLoader/ComponentLoader.jsx'
+import ComponentLoader from "../ComponentLoader/ComponentLoader.jsx";
 
 export default function RegistrationForm() {
   const [isRegistrationSuccess, setIsRegistrationSuccess] = useState(false);
@@ -23,6 +23,7 @@ export default function RegistrationForm() {
     wedding: "",
     address: "",
     Mod: "addMember",
+    joiningYear:""
   });
   const { loading, setLoading } = useContext(Context);
 
@@ -48,8 +49,20 @@ export default function RegistrationForm() {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setProfilePic(file);
+      const fileType = file.type;
+      const validImageTypes = ["image/jpeg", "image/png", "image/jpg"];
+
+      if (validImageTypes.includes(fileType)) {
+        setProfilePic(file);
+      } else {
+        setProfilePic(null);
+        setErrors({
+          ...errors,
+          profilePic: "Only JPEG and PNG images are allowed.",
+        });
+      }
     }
+    console.log(file);
   };
 
   const validateForm = () => {
@@ -64,8 +77,6 @@ export default function RegistrationForm() {
     if (!profilePic) newErrors.profilePic = "Profile picture is required";
 
     setErrors(newErrors);
-
-    // Return true if no errors
     return Object.keys(newErrors).length === 0;
   };
 
@@ -84,6 +95,9 @@ export default function RegistrationForm() {
       formData.append(key, userData[key]);
     });
 
+    // for (let [key, value] of formData.entries()) {
+    //   console.log(`${key}: ${value}`);
+    // }
     try {
       const response = await axios.post(
         "https://www.gdsons.co.in/draft/sjs/get-members-data",
@@ -95,7 +109,6 @@ export default function RegistrationForm() {
         }
       );
 
-      console.log("Registration successful:", response.data);
       setLoading(false);
       setIsRegistrationSuccess(true);
     } catch (error) {
@@ -116,7 +129,6 @@ export default function RegistrationForm() {
               <div className="row">
                 <div className="col-lg-9">
                   <div className="row row-gap-4">
-                    {/* Form Fields */}
                     <div className="col-lg-6">
                       <label htmlFor="name">
                         Name<sup>*</sup>{" "}
@@ -243,6 +255,7 @@ export default function RegistrationForm() {
                       name="profile"
                       id="profile"
                       onChange={handleFileChange}
+                      accept="image/jpeg, image/png, image/jpg"
                       style={{
                         opacity: 0,
                         position: "absolute",
@@ -253,13 +266,25 @@ export default function RegistrationForm() {
                       required
                     />
                   </div>
-                  <span>200w X 250h</span>
+                  <span>245w X 250h</span>
                   {errors.profilePic && (
                     <p className="error">{errors.profilePic}</p>
                   )}
                 </div>
 
                 {/* Additional Form Fields */}
+                <div className="col-lg-4 mt-5">
+                  <label htmlFor="qualification">Joining Year</label>
+                  <input
+                    type="text"
+                    id="joiningYear"
+                    name="joiningYear"
+                    placeholder="Your Joining Year"
+                    value={userData.joiningYear}
+                    onChange={handleInputChange}
+                  />
+                </div>
+
                 <div className="col-lg-4 mt-5">
                   <label htmlFor="qualification">Qualification</label>
                   <input
@@ -284,7 +309,7 @@ export default function RegistrationForm() {
                   />
                 </div>
 
-                <div className="col-lg-4 mt-5">
+                <div className="col-lg-4 mt-3">
                   <label htmlFor="house">House you belonged</label>
                   <select
                     name="house"
@@ -336,7 +361,7 @@ export default function RegistrationForm() {
                   />
                 </div>
 
-                <div className="col-lg-12 mt-3">
+                <div className="col-lg-8 mt-3">
                   <label htmlFor="address">Address</label>
                   <textarea
                     id="address"

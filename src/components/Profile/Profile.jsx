@@ -1,12 +1,54 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
+import Cookies from "js-cookie";
+import { Context } from "../../context/Context";
+import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
   const [isFormEditable, setIsFormEditable] = useState(false);
+  const [userData,setUserData] = useState("")
+  const {isLogedIn,setIsLogedIn} = useContext(Context)
+  const navigator = useNavigate()
 
   function handleEdit() {
     setIsFormEditable((prevState) => !prevState);
   }
 
+  useEffect(() => {
+    if (!isLogedIn) {
+      navigator("/"); 
+      return;
+    }
+
+    const id = Cookies.get("mnid");
+
+    const fetchUserDetails = async () => {
+      const formData = new FormData();
+      formData.append("mnid", id);
+      formData.append("Mod", "getMemberData");
+
+      try {
+        const response = await axios.post(
+          `https://www.gdsons.co.in/draft/sjs/get-member-details`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        setUserData(response.data);
+        console.log(userData);
+        
+      } catch (error) {
+        console.error("Error fetching user details:", error);
+      }
+    };
+
+    fetchUserDetails();
+  }, [isLogedIn, navigator]);
+
+  
   return (
     <section className="sectionContainer">
       <div className="container">
@@ -22,12 +64,12 @@ export default function Profile() {
                   }}
                 ></div>
                 <div className="profileImage">
-                  <img src="/images/faculity/02.jpg" alt="" />
+                  <img src={userData?.profile_picture} alt="" />
                 </div>
                 <div className="nameContainer">
-                  <h3>Mrs. Angla Yu</h3>
-                  <p>A Full Stack Developer</p>
-                  <p>Sigra, Varansi, Uttar Pradesh</p>
+                  <h3>{userData?.title}</h3>
+                  <p>{userData?.trade_category}</p>
+                  <p>{userData?.address}</p>
                   <div className="socialMediaIcons">
                     <i className="fa-brands fa-instagram"></i>
                     <i className="fa-brands fa-x-twitter"></i>

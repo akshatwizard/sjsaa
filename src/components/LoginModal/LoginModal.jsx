@@ -1,14 +1,34 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../../context/Context";
+import axios from "axios";
+import ComponentLoader from "../ComponentLoader/ComponentLoader";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginModal() {
+  const [step, setStep] = useState("enterPassword");
   const { setLoginModal } = useContext(Context);
+  const [isOtpSend, setIsOtpSend] = useState(false);
   const [formData, setFormData] = useState({
-    email: "",
+    loginid: "",
     password: "",
+    Mod: "loginMember",
+  });
+  const navigator = useNavigate()
+
+  const [error, setError] = useState(false);
+
+  const [otpData, setOtpData] = useState({
+    emailid: "",
+    otp: "",
+    Mod: "generateOTP",
   });
 
-  const [showPassword, seetShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [otpButtonClicked, setOtpButtonClicked] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [otpSentMessage, setOtpSentMessage] = useState("");
+  const { isLogedIn, setIsLogedIn } = useContext(Context);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -18,43 +38,238 @@ export default function LoginModal() {
     }));
   }
 
-  function handleSubmit(event) {
+  function handleOtpChange(event) {
+    const { name, value } = event.target;
+    setOtpData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  }
+
+  async function handleSubmit(event) {
+    setLoading(true);
     event.preventDefault();
-    // Add your form submission logic here
-    console.log(formData);
+    try {
+      const response = await axios.post(
+        "https://www.gdsons.co.in/draft/sjs/user-verification-login",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      Cookies.set("mnid", response.data.mnid, { expires: 7 });
+      setLoading(false);
+      setLoginModal(false)
+      setIsLogedIn(true)
+      navigator('/profile')
+    } catch (error) {
+      console.error("Login failed:", error);
+      setLoading(false);
+      setIsLogedIn(false)
+    }
+  }
+
+  function handleOtpBtnClicked() {
+    setOtpButtonClicked(true);
+    setStep("enterOtp");
+  }
+
+  async function sendOtp(event) {
+    event.preventDefault();
+    if (!otpData.emailid) {
+      console.error("Email ID is required to send OTP.");
+      setError(true);
+      setTimeout(() => {
+        setError(false);
+      }, 4000);
+      return;
+    }
+    const formData = new FormData();
+    formData.append("emailid", otpData.emailid);
+    formData.append("Mod", otpData.Mod);
+    setLoading(true);
+    try {
+      const response = await axios.post(
+        "https://www.gdsons.co.in/draft/sjs/user-generate-otp",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      // console.log(response.data);
+      setIsOtpSend(true);
+      setOtpSentMessage("OTP sent successfully!");
+      setLoading(false);
+    } catch (error) {
+      console.error("Failed to send OTP:", error);
+      setLoading(false);
+      setOtpSentMessage("Failed to send OTP. Please try again.");
+      setIsLogedIn(false)
+    }
+  }
+
+  async function handleOptLogin(event) {
+    event.preventDefault();
+    if (!otpData.emailid) {
+      console.error("Email ID is required to send OTP.");
+      return;
+    }
+    const formData = new FormData();
+    formData.append("loginid", otpData.emailid);
+    formData.append("Mod", "verifyOTP");
+    formData.append("otp", otpData.otp);
+    setLoading(true);
+    try {
+      const response = await axios.post(
+        "https://www.gdsons.co.in/draft/sjs/user-verify-otp",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      // console.log(response.data);
+      Cookies.set("mnid", response.data.mnid, { expires: 7 });
+      setLoading(false);
+      setLoginModal(false)
+      setIsLogedIn(true)
+      navigator('/profile')
+    } catch (error) {
+      console.error("Failed to send OTP:", error);
+      setLoading(false);
+      setOtpSentMessage("Failed to send OTP. Please try again.");
+    }
+  }
+
+  function renderForm() {
+    switch (step) {
+      case "enterPassword":
+        return (
+          <div className="form">
+            <form onSubmit={handleSubmit}>
+              <input
+                type="email"
+                name="loginid"
+                value={formData.loginid}
+                placeholder="Eg: xyz@gmail.com"
+                onChange={handleChange}
+              />
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                value={formData.password}
+                placeholder="Password"
+                onChange={handleChange}
+              />
+              {showPassword ? (
+                <img
+                  src="/images/eye-closed.svg"
+                  alt="Show Password"
+                  className="eyes"
+                  onClick={() => setShowPassword(!showPassword)}
+                />
+              ) : (
+                <img
+                  src="/images/eye-open.svg"
+                  alt="Hide Password"
+                  className="eyes"
+                  onClick={() => setShowPassword(!showPassword)}
+                />
+              )}
+              {!otpButtonClicked && (
+                <>
+                  <button type="submit">
+                    {loading ? <ComponentLoader /> : "Login"}
+                  </button>
+                  <p style={{ color: "yellow", margin: "0", marginTop: "4px" }}>
+                    or
+                  </p>
+                  <button type="button" onClick={handleOtpBtnClicked}>
+                    Login Through OTP
+                  </button>
+                </>
+              )}
+            </form>
+          </div>
+        );
+
+      case "enterOtp":
+        return (
+          <div className="form">
+            <form>
+              {error && (
+                <span style={{ color: "red" }}>
+                  Please provide your Email ID to send OTP.
+                </span>
+              )}
+              <input
+                type="email"
+                name="emailid"
+                value={otpData.emailid}
+                placeholder="Eg: xyz@gmail.com"
+                onChange={handleOtpChange}
+                disabled={isOtpSend}
+              />
+
+              <input
+                type={!isOtpSend ? "hidden" : "text"}
+                name="otp"
+                placeholder="Enter OTP"
+                value={otpData.otp}
+                onChange={handleOtpChange}
+                disabled={!isOtpSend}
+              />
+              {!isOtpSend ? (
+                <button type="submit" onClick={sendOtp}>
+                  {loading ? <ComponentLoader /> : "Send OTP"}
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  onClick={handleOptLogin}
+                  disabled={!isOtpSend}
+                >
+                  {loading ? <ComponentLoader /> : "Verify OTP"}
+                </button>
+              )}
+              <p
+                style={{
+                  color: isOtpSend ? "lightgreen" : "white",
+                  margin: "0",
+                  textAlign: "right",
+                  width: "100%",
+                }}
+              >
+                {isOtpSend ? otpSentMessage : ""}
+              </p>
+            </form>
+          </div>
+        );
+
+      default:
+        return null;
+    }
   }
 
   return (
     <section className="loginModalContainer">
-      <div className="formContainer ">
+      <div className="formContainer">
         <div className="LoginTitle">
           <h1>Login</h1>
         </div>
-        <div className="form">
-          <form onSubmit={handleSubmit}>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              placeholder="Eg: xyz@gmail.com"
-              onChange={handleChange}
-            />
-            <input
-              type={showPassword ? "text" : "password"}
-              name="password"
-              value={formData.password}
-              placeholder="Password"
-              onChange={handleChange}
-            />
-            {showPassword ? (
-              <img src="/images/eye-closed.svg" alt="" className="eyes"  onClick={()=>seetShowPassword(!showPassword)}/>
-            ) : (
-              <img src="/images/eye-open.svg" alt="" className="eyes" onClick={()=>seetShowPassword(!showPassword)} />
-            )}
-            <button type="submit">Login</button>
-          </form>
-        </div>
-        <div className="modalCloseBtn" onClick={() => setLoginModal(false)}>
+        {renderForm()}
+        <div
+          className="modalCloseBtn"
+          onClick={() => {
+            setLoginModal(false);
+            setOtpButtonClicked(false);
+          }}
+        >
           <i className="fa-solid fa-xmark"></i>
         </div>
       </div>

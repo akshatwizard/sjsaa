@@ -1,15 +1,17 @@
-import { Outlet } from "react-router-dom";
+import React from "react";
+import { Outlet, useLocation } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
-// import PreLoader from "./components/PreLoader/PreLoader";
+
 export default function App() {
-  
+  const location = useLocation();
+  const hideNavAndFooter = location.pathname.startsWith("/admin");
+
   return (
     <>
-      {/* <PreLoader/> */}
-      <Header/>
-      <Outlet/>
-      <Footer/>
+      {!hideNavAndFooter && <Header />}
+      <Outlet />
+      {!hideNavAndFooter && <Footer />}
     </>
-  )
+  );
 }

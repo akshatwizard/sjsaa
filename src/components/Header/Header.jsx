@@ -7,6 +7,7 @@ import { Context } from "../../context/Context";
 import { scrollToTop } from "../../helper/scroll.js";
 import Loader from "../Loader/Loader.jsx";
 const LoginModal = lazy(() => import("../LoginModal/LoginModal"));
+import Cookies from "js-cookie";
 
 gsap.registerPlugin(useGSAP);
 
@@ -21,6 +22,8 @@ export default function Header() {
     setIsOpened(!isOpened);
     setDropOpen(false);
   };
+
+  const { isLogedIn, setIsLogedIn } = useContext(Context);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,81 +50,6 @@ export default function Header() {
     };
   }, []);
 
-  // useEffect(() => {
-  //   const handleScrollnew = () => {
-  //     if (upperHeaderRef.current) {
-  //       if (window.scrollY > 200 && window.innerWidth < 950) {
-  //         upperHeaderRef.current.classList.add("fixed");
-  //         linkRef.current.classList.add("scrolledMenu");
-  //       } else {
-  //         upperHeaderRef.current.classList.remove("fixed");
-  //         linkRef.current.classList.remove("scrolledMenu");
-  //       }
-
-  //       if (window.scrollY > 130 && window.innerWidth < 950) {
-  //         upperHeaderRef.current.classList.add("hidden");
-  //       } else {
-  //         upperHeaderRef.current.classList.remove("hidden");
-  //       }
-  //     }
-  //   };
-
-  //   const handleResize = () => {
-  //     if (window.innerWidth >= 950) {
-  //       upperHeaderRef.current.classList.remove("fixed", "hidden");
-  //     }
-  //   };
-
-  //   window.addEventListener("scroll", handleScrollnew);
-  //   window.addEventListener("resize", handleResize);
-  //   handleScrollnew();
-  //   handleResize();
-
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScrollnew);
-  //     window.removeEventListener("resize", handleResize);
-  //   };
-  // }, [linkRef, upperHeaderRef]);
-
-  // useGSAP(
-  //   () => {
-  //     const tl = gsap.timeline();
-
-  //     const logo = document
-  //       .querySelector(".logoText")
-  //       .textContent.split("")
-  //       .map((val) => (val === " " ? "&nbsp;" : `<span>${val}</span>`))
-  //       .join("");
-  //     // console.log(logo);
-
-  //     document.querySelector(".logoText").innerHTML = logo;
-  //     tl.from(".logoText span", {
-  //       opacity: 0,
-  //       delay: 0.5,
-  //       duration: 0.5,
-  //       stagger: 0.09,
-  //     });
-  //     tl.from(".secondLogo", {
-  //       duration: 0.5,
-  //       opacity: 0,
-  //     });
-  //     gsap.from(".btnContainer", {
-  //       delay: 1.2,
-  //       y: -50,
-  //       duration: 0.5,
-  //       opacity: 0,
-  //     });
-
-  //     gsap.from(".lkns", {
-  //       delay: 1,
-  //       y: -50,
-  //       duration: 0.8,
-  //       opacity: 0,
-  //       stagger: 0.1,
-  //     });
-  //   },
-  //   { scope: container }
-  // );
   useEffect(() => {
     if (loginModal) {
       document.body.style.overflow = "hidden";
@@ -129,46 +57,18 @@ export default function Header() {
       document.body.style.overflow = "auto";
     }
     return () => {
-      document.body.style.overflow = "auto"; // Clean up on unmount
+      document.body.style.overflow = "auto";
     };
   }, [loginModal]);
 
+  const handleLogout = () => {
+    Cookies.remove("mnid");
+    setIsLogedIn(false);
+    setIsOpened(false); 
+  };
+
   return (
     <header className="header" ref={container}>
-      {/* <div className="upperHeader" ref={upperHeaderRef}>
-        <div className="logoContainer">
-          <Link to={'/'}>
-          <p>
-            <span className="logoText">St John&apos;s School</span>
-            <span className="secondLogo">Alumni Association</span>
-          </p>
-          </Link>
-        </div>
-        <div className="btnContainer">
-          <button className="loginBtn" onClick={()=>setLoginModal(true)}>Login</button>
-          <div className="menuBtnContainer">
-            <button
-              id="menuBtns"
-              className={isOpened ? "opened menu" : "menu"}
-              aria-expanded={isOpened}
-              onClick={handleToggle}
-              aria-label="Main Menu"
-            >
-              <svg width="50" height="50" viewBox="0 0 100 100">
-                <path
-                  className="line line1"
-                  d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058"
-                />
-                <path className="line line2" d="M 20,50 H 80" />
-                <path
-                  className="line line3"
-                  d="M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942"
-                />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </div> */}
       <nav className="nav" ref={headerRef}>
         <div className="logoContainer" onClick={scrollToTop}>
           <Link to={"/"}>
@@ -201,7 +101,6 @@ export default function Header() {
               Home
             </NavLink>
           </div>
-          {/* <div style={{width:"2px",height:"40px",backgroundColor:"black"}}></div> */}
           <div className="lkns">
             <NavLink
               to="/about-us"
@@ -216,7 +115,6 @@ export default function Header() {
               About Us
             </NavLink>
           </div>
-          {/* <div style={{width:"2px",height:"40px",backgroundColor:"black"}}></div> */}
           <div className="lkns">
             <div
               className="navLinks"
@@ -256,7 +154,9 @@ export default function Header() {
                   setIsOpened(false);
                 }}
               >
-                <Link to="/new-member-registration">New Member Registration</Link>{" "}
+                <Link to="/new-member-registration">
+                  New Member Registration
+                </Link>{" "}
               </li>
               <li
                 onClick={() => {
@@ -332,11 +232,31 @@ export default function Header() {
               Gallery
             </NavLink>
           </div>
+          {isLogedIn && (
+            <div className="lkns">
+              <NavLink
+                to="/profile"
+                className={({ isActive }) => (isActive ? "act" : "navLinks")}
+                onClick={() => {
+                  setIsOpened(false);
+                  setDropOpen(false);
+                  scrollToTop();
+                  setMemberDropDownOpen(false);
+                }}
+              >
+                Profile
+              </NavLink>
+            </div>
+          )}
         </div>
         <div className="btnContainer">
-          <button className="loginBtn" onClick={() => setLoginModal(true)}>
-            Login
-          </button>
+          {isLogedIn ? (
+            <button className="loginBtn" onClick={handleLogout}>Logout</button>
+          ) : (
+            <button className="loginBtn" onClick={() => setLoginModal(true)}>
+              Login
+            </button>
+          )}
 
           <div className="menuBtnContainer">
             <button
