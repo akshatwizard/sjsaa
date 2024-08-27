@@ -5,7 +5,7 @@ import { Context } from "../../context/Context";
 import ComponentLoader from "../ComponentLoader/ComponentLoader.jsx";
 
 export default function RegistrationForm() {
-  const [isRegistrationSuccess, setIsRegistrationSuccess] = useState(false);
+  const [isRegistrationSuccess, setIsRegistrationSuccess] = useState(true);
   const [profilePic, setProfilePic] = useState(null);
   const [errors, setErrors] = useState({});
   const [userData, setUserData] = useState({
@@ -23,6 +23,7 @@ export default function RegistrationForm() {
     wedding: "",
     address: "",
     Mod: "addMember",
+    joiningYear:""
   });
   const { loading, setLoading } = useContext(Context);
 
@@ -49,15 +50,7 @@ export default function RegistrationForm() {
     const file = event.target.files[0];
     if (file) {
       const fileType = file.type;
-      const fileSize = file.size;
-      const maxSizeInBytes = 2 * 1024 * 1024; 
       const validImageTypes = ["image/jpeg", "image/png", "image/jpg"];
-
-      if (fileSize > maxSizeInBytes) {
-        setErrors({ ...errors, profilePic: "File size should not exceed 2MB." });
-        setProfilePic(null);
-        return;
-      }
 
       if (validImageTypes.includes(fileType)) {
         setProfilePic(file);
@@ -281,6 +274,18 @@ export default function RegistrationForm() {
 
                 {/* Additional Form Fields */}
                 <div className="col-lg-4 mt-5">
+                  <label htmlFor="qualification">Joining Year</label>
+                  <input
+                    type="text"
+                    id="joiningYear"
+                    name="joiningYear"
+                    placeholder="Your Joining Year"
+                    value={userData.joiningYear}
+                    onChange={handleInputChange}
+                  />
+                </div>
+
+                <div className="col-lg-4 mt-5">
                   <label htmlFor="qualification">Qualification</label>
                   <input
                     type="text"
@@ -304,7 +309,7 @@ export default function RegistrationForm() {
                   />
                 </div>
 
-                <div className="col-lg-4 mt-5">
+                <div className="col-lg-4 mt-3">
                   <label htmlFor="house">House you belonged</label>
                   <select
                     name="house"
@@ -356,7 +361,7 @@ export default function RegistrationForm() {
                   />
                 </div>
 
-                <div className="col-lg-12 mt-3">
+                <div className="col-lg-8 mt-3">
                   <label htmlFor="address">Address</label>
                   <textarea
                     id="address"

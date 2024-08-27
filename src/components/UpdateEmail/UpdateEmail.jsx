@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
+import ComponentLoader from "../ComponentLoader/ComponentLoader";
 
 export default function UpdateEmail({ closeBtn, userDetails }) {
   const [step, setStep] = useState("enterDetails");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [otp, setOtp] = useState("");
 
   const [updateUserEmail, setUpdateUserEmail] = useState({
     email: "",
@@ -19,10 +19,6 @@ export default function UpdateEmail({ closeBtn, userDetails }) {
       ...prevDetails,
       [name]: value,
     }));
-  };
-
-  const handleOtpChange = (event) => {
-    setOtp(event.target.value);
   };
 
   const handleSubmit = async (event) => {
@@ -46,27 +42,27 @@ export default function UpdateEmail({ closeBtn, userDetails }) {
       formData.append("email", updateUserEmail.email);
       formData.append("mobileNo", updateUserEmail.mobileNo);
       formData.append("memberId", userDetails?.mnid);
+      formData.append("Mod","updateEmail")
 
-    //   for (let [key, value] of formData.entries()) {
-    //     console.log(`${key}: ${value}`);
-    //   }
+      // for (let [key, value] of formData.entries()) {
+      //   console.log(`${key}: ${value}`);
+      // }
+
+      const response = await axios.post(
+        "https://www.gdsons.co.in/draft/sjs/user-update-email",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      // console.log(response.data);
       setStep("success");
 
-      //   // API call to send OTP
-      //   const response = await axios.post("/api/send-otp", {
-      //     email: updateUserEmail.email,
-      //     mobileNo: updateUserEmail.mobileNo,
-      //     memberId: updateUserEmail.memberId,
-      //   });
-
-      //   if (response.data.success) {
-      //     setStep("success");
-      //   } else {
-      //     setError(response.data.message || "Failed to send OTP. Please try again.");
-      //   }
     } catch (err) {
       console.error(err);
-      setError("An error occurred while sending OTP. Please try again.");
+      setError("An error occurred while Updating your email. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -108,7 +104,7 @@ export default function UpdateEmail({ closeBtn, userDetails }) {
             {error && <p className="error-message">{error}</p>}
 
             <button type="submit" disabled={loading}>
-              {loading ? "Updating..." : "Update"}
+              {loading ? <ComponentLoader/> : "Update"}
             </button>
           </form>
         );

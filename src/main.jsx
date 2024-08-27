@@ -15,9 +15,11 @@ const NotFoundPage = lazy(() => import('./components/NotFound/NotFoundPage.jsx')
 const UserProfile = lazy(() => import('./components/UserProfile/UserProfile.jsx'));
 const AllManagingMembers = lazy(() => import('./components/AllManagingMembers/AllManagingMembers.jsx'));
 import Loader from './components/Loader/Loader.jsx'
+import UpdateGallery from './components/AdminDashboard/UpdateGallery.jsx'
 const MovieGallery = lazy(()=>import("./components/MovieGallery/MovieGallery.jsx"))
 const AGMElection = lazy(()=>import("./components/AGMElection/AGMElection.jsx"))
 const RegistrationForm = lazy(()=>import("./components/RegistrationForm/RegistrationForm.jsx"))
+const AdminDashboard = lazy(()=>import('./components/AdminDashboard/AdminDashboard.jsx')); 
 
 
 const router = createBrowserRouter(
@@ -111,6 +113,23 @@ const router = createBrowserRouter(
           <Suspense fallback={<Loader/>}>
             <UserProfile />
           </Suspense>
+        }
+      />
+      <Route
+        path='/admin/dashboard'
+        element={
+          <Suspense fallback={<Loader/>}>
+            <AdminDashboard />
+          </Suspense>
+        }
+      />
+      <Route
+        path='/admin/update-gallery'
+        element={
+          // <Suspense fallback={<Loader/>}>
+          //   <Up />
+          // </Suspense>
+          <UpdateGallery/>
         }
       />
       

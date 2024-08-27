@@ -1315,6 +1315,7 @@ table {
   align-items: center;
   justify-content: center;
   padding: 0 20px;
+  overflow-y: scroll;
   /* display: none;
   transition: display 1s; */
 
@@ -1325,18 +1326,19 @@ table {
     padding: 20px;
     border-radius: 10px;
 
-    .LoginTitle , .updateTitle{
+    .LoginTitle,
+    .updateTitle {
       width: 100%;
       text-align: center;
       color: var(--third-color);
       font-weight: 600;
       text-transform: uppercase;
     }
-    .message{
+    .message {
       text-align: center;
       color: var(--text-color);
     }
-    .form{
+    .form {
       position: relative;
       width: 100%;
       display: flex;
@@ -1394,21 +1396,30 @@ table {
 }
 
 .successMessage {
-  width: 500px;
-  height: 300px;
+  position: relative;
+  min-height:600px;
   background-color: var(--text-color);
   border-radius: 15px;
   position: relative;
+  padding: 30px 20px;
+}
+@media (max-width:768px) {
+  .successMessage{
+    top: 100px;
+  }
+}
+@media (max-width:480px) {
+  .success-message{
+    text-align: left !important;
+  }
+  .successMessage{
+    top: 300px;
+  }
 }
 
 .success-message {
   text-align: center;
   width: 100%;
-  max-width: 500px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 .success-message__icon {
@@ -1420,7 +1431,7 @@ table {
 }
 
 .success-message__content {
-  color: var(--success_secondary);
+  color: var(--primary-color);
 }
 
 .icon-checkmark {
@@ -1429,7 +1440,35 @@ table {
   }
 }
 
-.success-close-btn{
+.otherMessage{
+  width: 100%;
+  position: relative;
+  p{
+    color: var(--primary-color);
+    font-size: 17px;
+    font-weight: 600;
+  }
+  ul{
+    text-align: left;
+    font-size: 18px;
+
+    li{
+      font-weight: 600;
+
+      span{
+        font-weight: normal;
+      }
+    }
+  }
+
+  img{
+    width: 190px;
+  }
+}
+
+
+
+.success-close-btn {
   position: absolute;
   width: 40px;
   height: 40px;
@@ -1438,7 +1477,7 @@ table {
   right: 10px;
   top: 10px;
 
-  span{
+  span {
     display: block;
     width: 100%;
     height: 100%;
@@ -1448,8 +1487,7 @@ table {
     justify-content: center;
     cursor: pointer;
 
-
-    i{
+    i {
       color: var(--text-color);
       font-size: 1.5rem;
     }
@@ -2248,7 +2286,6 @@ label {
   display: flex;
   justify-content: flex-end;
   gap: 20px;
-  
 }
 
 .filterSection {
@@ -2329,8 +2366,273 @@ label {
   }
 }
 
-
-.error{
+.error {
   margin: 0;
   color: red;
+}
+
+.adminSection {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: var(--text-color);
+}
+
+.leftSection {
+  width: 250px;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: var(--secondry-color);
+  float: left;
+  transition: width 0.5s;
+}
+
+
+
+.adminNav {
+  width: 100%;
+  position: relative;
+
+  .adminLogoContainer {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.322);
+
+    img {
+      width: 130px;
+      transition: width 0.5s;
+    }
+  }
+
+  .adminLinkContainer {
+    position: relative;
+    width: 100%;
+    margin-top: 10px;
+
+    .adminLinks {
+      width: 100%;
+      padding: 20px;
+
+      .adminlink {
+        width: 100%;
+        margin-bottom: 15px;
+        a {
+          border-radius: 10px;
+          background-color: var(--primary-color);
+          color: var(--text-color);
+          display: inline-block;
+          text-decoration: none;
+          font-weight: 500;
+          width: 100%;
+          height: 100%;
+          padding: 10px 10px;
+          i {
+            color: var(--text-color);
+            margin-right: 10px;
+            font-size: 20px;
+          }
+          span{
+            transition-delay: 1s;
+            transition: display 0.5s;
+          }
+        }
+      }
+
+      .activeTab {
+        background-color: var(--text-color) !important;
+        color: var(--primary-color) !important;
+        font-weight: 700 !important;
+        i {
+          color: var(--primary-color) !important;
+        }
+      }
+    }
+  }
+}
+
+
+.closedLeftSection {
+  height: 100%;
+  width: 80px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: var(--secondry-color);
+  float: left;
+  transition: width 0.5s;
+  overflow: hidden;
+
+  .adminNav {
+    .adminLogoContainer {
+      padding: 10px;
+      img {
+        width: 60px;
+        transition: width 0.5s;
+      }
+    }
+    .adminLinkContainer {
+      .adminLinks{
+        padding: 15px;
+
+        i{
+          margin: 0 !important;
+          font-size: 27px !important;
+          transition: font-size 0.5s;
+        }
+        a{
+          text-align: center;
+        }
+        span{
+          transition: display 0.5s;
+          transition-delay: 1s;
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+
+.rightSection {
+  position: relative;
+  width: calc(100% - 250px);
+  float: right;
+  transition: width 0.5s;
+
+  .rightNav {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--secondry-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .adminMenuBtn {
+
+    }
+
+    .logoName {
+      position: relative;
+
+      p {
+        font-size: 20px;
+        font-weight: 500;
+        color: var(--text-color);
+        margin: 0;
+      }
+    }
+
+    .otherContent{
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+
+      .adminProfile{
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        border:1px solid #007bff;
+
+        img{
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+          border-radius: 50%;
+        }
+      }
+      button{
+        padding: 5px 20px;
+        background-color: transparent;
+        border: 1px solid var(--text-color);
+        color: var(--text-color);
+        border-radius: 30px;
+        font-size: 20px;
+        font-weight: 500;
+        text-transform: uppercase;
+        transition: all 0.3s ease-in-out;
+
+        &:hover{
+          background-color: var(--third-color);
+          border-color: var(--third-color);
+        }
+      }
+
+    }
+  }
+}
+
+.closedRightSection{
+  position: relative;
+  width: calc(100% - 80px);
+  float: right;
+  transition: width 0.5s;
+
+  .rightNav {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--secondry-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .adminMenuBtn {
+
+    }
+
+    .logoName {
+      position: relative;
+
+      p {
+        font-size: 20px;
+        font-weight: 500;
+        color: var(--text-color);
+        margin: 0;
+      }
+    }
+
+    .otherContent{
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+
+      .adminProfile{
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        border:1px solid #007bff;
+
+        img{
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+          border-radius: 50%;
+        }
+      }
+      button{
+        padding: 5px 20px;
+        background-color: transparent;
+        border: 1px solid var(--text-color);
+        color: var(--text-color);
+        border-radius: 30px;
+        font-size: 20px;
+        font-weight: 500;
+        text-transform: uppercase;
+        transition: all 0.3s ease-in-out;
+
+        &:hover{
+          background-color: var(--third-color);
+          border-color: var(--third-color);
+        }
+      }
+
+    }
+  }
 }
