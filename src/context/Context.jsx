@@ -3,6 +3,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import Cookies from "js-cookie";
+import axios from "axios";
 
 export const Context = createContext();
 
@@ -14,6 +15,7 @@ export default function ContextProvider({ children }) {
   const container = useRef();
   const aboutRef = useRef();
   const [loading, setLoading] = useState(false);
+  const [noOfMembers,setNoOfMembers] = useState(null)
   gsap.registerPlugin(ScrollTrigger);
 
   useGSAP(() => {
@@ -71,6 +73,22 @@ export default function ContextProvider({ children }) {
     }
   }, []);
 
+  useEffect(() => {
+    async function fetchMember() {
+      try {
+        const response = await axios.get(
+          "https://www.gdsons.co.in/draft/sjs/all-members"
+        );
+        setNoOfMembers(response.data.length);
+        
+      } catch (error) {
+        console.error(error.message);
+      }
+    }
+    fetchMember();
+  }, []);
+
+
   const contextValue = {
     loginModal,
     setLoginModal,
@@ -79,6 +97,7 @@ export default function ContextProvider({ children }) {
     setLoading,
     isLogedIn,
     setIsLogedIn,
+    noOfMembers,
   };
 
   return (
