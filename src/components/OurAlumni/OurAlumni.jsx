@@ -240,7 +240,7 @@ export default function OurAlumni() {
     setUpdateEmailDetails(product);
   }
   function handleClose() {
-    setUpdateEmailModal(false);
+    setUpdateEmailModal(false);    
   }
 
   return (
@@ -392,9 +392,9 @@ export default function OurAlumni() {
       <Suspense fallback={<Loader />}>
         {updateEmailModal && (
           <UpdateEmail
-            close={handleClose}
+          closeBtn={handleClose}
             isOpen={updateEmailModal}
-            details={updateEmailDetails}
+            userDetails={updateEmailDetails}
           />
         )}
       </Suspense>
