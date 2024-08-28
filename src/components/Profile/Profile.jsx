@@ -4,16 +4,29 @@ import Cookies from "js-cookie";
 import { Context } from "../../context/Context";
 import { useNavigate } from "react-router-dom";
 import ComponentLoader from "../ComponentLoader/ComponentLoader";
+import UpdatePassword from "../UpdatePassword/UpdatePassword";
 
 export default function Profile() {
   const [isFormEditable, setIsFormEditable] = useState(false);
   const [userData, setUserData] = useState("");
   const { isLogedIn, setIsLogedIn } = useContext(Context);
+  const [passwordModal,setPasswordModal] = useState(false)
   const navigator = useNavigate();
 
   function handleEdit() {
     setIsFormEditable((prevState) => !prevState);
   }
+
+  useEffect(() => {
+    if (passwordModal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [passwordModal]);
 
   useEffect(() => {
     if (!isLogedIn) {
@@ -88,6 +101,7 @@ export default function Profile() {
                       <i className="fa-brands fa-facebook-f"></i>
                       <i className="fa-brands fa-linkedin-in"></i>
                     </div>
+                    <button onClick={()=>setPasswordModal(true)}>Update Password</button>
                   </div>
                   <div
                     style={{
@@ -98,9 +112,7 @@ export default function Profile() {
                   ></div>
                   <div className="summary">
                     <h6>About Me</h6>
-                    <p>
-                     
-                    </p>
+                    <p></p>
                   </div>
                   {/* <div className="buttonContainer">
                   <button>Message</button>
@@ -367,6 +379,7 @@ export default function Profile() {
           </div>
         )}
       </div>
+      {passwordModal && <UpdatePassword closeBtn={setPasswordModal}/>}
     </section>
   );
 }
