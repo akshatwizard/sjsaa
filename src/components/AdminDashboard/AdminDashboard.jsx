@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { lazy, Suspense, useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-
+import { Context } from "../../context/Context";
+import ComponentLoader from "../ComponentLoader/ComponentLoader.jsx";
+import Dashboard from "./AdminComponents/Dashboard.jsx";
+import GalleryUpdate from "./AdminComponents/GalleryUpdate.jsx";
+import AddMembers from "./AdminComponents/AddMembers.jsx";
+const OurAlumni = lazy(() => import("../OurAlumni/OurAlumni.jsx"));
 export default function AdminDashboard() {
   const [selectedTab, setSelectedTab] = useState("dashboard");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { noOfMembers } = useContext(Context);
+  let date = new Date().getFullYear();
   function handleClick(event) {
     setSelectedTab(event.target.id);
   }
@@ -18,6 +25,26 @@ export default function AdminDashboard() {
             <Link to={"/"}>
               <img src="/images/8.png" alt="logo" />
             </Link>
+            {isMenuOpen && (
+              <i
+                onClick={() => setIsMenuOpen(false)}
+                class="clbt fa-solid fa-angle-left"
+                style={{
+                  color: "var(--text-color)",
+                  fontSize: "27px",
+                  position: "absolute",
+                  right: "20px",
+                  top: "15px",
+                  display: "flex",
+                  width: "47px",
+                  height: "47px",
+                  border: "2px solid white",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: "50%",
+                }}
+              ></i>
+            )}
           </div>
           <div className="adminLinkContainer">
             <div className="adminLinks">
@@ -52,6 +79,16 @@ export default function AdminDashboard() {
                 >
                   <i class="fa-solid fa-user"></i>
                   <span>Add Members</span>
+                </NavLink>
+              </div>
+              <div className="adminlink" onClick={handleClick}>
+                <NavLink
+                  to="#"
+                  id="event"
+                  className={`${selectedTab === "event" ? "activeTab" : ""}`}
+                >
+                  <i class="fa-solid fa-calendar-days"></i>
+                  <span>Add Events</span>
                 </NavLink>
               </div>
             </div>
@@ -92,19 +129,25 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        <div className="adminMainContent">
-          <div className="container">
-            <div className="row row-gap-4">
-              <div className="col-lg-4 col-md-4 col-4">
-                <h1>hello</h1>
-              </div>
-              <div className="col-lg-4 col-md-4 col-4">
-                <h1>hello</h1>
-              </div>
-              <div className="col-lg-4 col-md-4 col-4">
-                <h1>hello</h1>
-              </div>
-            </div>
+        {selectedTab === "dashboard" && <Dashboard OurAlumni={OurAlumni} noOfMembers={noOfMembers} ComponentLoader={ComponentLoader}/>}
+        
+        {selectedTab === 'Update' && <GalleryUpdate/>}
+        {selectedTab === 'Add' && <AddMembers/>}
+
+
+
+        <div className="col-lg-12">
+          <div className="endSection">
+            <p>
+              {" "}
+              Copyright @ {date}{" "}
+              <span>St. John&apos;s School Alumni Association</span> | Made With{" "}
+              <i className="fa-solid fa-heart" style={{ color: "#C40C0C" }}></i>{" "}
+              By{" "}
+              <Link to="https://wizards.co.in/" target="_blank">
+                <span>Wizards.</span>
+              </Link>
+            </p>
           </div>
         </div>
       </div>
