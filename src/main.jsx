@@ -20,6 +20,7 @@ const MovieGallery = lazy(()=>import("./components/MovieGallery/MovieGallery.jsx
 const AGMElection = lazy(()=>import("./components/AGMElection/AGMElection.jsx"))
 const RegistrationForm = lazy(()=>import("./components/RegistrationForm/RegistrationForm.jsx"))
 const AdminDashboard = lazy(()=>import('./components/AdminDashboard/AdminDashboard.jsx')); 
+const PaymentPage = lazy(()=>import('./components/RegistrationForm/PaymentPage.jsx'))
 
 
 const router = createBrowserRouter(
@@ -100,6 +101,14 @@ const router = createBrowserRouter(
         }
       />
       <Route
+        path='/payment-page'
+        element={
+          <Suspense fallback={<Loader/>}>
+            <PaymentPage />
+          </Suspense>
+        }
+      />
+      <Route
         path='/profile'
         element={
           <Suspense fallback={<Loader/>}>
@@ -123,6 +132,7 @@ const router = createBrowserRouter(
           </Suspense>
         }
       />
+      
       <Route
         path='/admin/update-gallery'
         element={
@@ -132,6 +142,7 @@ const router = createBrowserRouter(
           <UpdateGallery/>
         }
       />
+      
       
       <Route
         path='*'
