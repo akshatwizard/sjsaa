@@ -23,7 +23,7 @@ export default function OurAlumni() {
   const [filterCategory, setFilterCategory] = useState("membernace");
   const [currentPage, setCurrentPage] = useState(1);
   const [updateEmailModal, setUpdateEmailModal] = useState(false);
-  const [updateEmailDetails, setUpdateEmailDetails] = useState(null);
+  const [updateEmailDetails, setupdateEmailDetails] = useState(null);
   const rowsPerPage = 20;
   const { isLogedIn, setIsLogedIn } = useContext(Context);
 
@@ -70,14 +70,7 @@ export default function OurAlumni() {
   };
 
   const renderPagination = () => {
-    const totalPages = Math.ceil(
-      memberData.filter((product) =>
-        product[filterCategory]
-          ?.toString()
-          .toLowerCase()
-          .includes(filterValue.toLowerCase())
-      ).length / rowsPerPage
-    );
+    const totalPages = Math.ceil(memberData.length / rowsPerPage);
     const pages = [];
 
     if (totalPages <= 7) {
@@ -177,14 +170,16 @@ export default function OurAlumni() {
 
   const handleDownloadPDF = () => {
     const doc = new jsPDF();
-  
+
     const img = "/images/8.png";
+
     doc.addImage(img, "PNG", 10, 10, 30, 30);
     doc.setFontSize(25);
     doc.text("St John's School Alumni Association", 50, 25);
+
     doc.setLineWidth(0.5);
     doc.line(10, 45, 200, 45);
-  
+
     const tableColumn = [
       "Sr. No.",
       "Name",
@@ -196,33 +191,25 @@ export default function OurAlumni() {
       "Current Location",
     ];
     const tableRows = [];
-  
-    const filtered = memberData.filter((product) =>
-      product[filterCategory]
-        ?.toString()
-        .toLowerCase()
-        .includes(filterValue.toLowerCase())
-    );
-  
-    filtered.forEach((member, index) => {
+
+    memberData.forEach((member, index) => {
       const memberDetails = [
         index + 1,
         member.membernace,
-        member.joiningyear || "not provided",
-        member.batch || "not provided",
+        member.joiningyear,
+        member.batch,
         "NA",
         "NA",
         "NA",
-        member.location || "not provided",
+        member.location,
       ];
       tableRows.push(memberDetails);
     });
-  
+
     doc.autoTable(tableColumn, tableRows, { startY: 50 });
-  
-    doc.save("filtered_members_list.pdf");
+
+    doc.save("members_list.pdf");
   };
-  
 
   useEffect(() => {
     if (updateEmailModal) {
@@ -237,11 +224,12 @@ export default function OurAlumni() {
 
   function handleUpdateEmail(product) {
     setUpdateEmailModal(true);
-    setUpdateEmailDetails(product);
+    setupdateEmailDetails(product);
   }
   function handleClose() {
-    setUpdateEmailModal(false);    
+    setUpdateEmailModal(false);
   }
+  console.log(memberData);
 
   return (
     <section className="sectionContainer">
@@ -385,19 +373,19 @@ export default function OurAlumni() {
               </table>
             </div>
           </div>
+          <div className="col-lg-12">
+            <div className="pagination">{renderPagination()}</div>
+          </div>
         </div>
-        <div className="pagination">{renderPagination()}</div>
       </div>
-
-      <Suspense fallback={<Loader />}>
-        {updateEmailModal && (
+      {updateEmailModal && (
+        <Suspense fallback={<Loader />}>
           <UpdateEmail
-          closeBtn={handleClose}
-            isOpen={updateEmailModal}
+            closeBtn={handleClose}
             userDetails={updateEmailDetails}
           />
-        )}
-      </Suspense>
+        </Suspense>
+      )}
     </section>
   );
 }
