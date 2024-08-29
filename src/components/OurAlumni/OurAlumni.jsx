@@ -174,17 +174,17 @@ export default function OurAlumni() {
 
     return pages;
   };
-  
+
   const handleDownloadPDF = () => {
     const doc = new jsPDF();
-
+  
     const img = "/images/8.png";
     doc.addImage(img, "PNG", 10, 10, 30, 30);
     doc.setFontSize(25);
     doc.text("St John's School Alumni Association", 50, 25);
     doc.setLineWidth(0.5);
     doc.line(10, 45, 200, 45);
-
+  
     const tableColumn = [
       "Sr. No.",
       "Name",
@@ -194,38 +194,35 @@ export default function OurAlumni() {
       "Date of Birth",
       "Profession & Working As",
       "Current Location",
-      isLogedIn && "Contact No",
-      isLogedIn && "Email",
     ];
     const tableRows = [];
-
+  
     const filtered = memberData.filter((product) =>
       product[filterCategory]
         ?.toString()
         .toLowerCase()
         .includes(filterValue.toLowerCase())
     );
-    
+  
     filtered.forEach((member, index) => {
       const memberDetails = [
         index + 1,
         member.membernace,
-        member.joiningyear,
-        member.batch,
+        member.joiningyear || "not provided",
+        member.batch || "not provided",
         "NA",
         "NA",
         "NA",
-        member.location,
-        isLogedIn && member?.mobile_number_one || "not avilable",
-        isLogedIn && member?.email || "not avilable",
+        member.location || "not provided",
       ];
       tableRows.push(memberDetails);
     });
-
+  
     doc.autoTable(tableColumn, tableRows, { startY: 50 });
-
+  
     doc.save("filtered_members_list.pdf");
   };
+  
 
   useEffect(() => {
     if (updateEmailModal) {
@@ -395,8 +392,9 @@ export default function OurAlumni() {
       <Suspense fallback={<Loader />}>
         {updateEmailModal && (
           <UpdateEmail
-            closeBtn={handleClose}
-            userDetails={updateEmailDetails}
+            close={handleClose}
+            isOpen={updateEmailModal}
+            details={updateEmailDetails}
           />
         )}
       </Suspense>
