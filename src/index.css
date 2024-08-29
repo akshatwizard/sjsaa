@@ -1299,6 +1299,10 @@ table {
   }
 }
 
+.passwordModal{
+  overflow-y: hidden !important;
+}
+
 .loginModalContainer,
 .passwordModal,
 .successMessgaeContainer,
@@ -1599,8 +1603,8 @@ table {
       position: absolute;
       width: 140px;
       height: 140px;
-      background: var(--text-color);
-      padding: 2px;
+      background: var(--secondry-color);
+      padding: 3px;
       border-radius: 50%;
       top: 120px;
       left: 30px;
@@ -1610,7 +1614,7 @@ table {
         height: 100%;
         object-fit: cover;
         border-radius: 50%;
-        border: 2px solid var(--primary-color);
+        border: 2px solid var(--text-color);
       }
     }
     .nameContainer {
