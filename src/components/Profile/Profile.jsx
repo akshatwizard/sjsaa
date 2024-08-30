@@ -37,8 +37,7 @@ export default function Profile() {
     twitter: "",
   });
 
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false)
-  
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   const [profilePic, setProfilePic] = useState(null);
 
@@ -70,7 +69,7 @@ export default function Profile() {
     return () => {
       document.body.style.overflow = "auto";
     };
-  }, [passwordModal,showSuccessMessage]);
+  }, [passwordModal, showSuccessMessage]);
 
   useEffect(() => {
     if (!isLogedIn) {
@@ -117,7 +116,7 @@ export default function Profile() {
           aboutMe: data?.about_me || "",
           facebook: data?.facebook || "",
           linkedin: data?.linkedin || "",
-          instagram:data?.instagram || "",
+          instagram: data?.instagram || "",
           twitter: data?.twitter || "",
         });
       } catch (error) {
@@ -126,7 +125,7 @@ export default function Profile() {
     };
 
     fetchUserDetails();
-  }, [isLogedIn, navigator,]);
+  }, [isLogedIn, navigator]);
 
   async function handleDataSubmit(event) {
     event.preventDefault();
@@ -135,29 +134,31 @@ export default function Profile() {
 
     const formData = new FormData();
     formData.append("profilePic", profilePic);
-    formData.append("Mod" ,"updateMemberData")
-    formData.append("mnid" ,id)
+    formData.append("Mod", "updateMemberData");
+    formData.append("mnid", id);
     Object.keys(fullUserData).forEach((key) => {
       formData.append(key, fullUserData[key]);
     });
 
     try {
-      const response = await axios.post("https://www.gdsons.co.in/draft/sjs/update-members-data",formData)
-      // console.log(response.data[0].message);
+      const response = await axios.post(
+        "https://www.gdsons.co.in/draft/sjs/update-members-data",
+        formData
+      );
+      console.log(response.data);
 
-      if (response.data[0].message === 'Updated') {
-        setShowSuccessMessage(true)
-        setIsFormEditable(false)
+      if (response.data[0].message === "Updated") {
+        setShowSuccessMessage(true);
+        setIsFormEditable(false);
       }
-      setLoading(false)
+      setLoading(false);
     } catch (error) {
       console.log(error);
-      setLoading(false)
-      setShowSuccessMessage(false)
+      setLoading(false);
+      setShowSuccessMessage(false);
     }
-
-
   }
+  // console.log(userData);
 
   return (
     <section className="sectionContainer">
@@ -192,12 +193,21 @@ export default function Profile() {
                   <div className="nameContainer">
                     <h3>{userData?.title}</h3>
                     <p>{userData?.trade_category}</p>
+                    <p>{userData?.email_id}</p>
                     <p>{userData?.address}</p>
                     <div className="socialMediaIcons">
-                      <i className="fa-brands fa-instagram"></i>
-                      <i className="fa-brands fa-x-twitter"></i>
-                      <i className="fa-brands fa-facebook-f"></i>
-                      <i className="fa-brands fa-linkedin-in"></i>
+                      <a href={userData?.facebook} target="_blank">
+                        <i className="fa-brands fa-facebook-f"></i>
+                      </a>
+                      <a href={userData?.instagram} target="_blank">
+                        <i className="fa-brands fa-instagram"></i>
+                      </a>
+                      <a href={userData?.twitter} target="_blank">
+                        <i className="fa-brands fa-x-twitter"></i>
+                      </a>
+                      <a href={userData?.linkedin} target="_blank">
+                        <i className="fa-brands fa-linkedin-in"></i>
+                      </a>
                     </div>
                     <button onClick={() => setPasswordModal(true)}>
                       Update Password
@@ -212,7 +222,7 @@ export default function Profile() {
                   ></div>
                   <div className="summary">
                     <h6>About Me</h6>
-                    <p></p>
+                    <p>{userData?.about_me}</p>
                   </div>
                 </div>
               </div>
@@ -262,9 +272,7 @@ export default function Profile() {
                                 />
                               </div>
                               <div className="col-lg-6">
-                                <label htmlFor="contactNo">
-                                  Contact No:
-                                </label>
+                                <label htmlFor="contactNo">Contact No:</label>
                                 <input
                                   type="tel"
                                   placeholder="Contact No"
@@ -362,9 +370,7 @@ export default function Profile() {
                                 />
                               </div>
                               <div className="col-lg-6">
-                                <label htmlFor="spouse">
-                                  Name of Spouse
-                                </label>
+                                <label htmlFor="spouse">Name of Spouse</label>
                                 <input
                                   type="text"
                                   placeholder="Name of Spouse"
@@ -375,9 +381,7 @@ export default function Profile() {
                                 />
                               </div>
                               <div className="col-lg-6">
-                                <label htmlFor="wedding">
-                                  Wedding Date
-                                </label>
+                                <label htmlFor="wedding">Wedding Date</label>
                                 <input
                                   type="text"
                                   placeholder="Wedding Date"
@@ -460,9 +464,7 @@ export default function Profile() {
                                 />
                               </div>
                               <div className="col-lg-6">
-                                <label htmlFor="twitter">
-                                  Twitter Profile
-                                </label>
+                                <label htmlFor="twitter">Twitter Profile</label>
                                 <input
                                   type="text"
                                   placeholder="Twitter Profile"
@@ -490,7 +492,9 @@ export default function Profile() {
                             </button>
                             {isFormEditable && (
                               <>
-                                <button type="submit">{loading ? <ComponentLoader /> : "Save"}</button>
+                                <button type="submit">
+                                  {loading ? <ComponentLoader /> : "Save"}
+                                </button>
                                 <button type="reset">Reset</button>
                               </>
                             )}
@@ -506,7 +510,9 @@ export default function Profile() {
         )}
       </div>
       {passwordModal && <UpdatePassword closeBtn={setPasswordModal} />}
-      {showSuccessMessage && <SuccessMessage status={()=>setShowSuccessMessage(false)}/>}
+      {showSuccessMessage && (
+        <SuccessMessage status={() => setShowSuccessMessage(false)} />
+      )}
     </section>
   );
 }
