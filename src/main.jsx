@@ -6,7 +6,7 @@ import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route } 
 import ContextProvider from './context/Context.jsx'
 
 const Home = lazy(() => import('./components/Home/Home.jsx'));
-const AboutUs = lazy(() => import('./components/About/AboutUs.jsx'));
+const AboutUs = lazy(() => import('./components/About/About.jsx'));
 const OurAlumni = lazy(() => import('./components/OurAlumni/OurAlumni.jsx'));
 const UpcomingEvents = lazy(() => import('./components/UpcomingEvents/UpcomingEvents.jsx'));
 const Gallery = lazy(() => import('./components/Gallery/Gallery.jsx'));
