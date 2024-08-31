@@ -326,7 +326,7 @@ export default function Profile() {
                               </div>
                               <div className="col-lg-6">
                                 <label htmlFor="joiningYear">
-                                  Joining Year
+                                  Alumni Joining Year
                                 </label>
                                 <input
                                   type="text"
