@@ -287,7 +287,7 @@ export default function OurAlumni() {
                   <tr>
                     <th>Sr. No.</th>
                     <th>Name</th>
-                    <th>Joined Year</th>
+                    <th>Alumni Joined Year</th>
                     <th>Batch</th>
                     <th>Qualification</th>
                     <th>Date of Birth</th>
@@ -344,9 +344,9 @@ export default function OurAlumni() {
                       </td>
                       <td>{product.joiningyear}</td>
                       <td>{product?.batch || "not provided"}</td>
-                      <td>NA</td>
-                      <td>NA</td>
-                      <td>NA</td>
+                      <td>{product.qualification}</td>
+                      <td>{product.dob}</td>
+                      <td>{product.trade_category}</td>
                       <td>{product?.location || "not provided"}</td>
                       {isLogedIn && (
                         <td>
