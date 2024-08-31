@@ -180,7 +180,7 @@ export default function OurAlumni() {
   
     const img = "/images/8.png";
     doc.addImage(img, "PNG", 10, 10, 30, 30);
-    doc.setFontSize(25);
+    doc.setFontSize(20);
     doc.text("St John's School Alumni Association", 50, 25);
     doc.setLineWidth(0.5);
     doc.line(10, 45, 200, 45);
@@ -210,9 +210,9 @@ export default function OurAlumni() {
         member.membernace,
         member.joiningyear || "not provided",
         member.batch || "not provided",
-        "NA",
-        "NA",
-        "NA",
+        member.qualification,
+        member.dob,
+        member.trade_category,
         member.location || "not provided",
       ];
       tableRows.push(memberDetails);
@@ -242,6 +242,7 @@ export default function OurAlumni() {
   function handleClose() {
     setUpdateEmailModal(false);
   }
+// console.log(memberData);
 
   return (
     <section className="sectionContainer">
@@ -343,20 +344,20 @@ export default function OurAlumni() {
                         </Link>
                       </td>
                       <td>{product.joiningyear}</td>
-                      <td>{product?.batch || "not provided"}</td>
-                      <td>NA</td>
-                      <td>NA</td>
-                      <td>NA</td>
-                      <td>{product?.location || "not provided"}</td>
+                      <td>{product?.batch || ""}</td>
+                      <td>{product.qualification || ""}</td>
+                      <td>{product.dob || ""}</td>
+                      <td>{product.trade_category || ""}</td>
+                      <td>{product?.location || ""}</td>
                       {isLogedIn && (
                         <td>
-                          {product?.mobile_number_one || "Not available"}
+                          {product?.mobile_number_one || ""}
                           {product?.mobile_number_two
                             ? `, ${product.mobile_number_two}`
                             : ""}
                         </td>
                       )}
-                      {isLogedIn && <td>{product?.email || "not avilable"}</td>}
+                      {isLogedIn && <td>{product?.email || ""}</td>}
                       {isLogedIn ? (
                         ""
                       ) : (
