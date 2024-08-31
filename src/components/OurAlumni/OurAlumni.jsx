@@ -243,15 +243,11 @@ export default function OurAlumni() {
     setUpdateEmailModal(false);
   }
 
-
-function handlePrint(userId){
-  console.log(userId);
-  const memberr = memberData.find((user) => user.mnid === userId);
-  console.log(memberr);
-  
-}
-
-
+  function handlePrint(userId) {
+    console.log(userId);
+    const memberr = memberData.find((user) => user.mnid === userId);
+    console.log(memberr);
+  }
 
   return (
     <section className="sectionContainer">
@@ -306,7 +302,7 @@ function handlePrint(userId){
                     {isLogedIn && <th>Contact No</th>}
                     {isLogedIn && <th>Email</th>}
                     {isLogedIn ? "" : <th>Action</th>}
-                    <th>new field</th>
+                    {/* <th>new field</th> */}
                   </tr>
                 </thead>
                 <tbody>
@@ -390,14 +386,14 @@ function handlePrint(userId){
                           )}
                         </td>
                       )}
-                      <td>
+                      {/* <td>
                         <div
                           className="btn btn-primary"
-                          onClick={()=>handlePrint(product.mnid)}
+                          onClick={() => handlePrint(product.mnid)}
                         >
                           print
                         </div>
-                      </td>
+                      </td> */}
                     </tr>
                   ))}
                 </tbody>
@@ -411,9 +407,8 @@ function handlePrint(userId){
       <Suspense fallback={<Loader />}>
         {updateEmailModal && (
           <UpdateEmail
-            close={handleClose}
-            isOpen={updateEmailModal}
-            details={updateEmailDetails}
+            closeBtn={handleClose}
+            userDetails={updateEmailDetails}
           />
         )}
       </Suspense>
