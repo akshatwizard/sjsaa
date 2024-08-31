@@ -47,7 +47,7 @@ export default function PaymentPage() {
                   <hr style={{ color: "white", height: "3px" }} />
                   <h5>
                     After making the payment, send the receipt/copy/pic of payment
-                    to our E-Mail ID : sjsaadlwvns@gmail.com
+                    to our E-Mail ID : sjsaadlwvns@gmail.com && sjsaa1999@gmail.com
                   </h5>
                 </div>
               </div>
