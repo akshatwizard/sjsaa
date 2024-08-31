@@ -23,8 +23,7 @@ export default function UserProfile() {
     }
     fetchMember();
   }, [id]);
-
-  // console.log("Fetched Member Data:", memberData);
+  // console.log(memberData.profile_picture);
 
   return (
     <section className="sectionContainer">
@@ -41,9 +40,10 @@ export default function UserProfile() {
               <div className="userProfilePic">
                 <img
                   src={
-                    memberData?.profile_picture
-                      ? memberData?.profile_picture
-                      : "/images/8.png"
+                    memberData?.profile_picture === " " ||
+                    !memberData?.profile_picture
+                      ? "/images/8.png"
+                      : memberData?.profile_picture
                   }
                   alt="Profile"
                 />
@@ -52,10 +52,10 @@ export default function UserProfile() {
                 <div className="row row-gap-3">
                   <div className="col-lg-6">
                     <h3>{memberData?.title || "Name not available"}</h3>
-                    <p>Batch:- {memberData?.batch || "Trade not available"}</p>
+                    <p>Batch:- {memberData?.batch || "Batch not available"}</p>
                     <p>
                       Joining Year:-{" "}
-                      {memberData?.joining_year || "Trade not available"}
+                      {memberData?.joining_year || "Joining year not available"}
                     </p>
                     <p>
                       Currently Working as:-{" "}
@@ -66,30 +66,49 @@ export default function UserProfile() {
                       {memberData?.location || "Location not available"}
                     </p>
                     <div className="socialMediaIcons">
-                      <a href={memberData?.facebook} target="_blank">
-                        <i className="fa-brands fa-facebook-f"></i>
-                      </a>
-                      <a href={memberData?.instagram} target="_blank">
-                        <i className="fa-brands fa-instagram"></i>
-                      </a>
-                      <a href={memberData?.twitter} target="_blank">
-                        <i className="fa-brands fa-x-twitter"></i>
-                      </a>
-                      <a href={memberData?.linkedin} target="_blank">
-                        <i className="fa-brands fa-linkedin-in"></i>
-                      </a>
+                      {memberData?.facebook === ' ' ? "" : (
+                        <a
+                          href={memberData.facebook}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <i className="fa-brands fa-facebook-f"></i>
+                        </a>
+                      )}
+                      {memberData?.instagram === " " ? "" : (
+                        <a
+                          href={memberData.instagram}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <i className="fa-brands fa-instagram"></i>
+                        </a>
+                      )}
+                      {memberData?.twitter === " " ? " " : (
+                        <a
+                          href={memberData.twitter}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <i className="fa-brands fa-x-twitter"></i>
+                        </a>
+                      )}
+                      {memberData?.linkedin === ' ' ? " " : (
+                        <a
+                          href={memberData.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <i className="fa-brands fa-linkedin-in"></i>
+                        </a>
+                      )}
                     </div>
-                    {/* <div className="buttonContainer">
-                      <button>Message</button>
-                      <button>Call</button>
-                    </div> */}
                   </div>
                   <div className="col-lg-6">
                     <div className="summary">
                       <h6>About Me</h6>
                       <p>
-                        {memberData?.about_me ||
-                          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque amet aliquid quis modi nulla saepe debitis illo ad laborum possimus necessitatibus tempore eaque tempora sapiente enim ipsam beatae pariatur tenetur, nemo aut aperiam maxime assumenda. Atque mollitia molestias earum quia. Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus sunt cupiditate alias deserunt, distinctio voluptas animi a error optio amet."}
+                        {memberData?.about_me === ' ' ? "" : memberData?.about_me }
                       </p>
                     </div>
                   </div>
