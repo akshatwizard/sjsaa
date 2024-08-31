@@ -1,12 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import SuccessMessage from "../SuccessMessage/SuccessMessage";
-import { Context } from "../../context/Context";
-import ComponentLoader from "../ComponentLoader/ComponentLoader.jsx";
-import { Link } from "react-router-dom";
+import { Context } from "../../../context/Context";
+import ComponentLoader from "../../ComponentLoader/ComponentLoader";
 
-export default function RegistrationForm() {
-  const [isRegistrationSuccess, setIsRegistrationSuccess] = useState(false);
+export default function AddMembers() {
   const [profilePic, setProfilePic] = useState(null);
   const [errors, setErrors] = useState({});
   const [userData, setUserData] = useState({
@@ -27,17 +24,6 @@ export default function RegistrationForm() {
     joiningYear: "",
   });
   const { loading, setLoading } = useContext(Context);
-
-  useEffect(() => {
-    if (isRegistrationSuccess) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [isRegistrationSuccess]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -96,9 +82,6 @@ export default function RegistrationForm() {
       formData.append(key, userData[key]);
     });
 
-    // for (let [key, value] of formData.entries()) {
-    //   console.log(`${key}: ${value}`);
-    // }
     try {
       const response = await axios.post(
         "https://www.gdsons.co.in/draft/sjs/get-members-data",
@@ -122,7 +105,7 @@ export default function RegistrationForm() {
     <section className="sectionContainer">
       <div className="container">
         <div className="title">
-          <h1>New Member Registration Form</h1>
+          <h1>Add New Member</h1>
         </div>
         <div className="row row-gap-4 ">
           <div className="col-lg-12">
@@ -374,35 +357,14 @@ export default function RegistrationForm() {
               </div>
               <div className="regSubmitBtn">
                 <button onClick={handleSubmitBtn}>
-                  {loading ? <ComponentLoader /> : "Register"}
+                  {loading ? <ComponentLoader /> : "Add Now"}
                 </button>
               </div>
-            </div>
-
-            <div
-              style={{
-                width: "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                marginTop: "20px",
-              }}
-            >
-              <Link
-                to="/payment-page"
-                style={{ color: "var(--third-color)", textDecoration: "none" }}
-              >
-                Click Here for registration process
-              </Link>
             </div>
           </div>
         </div>
       </div>
-      {isRegistrationSuccess ? (
-        <SuccessMessage status={setIsRegistrationSuccess} />
-      ) : (
-        ""
-      )}
+      
     </section>
   );
 }

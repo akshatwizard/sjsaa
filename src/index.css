@@ -1299,7 +1299,12 @@ table {
   }
 }
 
+.passwordModal{
+  overflow-y: hidden !important;
+}
+
 .loginModalContainer,
+.passwordModal,
 .successMessgaeContainer,
 .updateEmailContainer {
   position: fixed;
@@ -1327,6 +1332,7 @@ table {
     border-radius: 10px;
 
     .LoginTitle,
+    .passwordTitle,
     .updateTitle {
       width: 100%;
       text-align: center;
@@ -1397,22 +1403,22 @@ table {
 
 .successMessage {
   position: relative;
-  min-height:600px;
+  min-height: 600px;
   background-color: var(--text-color);
   border-radius: 15px;
   position: relative;
   padding: 30px 20px;
 }
-@media (max-width:768px) {
-  .successMessage{
+@media (max-width: 768px) {
+  .successMessage {
     top: 100px;
   }
 }
-@media (max-width:480px) {
-  .success-message{
+@media (max-width: 480px) {
+  .success-message {
     text-align: left !important;
   }
-  .successMessage{
+  .successMessage {
     top: 300px;
   }
 }
@@ -1440,33 +1446,66 @@ table {
   }
 }
 
-.otherMessage{
+.otherMessage {
   width: 100%;
   position: relative;
-  p{
+  p {
     color: var(--primary-color);
     font-size: 17px;
     font-weight: 600;
   }
-  ul{
+  ul {
     text-align: left;
     font-size: 18px;
 
-    li{
+    li {
       font-weight: 600;
 
-      span{
+      span {
         font-weight: normal;
       }
     }
   }
 
-  img{
+  img {
     width: 190px;
   }
 }
 
+.paymentContainer {
+  position: relative;
+  width: 100%;
+  background-color: var(--secondry-color);
+  padding: 20px;
+  border-radius: 15px;
 
+  .bankDetails {
+    position: relative;
+    width: 100%;
+    color: var(--text-color);
+
+    ul {
+      padding: 0;
+      margin: 0;
+
+      li {
+        color: var(--third-color);
+        font-size: 20px;
+        span {
+          color: var(--text-color);
+          font-size: 16px;
+        }
+      }
+    }
+    img {
+      border-radius: 10px;
+    }
+  }
+  h5 {
+    margin-top: 30px;
+    color: var(--text-color);
+  }
+}
 
 .success-close-btn {
   position: absolute;
@@ -1564,8 +1603,8 @@ table {
       position: absolute;
       width: 140px;
       height: 140px;
-      background: var(--text-color);
-      padding: 2px;
+      background: var(--secondry-color);
+      padding: 4px;
       border-radius: 50%;
       top: 120px;
       left: 30px;
@@ -1575,7 +1614,7 @@ table {
         height: 100%;
         object-fit: cover;
         border-radius: 50%;
-        border: 2px solid var(--primary-color);
+        /* border: 2px solid var(--text-color); */
       }
     }
     .nameContainer {
@@ -1583,6 +1622,7 @@ table {
       position: relative;
       width: 100%;
       margin-top: 50px;
+
 
       h3 {
         color: var(--third-color);
@@ -1599,6 +1639,17 @@ table {
         display: flex;
         align-items: center;
         gap: 20px;
+
+        a{
+          text-decoration: none;
+
+          &:nth-child(2){
+            color: #ff0000;
+          }
+          &:nth-child(3){
+            color: #171717;
+          }
+        }
 
         i {
           cursor: pointer;
@@ -1617,6 +1668,22 @@ table {
             background-color: var(--third-color);
             color: #f3f4f6;
           }
+        }
+        
+      }
+      button {
+        position: relative;
+        margin-top: 10px;
+        padding: 7px 25px;
+        border: 1px solid var(--text-color);
+        background: transparent;
+        color: var(--text-color);
+        font-size: 16px;
+        font-weight: 400;
+
+        &:hover{
+          color: var(--third-color);
+          border-color: var(--third-color);
         }
       }
     }
@@ -1694,18 +1761,18 @@ table {
       }
     }
 
-    .editForm,
-    form {
+    .editForm {
       width: 100%;
       position: relative;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      justify-content: center;
-      flex-wrap: wrap;
+
+      form {
+        width: 100%;
+        position: relative;
+      }
 
       input,
       textarea {
+        width: 100%;
         position: relative;
         background-color: var(--primary-color);
         border: none;
@@ -1714,17 +1781,6 @@ table {
         font-size: 20px;
         border-radius: 10px;
         color: var(--text-color);
-
-        &:first-child,
-        &:nth-child(3),
-        &:nth-child(5),
-        &:nth-child(7) {
-          width: 50%;
-        }
-      }
-      .largeInput,
-      textarea {
-        width: 100%;
       }
       button {
         position: relative;
@@ -2307,7 +2363,7 @@ label {
     font-size: 20px;
   }
   input {
-    width: 300px;
+    /* width: 300px; */
   }
 }
 
@@ -2387,9 +2443,14 @@ label {
   background-color: var(--secondry-color);
   float: left;
   transition: width 0.5s;
+  z-index: 99;
 }
 
-
+@media (min-width:902px) {
+  .clbt{
+    display: none !important;
+  }
+}
 
 .adminNav {
   width: 100%;
@@ -2435,7 +2496,7 @@ label {
             margin-right: 10px;
             font-size: 20px;
           }
-          span{
+          span {
             transition-delay: 1s;
             transition: display 0.5s;
           }
@@ -2453,7 +2514,6 @@ label {
     }
   }
 }
-
 
 .closedLeftSection {
   height: 100%;
@@ -2475,18 +2535,18 @@ label {
       }
     }
     .adminLinkContainer {
-      .adminLinks{
+      .adminLinks {
         padding: 15px;
 
-        i{
+        i {
           margin: 0 !important;
           font-size: 27px !important;
           transition: font-size 0.5s;
         }
-        a{
+        a {
           text-align: center;
         }
-        span{
+        span {
           transition: display 0.5s;
           transition-delay: 1s;
           display: none;
@@ -2496,6 +2556,236 @@ label {
   }
 }
 
+@media (max-width: 902px) {
+  .leftSection {
+    width: 80px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: var(--secondry-color);
+    float: left;
+    transition: width 0.5s;
+    overflow: hidden;
+    .adminNav {
+      .adminLogoContainer {
+        padding: 10px;
+        img {
+          width: 60px;
+          transition: width 0.5s;
+        }
+      }
+      .adminLinkContainer {
+        .adminLinks {
+          padding: 15px;
+
+          i {
+            margin: 0 !important;
+            font-size: 27px !important;
+            transition: font-size 0.5s;
+          }
+          a {
+            text-align: center;
+          }
+          span {
+            transition: display 0.5s;
+            transition-delay: 1s;
+            display: none;
+          }
+        }
+      }
+    }
+  }
+
+  .rightSection {
+    position: relative !important;
+    width: calc(100% - 80px) !important;
+    float: right !important;
+    transition: width 0.5s !important;
+
+    .rightNav {
+      width: 100% !important;
+      padding: 10px !important;
+      background-color: var(--secondry-color) !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+
+      .adminMenuBtn {
+      }
+
+      .logoName {
+        position: relative !important;
+
+        p {
+          font-size: 16px !important;
+          font-weight: 500 !important;
+          color: var(--text-color) !important;
+          margin: 0 !important;
+        }
+      }
+
+      .otherContent {
+        position: relative !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 15px !important;
+
+        .adminProfile {
+          width: 45px !important;
+          height: 45px !important;
+          border-radius: 50% !important;
+          border: 1px solid #007bff !important;
+
+          img {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+            object-position: center !important;
+            border-radius: 50% !important;
+          }
+        }
+        button {
+          padding: 5px 15px !important;
+          background-color: transparent !important;
+          border: 1px solid var(--text-color) !important;
+          color: var(--text-color) !important;
+          border-radius: 30px !important;
+          font-size: 15px !important;
+          font-weight: 500 !important;
+          text-transform: uppercase !important;
+          transition: all 0.3s ease-in-out !important;
+
+          &:hover {
+            background-color: var(--third-color) !important;
+            border-color: var(--third-color) !important;
+          }
+        }
+      }
+    }
+  }
+
+  .closedLeftSection {
+    height: 100%;
+    width: 230px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: var(--secondry-color);
+    float: left;
+    transition: width 0.5s;
+    overflow: hidden;
+    z-index: 99;
+
+    .adminNav {
+      .adminLogoContainer {
+        padding: 10px;
+        img {
+          width: 60px;
+          transition: width 0.5s;
+        }
+      }
+      .adminLinkContainer {
+        .adminLinks {
+          padding: 15px;
+
+          i {
+            margin: 0 !important;
+            font-size: 27px !important;
+            transition: font-size 0.5s !important;
+            margin-right: 10px !important;
+          }
+          a {
+            text-align: center;
+          }
+          span {
+            transition: display 0.5s;
+            transition-delay: 1s;
+            display: inline-block !important;
+          }
+        }
+      }
+    }
+  }
+
+  .closedRightSection {
+    position: relative;
+    float: right;
+    transition: width 0.5s;
+  
+    .rightNav {
+      width: 100%;
+      padding: 10px;
+      background-color: var(--secondry-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+  
+      .adminMenuBtn {
+      }
+  
+      .logoName {
+        position: relative;
+  
+        p {
+          font-size: 16px !important;
+          font-weight: 500;
+          color: var(--text-color);
+          margin: 0;
+        }
+      }
+  
+      .otherContent {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 15px !important;
+  
+        .adminProfile {
+          width: 45px !important;
+          height: 45px !important;
+          border-radius: 50%;
+          border: 1px solid #007bff;
+  
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 50%;
+          }
+        }
+        button {
+          padding: 5px 15px !important;
+          background-color: transparent !important;
+          border: 1px solid var(--text-color) !important;
+          color: var(--text-color) !important;
+          border-radius: 30px !important;
+          font-size: 15px !important;
+          font-weight: 500 !important;
+          text-transform: uppercase !important;
+          transition: all 0.3s ease-in-out !important;
+
+          &:hover {
+            background-color: var(--third-color) !important;
+            border-color: var(--third-color) !important;
+          }
+        }
+      }
+    }
+    .adminMenuBtnTwo {
+      display: none;
+    }
+  }
+  
+}
+
+
+@media (max-width: 480px) {
+  .logoName p {
+    display: none;
+  }
+}
 
 .rightSection {
   position: relative;
@@ -2511,9 +2801,9 @@ label {
     align-items: center;
     justify-content: space-between;
 
-    .adminMenuBtn {
-
-    }
+    /* .adminMenuBtn {
+      dis
+    } */
 
     .logoName {
       position: relative;
@@ -2526,19 +2816,19 @@ label {
       }
     }
 
-    .otherContent{
+    .otherContent {
       position: relative;
       display: flex;
       align-items: center;
       gap: 20px;
 
-      .adminProfile{
+      .adminProfile {
         width: 55px;
         height: 55px;
         border-radius: 50%;
-        border:1px solid #007bff;
+        border: 1px solid #007bff;
 
-        img{
+        img {
           width: 100%;
           height: 100%;
           object-fit: cover;
@@ -2546,7 +2836,7 @@ label {
           border-radius: 50%;
         }
       }
-      button{
+      button {
         padding: 5px 20px;
         background-color: transparent;
         border: 1px solid var(--text-color);
@@ -2557,17 +2847,19 @@ label {
         text-transform: uppercase;
         transition: all 0.3s ease-in-out;
 
-        &:hover{
+        &:hover {
           background-color: var(--third-color);
           border-color: var(--third-color);
         }
       }
-
     }
+  }
+  .adminMenuBtnTwo {
+    display: none;
   }
 }
 
-.closedRightSection{
+.closedRightSection {
   position: relative;
   width: calc(100% - 80px);
   float: right;
@@ -2582,7 +2874,6 @@ label {
     justify-content: space-between;
 
     .adminMenuBtn {
-
     }
 
     .logoName {
@@ -2596,19 +2887,19 @@ label {
       }
     }
 
-    .otherContent{
+    .otherContent {
       position: relative;
       display: flex;
       align-items: center;
       gap: 20px;
 
-      .adminProfile{
+      .adminProfile {
         width: 55px;
         height: 55px;
         border-radius: 50%;
-        border:1px solid #007bff;
+        border: 1px solid #007bff;
 
-        img{
+        img {
           width: 100%;
           height: 100%;
           object-fit: cover;
@@ -2616,7 +2907,7 @@ label {
           border-radius: 50%;
         }
       }
-      button{
+      button {
         padding: 5px 20px;
         background-color: transparent;
         border: 1px solid var(--text-color);
@@ -2627,12 +2918,39 @@ label {
         text-transform: uppercase;
         transition: all 0.3s ease-in-out;
 
-        &:hover{
+        &:hover {
           background-color: var(--third-color);
           border-color: var(--third-color);
         }
       }
-
     }
   }
+  .adminMenuBtnTwo {
+    display: none;
+  }
 }
+
+.adminMainContent{
+  position: relative;
+  margin-top: 50px;
+  width: 100%;
+}
+
+.adminDetailsContainer{
+  width: 100%;
+  position: relative;
+  padding: 20px;
+  background-color: #212121;
+  border-radius: 8px;
+
+  h3{
+    color: var(--success_secondary);
+  }
+  h4{
+    color: var(--third-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+

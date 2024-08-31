@@ -1,28 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { products } from "../OurAlumni/Data";
 import axios from "axios";
 
 export default function UserProfile() {
-  const [memberData,setMemberData] = useState([])
-  const {id} = useParams()
-  const profile = memberData.find((member) => member.membernace === id);
-
+  const [memberData, setMemberData] = useState({});
+  const { id } = useParams();
 
   useEffect(() => {
     async function fetchMember() {
+      const formData = new FormData();
+      formData.append("mnid", id);
+      formData.append("Mod", "getMemberData");
       try {
-        const response = await axios.get(
-          "https://www.gdsons.co.in/draft/sjs/all-members"
+        const response = await axios.post(
+          "https://www.gdsons.co.in/draft/sjs/get-member-details",
+          formData
         );
-        setMemberData(response?.data)
+        setMemberData(response?.data);
       } catch (error) {
         console.log(error.message);
       }
     }
-    fetchMember()
-  }, []);
-  
+    fetchMember();
+  }, [id]);
+  // console.log(memberData.profile_picture);
+
   return (
     <section className="sectionContainer">
       <div className="container">
@@ -32,45 +34,81 @@ export default function UserProfile() {
               <div
                 className="profileBannerContainer"
                 style={{
-                  backgroundImage:
-                    "url('/images/profile-banner/profile-banner.jpg')",
+                  backgroundImage: "url('/images/profile-banner/school.jpg')",
                 }}
-              >
-                {/* <img src="/images/profile-banner/profile-banner.jpg" alt="" /> */}
-              </div>
+              ></div>
               <div className="userProfilePic">
-                <img src="/images/faculity/02.jpg" alt="" />
+                <img
+                  src={
+                    memberData?.profile_picture === " " ||
+                    !memberData?.profile_picture
+                      ? "/images/8.png"
+                      : memberData?.profile_picture
+                  }
+                  alt="Profile"
+                />
               </div>
               <div className="userNameContainer">
                 <div className="row row-gap-3">
                   <div className="col-lg-6">
-                    <h3>{profile?.membernace}</h3>
-                    <p>A Full Stack Developer</p>
-                    <p>Sigra,varansi, Uttar Pradesh</p>
+                    <h3>{memberData?.title || "Name not available"}</h3>
+                    <p>Batch:- {memberData?.batch || "Batch not available"}</p>
+                    <p>
+                      Joining Year:-{" "}
+                      {memberData?.joining_year || "Joining year not available"}
+                    </p>
+                    <p>
+                      Currently Working as:-{" "}
+                      {memberData?.trade_category || "Trade not available"}
+                    </p>
+                    <p>
+                      Current Location:-{" "}
+                      {memberData?.location || "Location not available"}
+                    </p>
                     <div className="socialMediaIcons">
-                      <i class="fa-brands fa-instagram"></i>
-                      <i class="fa-brands fa-x-twitter"></i>
-                      <i class="fa-brands fa-facebook-f"></i>
-                      <i class="fa-brands fa-whatsapp"></i>
-                      <i class="fa-brands fa-linkedin-in"></i>
-                      <i class="fa-solid fa-link"></i>
-                    </div>
-                    <div className="buttonContainer">
-                      <button>Message</button>
-                      <button>Call</button>
+                      {memberData?.facebook === ' ' ? "" : (
+                        <a
+                          href={memberData.facebook}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <i className="fa-brands fa-facebook-f"></i>
+                        </a>
+                      )}
+                      {memberData?.instagram === " " ? "" : (
+                        <a
+                          href={memberData.instagram}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <i className="fa-brands fa-instagram"></i>
+                        </a>
+                      )}
+                      {memberData?.twitter === " " ? " " : (
+                        <a
+                          href={memberData.twitter}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <i className="fa-brands fa-x-twitter"></i>
+                        </a>
+                      )}
+                      {memberData?.linkedin === ' ' ? " " : (
+                        <a
+                          href={memberData.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <i className="fa-brands fa-linkedin-in"></i>
+                        </a>
+                      )}
                     </div>
                   </div>
                   <div className="col-lg-6">
                     <div className="summary">
                       <h6>About Me</h6>
                       <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Neque amet aliquid quis modi nulla saepe debitis illo ad
-                        laborum possimus necessitatibus tempore eaque tempora
-                        sapiente enim ipsam beatae pariatur tenetur, nemo aut
-                        aperiam maxime assumenda. Atque mollitia molestias earum
-                        quia.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus sunt cupiditate alias deserunt, distinctio voluptas animi a error optio amet.
+                        {memberData?.about_me === ' ' ? "" : memberData?.about_me }
                       </p>
                     </div>
                   </div>
