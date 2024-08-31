@@ -174,18 +174,18 @@ export default function OurAlumni() {
 
     return pages;
   };
-// console.log(memberData);
+  // console.log(memberData);
 
   const handleDownloadPDF = () => {
     const doc = new jsPDF();
-  
+
     const img = "/images/8.png";
     doc.addImage(img, "PNG", 10, 10, 30, 30);
     doc.setFontSize(25);
     doc.text("St John's School Alumni Association", 50, 25);
     doc.setLineWidth(0.5);
     doc.line(10, 45, 200, 45);
-  
+
     const tableColumn = [
       "Sr. No.",
       "Name",
@@ -197,14 +197,14 @@ export default function OurAlumni() {
       "Current Location",
     ];
     const tableRows = [];
-  
+
     const filtered = memberData.filter((product) =>
       product[filterCategory]
         ?.toString()
         .toLowerCase()
         .includes(filterValue.toLowerCase())
     );
-  
+
     filtered.forEach((member, index) => {
       const memberDetails = [
         index + 1,
@@ -218,12 +218,11 @@ export default function OurAlumni() {
       ];
       tableRows.push(memberDetails);
     });
-  
+
     doc.autoTable(tableColumn, tableRows, { startY: 50 });
-  
+
     doc.save("filtered_members_list.pdf");
   };
-  
 
   useEffect(() => {
     if (updateEmailModal) {
@@ -243,6 +242,16 @@ export default function OurAlumni() {
   function handleClose() {
     setUpdateEmailModal(false);
   }
+
+
+function handlePrint(userId){
+  console.log(userId);
+  const memberr = memberData.find((user) => user.mnid === userId);
+  console.log(memberr);
+  
+}
+
+
 
   return (
     <section className="sectionContainer">
@@ -297,6 +306,7 @@ export default function OurAlumni() {
                     {isLogedIn && <th>Contact No</th>}
                     {isLogedIn && <th>Email</th>}
                     {isLogedIn ? "" : <th>Action</th>}
+                    <th>new field</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -380,6 +390,14 @@ export default function OurAlumni() {
                           )}
                         </td>
                       )}
+                      <td>
+                        <div
+                          className="btn btn-primary"
+                          onClick={()=>handlePrint(product.mnid)}
+                        >
+                          print
+                        </div>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
