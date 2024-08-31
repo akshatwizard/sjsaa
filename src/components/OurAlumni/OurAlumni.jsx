@@ -174,17 +174,17 @@ export default function OurAlumni() {
 
     return pages;
   };
-  
+
   const handleDownloadPDF = () => {
     const doc = new jsPDF();
-
+  
     const img = "/images/8.png";
     doc.addImage(img, "PNG", 10, 10, 30, 30);
-    doc.setFontSize(25);
+    doc.setFontSize(20);
     doc.text("St John's School Alumni Association", 50, 25);
     doc.setLineWidth(0.5);
     doc.line(10, 45, 200, 45);
-
+  
     const tableColumn = [
       "Sr. No.",
       "Name",
@@ -194,38 +194,35 @@ export default function OurAlumni() {
       "Date of Birth",
       "Profession & Working As",
       "Current Location",
-      isLogedIn && "Contact No",
-      isLogedIn && "Email",
     ];
     const tableRows = [];
-
+  
     const filtered = memberData.filter((product) =>
       product[filterCategory]
         ?.toString()
         .toLowerCase()
         .includes(filterValue.toLowerCase())
     );
-    
+  
     filtered.forEach((member, index) => {
       const memberDetails = [
         index + 1,
         member.membernace,
-        member.joiningyear,
-        member.batch,
-        "NA",
-        "NA",
-        "NA",
-        member.location,
-        isLogedIn && member?.mobile_number_one || "not avilable",
-        isLogedIn && member?.email || "not avilable",
+        member.joiningyear || "not provided",
+        member.batch || "not provided",
+        member.qualification,
+        member.dob,
+        member.trade_category,
+        member.location || "not provided",
       ];
       tableRows.push(memberDetails);
     });
-
+  
     doc.autoTable(tableColumn, tableRows, { startY: 50 });
-
+  
     doc.save("filtered_members_list.pdf");
   };
+  
 
   useEffect(() => {
     if (updateEmailModal) {
@@ -245,6 +242,7 @@ export default function OurAlumni() {
   function handleClose() {
     setUpdateEmailModal(false);
   }
+// console.log(memberData);
 
   return (
     <section className="sectionContainer">
@@ -346,20 +344,20 @@ export default function OurAlumni() {
                         </Link>
                       </td>
                       <td>{product.joiningyear}</td>
-                      <td>{product?.batch || "not provided"}</td>
-                      <td>NA</td>
-                      <td>NA</td>
-                      <td>NA</td>
-                      <td>{product?.location || "not provided"}</td>
+                      <td>{product?.batch || ""}</td>
+                      <td>{product.qualification || ""}</td>
+                      <td>{product.dob || ""}</td>
+                      <td>{product.trade_category || ""}</td>
+                      <td>{product?.location || ""}</td>
                       {isLogedIn && (
                         <td>
-                          {product?.mobile_number_one || "Not available"}
+                          {product?.mobile_number_one || ""}
                           {product?.mobile_number_two
                             ? `, ${product.mobile_number_two}`
                             : ""}
                         </td>
                       )}
-                      {isLogedIn && <td>{product?.email || "not avilable"}</td>}
+                      {isLogedIn && <td>{product?.email || ""}</td>}
                       {isLogedIn ? (
                         ""
                       ) : (
@@ -395,8 +393,9 @@ export default function OurAlumni() {
       <Suspense fallback={<Loader />}>
         {updateEmailModal && (
           <UpdateEmail
-            closeBtn={handleClose}
-            userDetails={updateEmailDetails}
+            close={handleClose}
+            isOpen={updateEmailModal}
+            details={updateEmailDetails}
           />
         )}
       </Suspense>
