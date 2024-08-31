@@ -145,11 +145,17 @@ export default function Profile() {
         "https://www.gdsons.co.in/draft/sjs/update-members-data",
         formData
       );
-      console.log(response.data);
+      // console.log(response.data);
 
       if (response.data[0].message === "Updated") {
         setShowSuccessMessage(true);
         setIsFormEditable(false);
+
+        setUserData((prevData) => ({
+          ...prevData,
+          ...fullUserData,
+          profile_picture: profilePic ? URL.createObjectURL(profilePic) : prevData.profile_picture,
+        }));
       }
       setLoading(false);
     } catch (error) {
@@ -194,18 +200,19 @@ export default function Profile() {
                     <h3>{userData?.title}</h3>
                     <p>{userData?.trade_category}</p>
                     <p>{userData?.email_id}</p>
+                    <p>{userData?.mobile_number_one}, {userData?.mobile_number_two}</p>
                     <p>{userData?.address}</p>
                     <div className="socialMediaIcons">
-                      <a href={userData?.facebook} target="_blank">
+                      <a href={userData?.facebook || "#"} target="_blank">
                         <i className="fa-brands fa-facebook-f"></i>
                       </a>
-                      <a href={userData?.instagram} target="_blank">
+                      <a href={userData?.instagram || "#"} target="_blank">
                         <i className="fa-brands fa-instagram"></i>
                       </a>
-                      <a href={userData?.twitter} target="_blank">
+                      <a href={userData?.twitter || "#"} target="_blank">
                         <i className="fa-brands fa-x-twitter"></i>
                       </a>
-                      <a href={userData?.linkedin} target="_blank">
+                      <a href={userData?.linkedin || "#"} target="_blank">
                         <i className="fa-brands fa-linkedin-in"></i>
                       </a>
                     </div>
