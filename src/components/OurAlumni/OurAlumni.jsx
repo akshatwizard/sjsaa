@@ -339,7 +339,7 @@ export default function OurAlumni() {
                         )}
 
                         <Link
-                          to={`/user/profile/${product.membernace}`}
+                          to={`/user/profile/${product.mnid}`}
                           className="nameLink"
                           onClick={scrollToTop}
                         >
