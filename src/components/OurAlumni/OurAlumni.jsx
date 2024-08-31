@@ -174,6 +174,7 @@ export default function OurAlumni() {
 
     return pages;
   };
+// console.log(memberData);
 
   const handleDownloadPDF = () => {
     const doc = new jsPDF();
@@ -210,9 +211,9 @@ export default function OurAlumni() {
         member.membernace,
         member.joiningyear || "not provided",
         member.batch || "not provided",
-        "NA",
-        "NA",
-        "NA",
+        member.qualification,
+        member.dob,
+        member.trade_category,
         member.location || "not provided",
       ];
       tableRows.push(memberDetails);
