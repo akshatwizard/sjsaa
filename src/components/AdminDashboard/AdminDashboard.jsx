@@ -1,15 +1,20 @@
-import React, { lazy, Suspense, useContext, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, { lazy, Suspense, useContext, useEffect, useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Context } from "../../context/Context";
 import ComponentLoader from "../ComponentLoader/ComponentLoader.jsx";
 import Dashboard from "./AdminComponents/Dashboard.jsx";
 import GalleryUpdate from "./AdminComponents/GalleryUpdate.jsx";
 import AddMembers from "./AdminComponents/AddMembers.jsx";
 const OurAlumni = lazy(() => import("../OurAlumni/OurAlumni.jsx"));
+import Cookies from "js-cookie";
+import axios from "axios";
 export default function AdminDashboard() {
+  const { isLogedIn,setIsLogedIn } = useContext(Context);
   const [selectedTab, setSelectedTab] = useState("dashboard");
+  const [adminData, setAdminData] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { noOfMembers } = useContext(Context);
+  const navigator = useNavigate();
   let date = new Date().getFullYear();
   function handleClick(event) {
     setSelectedTab(event.target.id);
@@ -17,6 +22,49 @@ export default function AdminDashboard() {
   function handleMenuBtnClicked() {
     setIsMenuOpen(!isMenuOpen);
   }
+
+  useEffect(() => {
+    if (isLogedIn) {
+      const id = Cookies.get("mnid");
+      
+      const fetchUserDetails = async () => {
+        const formData = new FormData();
+        formData.append("mnid", id);
+        formData.append("Mod", "getMemberData");
+        
+        try {
+          const response = await axios.post(
+            `https://www.gdsons.co.in/draft/sjs/get-member-details`,
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          );
+          setAdminData(response?.data);
+        } catch (error) {
+          console.error("Error fetching user details:", error);
+        }
+      };
+
+      fetchUserDetails();
+      // console.log(adminData);
+      
+    }
+    if (!isLogedIn) {
+      navigator("/");
+      return;
+    }
+
+  }, [isLogedIn, navigator]);
+
+  const handleLogOut = () => {
+    Cookies.remove("mnid");
+    setIsLogedIn(false);
+  };
+
+
   return (
     <section className="adminSection">
       <div className={!isMenuOpen ? "leftSection" : "closedLeftSection"}>
@@ -122,19 +170,25 @@ export default function AdminDashboard() {
             <p>St John's School Alumni Association</p>
           </div>
           <div className="otherContent">
-            <div className="adminProfile"></div>
+            <div className="adminProfile">
+              <img src={adminData?.profile_picture} alt="" />
+            </div>
             <div className="logOutbtn">
-              <button>Logout</button>
+              <button onClick={handleLogOut}>Logout</button>
             </div>
           </div>
         </div>
 
-        {selectedTab === "dashboard" && <Dashboard OurAlumni={OurAlumni} noOfMembers={noOfMembers} ComponentLoader={ComponentLoader}/>}
-        
-        {selectedTab === 'Update' && <GalleryUpdate/>}
-        {selectedTab === 'Add' && <AddMembers/>}
+        {selectedTab === "dashboard" && (
+          <Dashboard
+            OurAlumni={OurAlumni}
+            noOfMembers={noOfMembers}
+            ComponentLoader={ComponentLoader}
+          />
+        )}
 
-
+        {selectedTab === "Update" && <GalleryUpdate />}
+        {selectedTab === "Add" && <AddMembers />}
 
         <div className="col-lg-12">
           <div className="endSection">
