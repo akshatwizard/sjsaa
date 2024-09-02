@@ -21,7 +21,7 @@ const AGMElection = lazy(()=>import("./components/AGMElection/AGMElection.jsx"))
 const RegistrationForm = lazy(()=>import("./components/RegistrationForm/RegistrationForm.jsx"))
 const AdminDashboard = lazy(()=>import('./components/AdminDashboard/AdminDashboard.jsx')); 
 const PaymentPage = lazy(()=>import('./components/RegistrationForm/PaymentPage.jsx'))
-
+const DownloadPdf = lazy(()=>import('./components/DownloadPDF/DownloadPdf.jsx'));
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -129,6 +129,14 @@ const router = createBrowserRouter(
         element={
           <Suspense fallback={<Loader/>}>
             <AdminDashboard />
+          </Suspense>
+        }
+      />
+      <Route
+        path='/member-preview/:id'
+        element={
+          <Suspense fallback={<Loader/>}>
+            <DownloadPdf />
           </Suspense>
         }
       />
