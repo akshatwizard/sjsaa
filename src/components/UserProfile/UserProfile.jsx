@@ -42,7 +42,7 @@ export default function UserProfile() {
                   src={
                     memberData?.profile_picture === " " ||
                     !memberData?.profile_picture
-                      ? "/images/8.png"
+                      ? "/images/default-profile.png"
                       : memberData?.profile_picture
                   }
                   alt="Profile"

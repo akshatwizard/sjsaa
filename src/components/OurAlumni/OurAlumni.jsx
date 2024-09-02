@@ -6,7 +6,7 @@ import React, {
   lazy,
   Suspense,
 } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { scrollToTop } from "../../helper/scroll.js";
 import axios from "axios";
 import { Context } from "../../context/Context.jsx";
@@ -26,6 +26,7 @@ export default function OurAlumni() {
   const [updateEmailDetails, setUpdateEmailDetails] = useState(null);
   const rowsPerPage = 20;
   const { isLogedIn, setIsLogedIn } = useContext(Context);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchMember() {
@@ -244,9 +245,12 @@ export default function OurAlumni() {
   }
 
   function handlePrint(userId) {
-    console.log(userId);
-    const memberr = memberData.find((user) => user.mnid === userId);
-    console.log(memberr);
+    const member = memberData.find((user) => user.mnid === userId);
+    if (!member) {
+      console.error("Member not found");
+      return;
+    }
+    navigate(`/member-preview/${userId}`);
   }
 
   return (
@@ -302,7 +306,7 @@ export default function OurAlumni() {
                     {isLogedIn && <th>Contact No</th>}
                     {isLogedIn && <th>Email</th>}
                     {isLogedIn ? "" : <th>Action</th>}
-                    {/* <th>new field</th> */}
+                    <th>Print</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -386,14 +390,14 @@ export default function OurAlumni() {
                           )}
                         </td>
                       )}
-                      {/* <td>
+                      <td>
                         <div
                           className="btn btn-primary"
                           onClick={() => handlePrint(product.mnid)}
                         >
                           print
                         </div>
-                      </td> */}
+                      </td>
                     </tr>
                   ))}
                 </tbody>

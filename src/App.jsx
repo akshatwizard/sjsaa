@@ -5,7 +5,7 @@ import Footer from "./components/Footer/Footer";
 
 export default function App() {
   const location = useLocation();
-  const hideNavAndFooter = location.pathname.startsWith("/admin");
+  const hideNavAndFooter = location.pathname.startsWith("/admin") || location.pathname.startsWith("/member-preview");;
 
   return (
     <>
