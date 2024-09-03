@@ -17,7 +17,7 @@ import Fancybox from "../ImageZoom/Fancybox.jsx";
 const UpdateEmail = lazy(() => import("../UpdateEmail/UpdateEmail.jsx"));
 
 export default function OurAlumni() {
-  const { setLoginModal } = useContext(Context);
+  const { setLoginModal, isAdmin } = useContext(Context);
   const [memberData, setMemberData] = useState([]);
   const [filterValue, setFilterValue] = useState("");
   const [filterCategory, setFilterCategory] = useState("membernace");
@@ -175,7 +175,7 @@ export default function OurAlumni() {
 
     return pages;
   };
-  // console.log(memberData);
+  // console.log(isAdmin);
 
   const handleDownloadPDF = () => {
     const doc = new jsPDF();
@@ -250,7 +250,7 @@ export default function OurAlumni() {
       console.error("Member not found");
       return;
     }
-    navigate(`/member-preview/${userId}`);
+    window.open(`/member-preview/${userId}`, "_blank");
   }
 
   return (
@@ -306,7 +306,7 @@ export default function OurAlumni() {
                     {isLogedIn && <th>Contact No</th>}
                     {isLogedIn && <th>Email</th>}
                     {isLogedIn ? "" : <th>Action</th>}
-                    <th>Print</th>
+                    {isAdmin && <th>Print</th>}
                   </tr>
                 </thead>
                 <tbody>
@@ -349,6 +349,7 @@ export default function OurAlumni() {
                           to={`/user/profile/${product.mnid}`}
                           className="nameLink"
                           onClick={scrollToTop}
+                          target="_blank"
                         >
                           {product.membernace}
                         </Link>
@@ -390,14 +391,16 @@ export default function OurAlumni() {
                           )}
                         </td>
                       )}
-                      <td>
-                        <div
-                          className="btn btn-primary"
-                          onClick={() => handlePrint(product.mnid)}
-                        >
-                          print
-                        </div>
-                      </td>
+                      {isAdmin && (
+                        <td>
+                          <div
+                            className="btn btn-primary"
+                            onClick={() => handlePrint(product.mnid)}
+                          >
+                            Print
+                          </div>
+                        </td>
+                      )}
                     </tr>
                   ))}
                 </tbody>
