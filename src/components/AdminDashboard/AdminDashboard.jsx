@@ -45,7 +45,7 @@ export default function AdminDashboard() {
           );
           setAdminData(response?.data);
           setRole(response?.data.userrole)
-          if (userData?.userrole !== "Webadmin") {
+          if (response?.data.userrole !== "Webadmin") {
             navigator("/");
           }
         } catch (error) {
