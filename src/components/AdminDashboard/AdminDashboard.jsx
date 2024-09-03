@@ -13,6 +13,7 @@ export default function AdminDashboard() {
   const [selectedTab, setSelectedTab] = useState("dashboard");
   const [adminData, setAdminData] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [role,setRole] = useState("");
   const { noOfMembers } = useContext(Context);
   const navigator = useNavigate();
   let date = new Date().getFullYear();
@@ -43,14 +44,16 @@ export default function AdminDashboard() {
             }
           );
           setAdminData(response?.data);
+          setRole(response?.data.userrole)
+          if (userData?.userrole !== "Webadmin") {
+            navigator("/");
+          }
         } catch (error) {
           console.error("Error fetching user details:", error);
         }
       };
 
       fetchUserDetails();
-      // console.log(adminData);
-      
     }
     if (!isLogedIn) {
       navigator("/");
@@ -63,7 +66,7 @@ export default function AdminDashboard() {
     Cookies.remove("mnid");
     setIsLogedIn(false);
   };
-
+  // console.log(role);
 
   return (
     <section className="adminSection">
