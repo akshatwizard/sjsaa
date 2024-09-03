@@ -38,7 +38,7 @@ export default function Profile() {
   });
 
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [userRole,setUserRole] = useState("")
+  const [userRole, setUserRole] = useState("");
 
   const [profilePic, setProfilePic] = useState(null);
 
@@ -97,7 +97,7 @@ export default function Profile() {
         );
 
         const data = response.data;
-        setUserRole(data.userrole)
+        setUserRole(data.userrole);
         setUserData(data);
         setFullUserData({
           name: data?.title || "",
@@ -129,7 +129,6 @@ export default function Profile() {
     fetchUserDetails();
   }, [isLogedIn, navigator]);
   // console.log(userRole);
-  
 
   async function handleDataSubmit(event) {
     event.preventDefault();
@@ -228,10 +227,15 @@ export default function Profile() {
                     <button onClick={() => setPasswordModal(true)}>
                       Update Password
                     </button>
-                    {!userRole === "Webadmin" ? "" : 
-                    <Link to='/admin/dashboard' target="_balnk" className="adminBtn">
-                      <button>Admin Panel</button>
-                    </Link>}
+                    {userRole === "Webadmin" && (
+                      <Link
+                        to="/admin/dashboard"
+                        target="_blank"
+                        className="adminBtn"
+                      >
+                        <button>Admin Panel</button>
+                      </Link>
+                    )}
                   </div>
                   <div
                     style={{
