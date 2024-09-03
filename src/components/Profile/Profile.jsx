@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { Context } from "../../context/Context";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ComponentLoader from "../ComponentLoader/ComponentLoader";
 import UpdatePassword from "../UpdatePassword/UpdatePassword";
 import SuccessMessage from "./SuccessMessage";
@@ -38,6 +38,7 @@ export default function Profile() {
   });
 
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [userRole,setUserRole] = useState("")
 
   const [profilePic, setProfilePic] = useState(null);
 
@@ -96,6 +97,7 @@ export default function Profile() {
         );
 
         const data = response.data;
+        setUserRole(data.userrole)
         setUserData(data);
         setFullUserData({
           name: data?.title || "",
@@ -126,6 +128,8 @@ export default function Profile() {
 
     fetchUserDetails();
   }, [isLogedIn, navigator]);
+  // console.log(userRole);
+  
 
   async function handleDataSubmit(event) {
     event.preventDefault();
@@ -154,7 +158,9 @@ export default function Profile() {
         setUserData((prevData) => ({
           ...prevData,
           ...fullUserData,
-          profile_picture: profilePic ? URL.createObjectURL(profilePic) : prevData.profile_picture,
+          profile_picture: profilePic
+            ? URL.createObjectURL(profilePic)
+            : prevData.profile_picture,
         }));
       }
       setLoading(false);
@@ -200,7 +206,10 @@ export default function Profile() {
                     <h3>{userData?.title}</h3>
                     <p>{userData?.trade_category}</p>
                     <p>{userData?.email_id}</p>
-                    <p>{userData?.mobile_number_one}, {userData?.mobile_number_two}</p>
+                    <p>
+                      {userData?.mobile_number_one},{" "}
+                      {userData?.mobile_number_two}
+                    </p>
                     <p>{userData?.address}</p>
                     <div className="socialMediaIcons">
                       <a href={userData?.facebook || "#"} target="_blank">
@@ -219,6 +228,10 @@ export default function Profile() {
                     <button onClick={() => setPasswordModal(true)}>
                       Update Password
                     </button>
+                    {!userRole === "Webadmin" ? "" : 
+                    <Link to='/admin/dashboard' target="_balnk" className="adminBtn">
+                      <button>Admin Panel</button>
+                    </Link>}
                   </div>
                   <div
                     style={{

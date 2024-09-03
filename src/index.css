@@ -3056,3 +3056,18 @@ label {
     top: 0;
   }
 }
+
+
+.adminBtn{
+  margin-left: 20px;
+  button{
+    background-color: var(--third-color) !important;
+    border-color: var(--third-color) !important;
+
+    &:hover{
+      background-color: var(--text-color) !important;
+      border-color: var(--text-color) !important;
+      color: var(--primary-color) !important;
+    }
+  }
+}
