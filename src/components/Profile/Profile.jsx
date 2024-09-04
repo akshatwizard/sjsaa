@@ -211,19 +211,52 @@ export default function Profile() {
                     </p>
                     <p>{userData?.address}</p>
                     <div className="socialMediaIcons">
-                      <a href={userData?.facebook || "#"} target="_blank">
-                        <i className="fa-brands fa-facebook-f"></i>
-                      </a>
-                      <a href={userData?.instagram || "#"} target="_blank">
-                        <i className="fa-brands fa-instagram"></i>
-                      </a>
-                      <a href={userData?.twitter || "#"} target="_blank">
-                        <i className="fa-brands fa-x-twitter"></i>
-                      </a>
-                      <a href={userData?.linkedin || "#"} target="_blank">
-                        <i className="fa-brands fa-linkedin-in"></i>
-                      </a>
+                      {userData?.facebook?.trim() ? (
+                        <a
+                          href={userData.facebook}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <i className="fa-brands fa-facebook-f"></i>
+                        </a>
+                      ) : (
+                        ""
+                      )}
+                      {userData?.instagram?.trim() ? (
+                        <a
+                          href={userData.instagram}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <i className="fa-brands fa-instagram"></i>
+                        </a>
+                      ) : (
+                        ""
+                      )}
+                      {userData?.twitter?.trim() ? (
+                        <a
+                          href={userData.twitter}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <i className="fa-brands fa-x-twitter"></i>
+                        </a>
+                      ) : (
+                        ""
+                      )}
+                      {userData?.linkedin?.trim() ? (
+                        <a
+                          href={userData.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <i className="fa-brands fa-linkedin-in"></i>
+                        </a>
+                      ) : (
+                        ""
+                      )}
                     </div>
+
                     <button onClick={() => setPasswordModal(true)}>
                       Update Password
                     </button>

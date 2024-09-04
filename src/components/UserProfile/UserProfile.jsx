@@ -54,19 +54,23 @@ export default function UserProfile() {
                     <h3>{memberData?.title || "Name not available"}</h3>
                     <p>Batch:- {memberData?.batch || "Batch not available"}</p>
                     <p>
-                      Joining Year:-{" "}
-                      {memberData?.joining_year || "Joining year not available"}
+                      Alumni Joining Year:-{" "}
+                      {memberData?.joining_year === " "
+                        ? "Alumni Joining year not available "
+                        : memberData?.joining_year}
                     </p>
                     <p>
                       Currently Working as:-{" "}
-                      {memberData?.trade_category || "Trade not available"}
+                      {memberData?.trade_category === " "
+                        ? "Trade not available"
+                        : memberData?.trade_category}
                     </p>
                     <p>
                       Current Location:-{" "}
                       {memberData?.location || "Location not available"}
                     </p>
                     <div className="socialMediaIcons">
-                      {memberData?.facebook === ' ' ? "" : (
+                      {memberData?.facebook?.trim() ? (
                         <a
                           href={memberData.facebook}
                           target="_blank"
@@ -74,26 +78,32 @@ export default function UserProfile() {
                         >
                           <i className="fa-brands fa-facebook-f"></i>
                         </a>
+                      ) : (
+                        ""
                       )}
-                      {memberData?.instagram === " " ? "" : (
+                      {memberData?.instagram?.trim() ? (
                         <a
                           href={memberData.instagram}
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          <i className="fa-brands fa-instagram"></i>
+                          <i className="fa-brands fa-instagram" style={{color:"red"}}></i>
                         </a>
+                      ) : (
+                        ""
                       )}
-                      {memberData?.twitter === " " ? " " : (
+                      {memberData?.twitter?.trim() ? (
                         <a
                           href={memberData.twitter}
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          <i className="fa-brands fa-x-twitter"></i>
+                          <i className="fa-brands fa-x-twitter" style={{color:"black"}}></i>
                         </a>
+                      ) : (
+                        ""
                       )}
-                      {memberData?.linkedin === ' ' ? " " : (
+                      {memberData?.linkedin?.trim() ? (
                         <a
                           href={memberData.linkedin}
                           target="_blank"
@@ -101,6 +111,8 @@ export default function UserProfile() {
                         >
                           <i className="fa-brands fa-linkedin-in"></i>
                         </a>
+                      ) : (
+                        ""
                       )}
                     </div>
                   </div>
@@ -108,7 +120,7 @@ export default function UserProfile() {
                     <div className="summary">
                       <h6>About Me</h6>
                       <p>
-                        {memberData?.about_me === ' ' ? "" : memberData?.about_me }
+                        {memberData?.about_me?.trim() ? memberData?.about_me : ""}
                       </p>
                     </div>
                   </div>
