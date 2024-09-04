@@ -13,6 +13,10 @@
   --used-color: #f08a5d;
   --success_primary: #3dc480;
   --success_secondary: #b8babb;
+
+}
+a{
+  text-decoration: none;
 }
 html,
 body {
