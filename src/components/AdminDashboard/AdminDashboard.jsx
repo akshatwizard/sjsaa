@@ -8,6 +8,7 @@ import AddMembers from "./AdminComponents/AddMembers.jsx";
 const OurAlumni = lazy(() => import("../OurAlumni/OurAlumni.jsx"));
 import Cookies from "js-cookie";
 import axios from "axios";
+import AddNewEvent from "./AdminComponents/AddNewEvent.jsx";
 export default function AdminDashboard() {
   const { isLogedIn,setIsLogedIn } = useContext(Context);
   const [selectedTab, setSelectedTab] = useState("dashboard");
@@ -17,6 +18,7 @@ export default function AdminDashboard() {
   const { noOfMembers } = useContext(Context);
   const navigator = useNavigate();
   let date = new Date().getFullYear();
+  
   function handleClick(event) {
     setSelectedTab(event.target.id);
   }
@@ -100,8 +102,7 @@ export default function AdminDashboard() {
           <div className="adminLinkContainer">
             <div className="adminLinks">
               <div className="adminlink" onClick={handleClick}>
-                <Link
-                  to="#"
+                <div
                   id="dashboard"
                   className={`${
                     selectedTab === "dashboard" ? "activeTab" : ""
@@ -109,38 +110,35 @@ export default function AdminDashboard() {
                 >
                   <i class="fa-solid fa-house"></i>
                   <span>Dashboard</span>
-                </Link>
+                </div>
               </div>
 
               <div className="adminlink" onClick={handleClick}>
-                <NavLink
-                  to="#"
+                <div
                   id="Update"
                   className={`${selectedTab === "Update" ? "activeTab" : ""}`}
                 >
                   <i class="fa-regular fa-image"></i>
                   <span>Update Gallery</span>
-                </NavLink>
+                </div>
               </div>
               <div className="adminlink" onClick={handleClick}>
-                <NavLink
-                  to="#"
+                <div
                   id="Add"
                   className={`${selectedTab === "Add" ? "activeTab" : ""}`}
                 >
                   <i class="fa-solid fa-user"></i>
                   <span>Add Members</span>
-                </NavLink>
+                </div>
               </div>
               <div className="adminlink" onClick={handleClick}>
-                <NavLink
-                  to="#"
+                <div
                   id="event"
                   className={`${selectedTab === "event" ? "activeTab" : ""}`}
                 >
                   <i class="fa-solid fa-calendar-days"></i>
                   <span>Add Events</span>
-                </NavLink>
+                </div>
               </div>
             </div>
           </div>
@@ -192,7 +190,9 @@ export default function AdminDashboard() {
 
         {selectedTab === "Update" && <GalleryUpdate />}
         {selectedTab === "Add" && <AddMembers />}
+        {selectedTab === "event" && <AddNewEvent/>}
 
+        
         <div className="col-lg-12">
           <div className="endSection">
             <p>
