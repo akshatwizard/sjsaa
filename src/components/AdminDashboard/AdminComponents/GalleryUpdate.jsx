@@ -17,15 +17,11 @@ export default function GalleryUpdate() {
     }
 
     try {
-      const response = await axios.post(
-        "YOUR_BACKEND_ENDPOINT", 
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await axios.post("YOUR_BACKEND_ENDPOINT", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       console.log("Upload successful:", response.data);
     } catch (error) {
       console.error("Error uploading files:", error);
@@ -33,14 +29,22 @@ export default function GalleryUpdate() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="file"
-        multiple
-        onChange={handleFileChange}
-        accept="image/*"
-      />
-      <button type="submit">Upload Images</button>
-    </form>
+    <section className="adminMainContent">
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-12">
+            <form onSubmit={handleSubmit}>
+              <input
+                type="file"
+                multiple
+                onChange={handleFileChange}
+                accept="image/*"
+              />
+              <button type="submit">Upload Images</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
