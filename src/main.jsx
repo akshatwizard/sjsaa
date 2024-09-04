@@ -6,7 +6,7 @@ import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route } 
 import ContextProvider from './context/Context.jsx'
 
 const Home = lazy(() => import('./components/Home/Home.jsx'));
-const AboutUs = lazy(() => import('./components/About/AboutUs.jsx'));
+const AboutUs = lazy(() => import('./components/About/About.jsx'));
 const OurAlumni = lazy(() => import('./components/OurAlumni/OurAlumni.jsx'));
 const UpcomingEvents = lazy(() => import('./components/UpcomingEvents/UpcomingEvents.jsx'));
 const Gallery = lazy(() => import('./components/Gallery/Gallery.jsx'));
@@ -21,7 +21,7 @@ const AGMElection = lazy(()=>import("./components/AGMElection/AGMElection.jsx"))
 const RegistrationForm = lazy(()=>import("./components/RegistrationForm/RegistrationForm.jsx"))
 const AdminDashboard = lazy(()=>import('./components/AdminDashboard/AdminDashboard.jsx')); 
 const PaymentPage = lazy(()=>import('./components/RegistrationForm/PaymentPage.jsx'))
-
+const DownloadPdf = lazy(()=>import('./components/DownloadPDF/DownloadPdf.jsx'));
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -129,6 +129,14 @@ const router = createBrowserRouter(
         element={
           <Suspense fallback={<Loader/>}>
             <AdminDashboard />
+          </Suspense>
+        }
+      />
+      <Route
+        path='/member-preview/:id'
+        element={
+          <Suspense fallback={<Loader/>}>
+            <DownloadPdf />
           </Suspense>
         }
       />

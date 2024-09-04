@@ -275,7 +275,7 @@ export default function RegistrationForm() {
 
                 {/* Additional Form Fields */}
                 <div className="col-lg-4 mt-5">
-                  <label htmlFor="qualification">Joining Year</label>
+                  <label htmlFor="qualification">Alumni Joining Year</label>
                   <input
                     type="text"
                     id="joiningYear"

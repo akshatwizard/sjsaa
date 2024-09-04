@@ -141,10 +141,10 @@ export default function Events() {
                         <div className="col-lg-12 my-2">
                           <div className="eventDescription">
                             <p>
-                              Dear Friends, Join us for the grand opening of our
-                              new outlet, featuring all your favorites from Sri
-                              Annapurna Foods under one roof! Your presence will
-                              make this special occasion even more memorable.
+                              A grand opening of a new outlet Quick Bites by
+                              Harsh Jhunjhunwala, featuring all your favorites from Sri
+                              Annapurna Foods under one roof was attended by our fellow
+                              Alumni!
                             </p>
                           </div>
                         </div>
@@ -189,7 +189,7 @@ export default function Events() {
                           <div className="heading">
                             <a href="/">
                               <h1>
-                                Enjoying Movie :- Auron May Kahan Dum Tha
+                                Movie Night :- Auron May Kahan Dum Tha
                                 <i className="fa-solid fa-arrow-right "></i>
                               </h1>
                             </a>
@@ -198,9 +198,9 @@ export default function Events() {
                         <div className="col-lg-12 my-2">
                           <div className="eventDescription">
                             <p>
-                              Dear Friends, Please reach by 9.30 PM:. To Collect
-                              your tickets & to interact with others members. To
-                              Take photograhs
+                              A movie night show was hosted by Alumni Association 
+                              which was attended by fellow alumni members and was
+                              a grand success!
                             </p>
                           </div>
                         </div>

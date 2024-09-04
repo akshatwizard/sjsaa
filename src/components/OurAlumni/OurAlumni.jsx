@@ -6,7 +6,7 @@ import React, {
   lazy,
   Suspense,
 } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { scrollToTop } from "../../helper/scroll.js";
 import axios from "axios";
 import { Context } from "../../context/Context.jsx";
@@ -17,15 +17,16 @@ import Fancybox from "../ImageZoom/Fancybox.jsx";
 const UpdateEmail = lazy(() => import("../UpdateEmail/UpdateEmail.jsx"));
 
 export default function OurAlumni() {
-  const { setLoginModal } = useContext(Context);
+  const { setLoginModal, isAdmin } = useContext(Context);
   const [memberData, setMemberData] = useState([]);
   const [filterValue, setFilterValue] = useState("");
   const [filterCategory, setFilterCategory] = useState("membernace");
   const [currentPage, setCurrentPage] = useState(1);
   const [updateEmailModal, setUpdateEmailModal] = useState(false);
-  const [updateEmailDetails, setupdateEmailDetails] = useState(null);
+  const [updateEmailDetails, setUpdateEmailDetails] = useState(null);
   const rowsPerPage = 20;
   const { isLogedIn, setIsLogedIn } = useContext(Context);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchMember() {
@@ -70,7 +71,14 @@ export default function OurAlumni() {
   };
 
   const renderPagination = () => {
-    const totalPages = Math.ceil(memberData.length / rowsPerPage);
+    const totalPages = Math.ceil(
+      memberData.filter((product) =>
+        product[filterCategory]
+          ?.toString()
+          .toLowerCase()
+          .includes(filterValue.toLowerCase())
+      ).length / rowsPerPage
+    );
     const pages = [];
 
     if (totalPages <= 7) {
@@ -167,16 +175,15 @@ export default function OurAlumni() {
 
     return pages;
   };
+  // console.log(isAdmin);
 
   const handleDownloadPDF = () => {
     const doc = new jsPDF();
 
     const img = "/images/8.png";
-
     doc.addImage(img, "PNG", 10, 10, 30, 30);
     doc.setFontSize(25);
     doc.text("St John's School Alumni Association", 50, 25);
-
     doc.setLineWidth(0.5);
     doc.line(10, 45, 200, 45);
 
@@ -192,23 +199,30 @@ export default function OurAlumni() {
     ];
     const tableRows = [];
 
-    memberData.forEach((member, index) => {
+    const filtered = memberData.filter((product) =>
+      product[filterCategory]
+        ?.toString()
+        .toLowerCase()
+        .includes(filterValue.toLowerCase())
+    );
+
+    filtered.forEach((member, index) => {
       const memberDetails = [
         index + 1,
         member.membernace,
-        member.joiningyear,
-        member.batch,
-        "NA",
-        "NA",
-        "NA",
-        member.location,
+        member.joiningyear || "not provided",
+        member.batch || "not provided",
+        member.qualification,
+        member.dob,
+        member.trade_category,
+        member.location || "not provided",
       ];
       tableRows.push(memberDetails);
     });
 
     doc.autoTable(tableColumn, tableRows, { startY: 50 });
 
-    doc.save("members_list.pdf");
+    doc.save("filtered_members_list.pdf");
   };
 
   useEffect(() => {
@@ -224,12 +238,20 @@ export default function OurAlumni() {
 
   function handleUpdateEmail(product) {
     setUpdateEmailModal(true);
-    setupdateEmailDetails(product);
+    setUpdateEmailDetails(product);
   }
   function handleClose() {
     setUpdateEmailModal(false);
   }
-  console.log(memberData);
+
+  function handlePrint(userId) {
+    const member = memberData.find((user) => user.mnid === userId);
+    if (!member) {
+      console.error("Member not found");
+      return;
+    }
+    window.open(`/member-preview/${userId}`, "_blank");
+  }
 
   return (
     <section className="sectionContainer">
@@ -275,7 +297,7 @@ export default function OurAlumni() {
                   <tr>
                     <th>Sr. No.</th>
                     <th>Name</th>
-                    <th>Joined Year</th>
+                    <th>Alumni Joined Year</th>
                     <th>Batch</th>
                     <th>Qualification</th>
                     <th>Date of Birth</th>
@@ -284,6 +306,7 @@ export default function OurAlumni() {
                     {isLogedIn && <th>Contact No</th>}
                     {isLogedIn && <th>Email</th>}
                     {isLogedIn ? "" : <th>Action</th>}
+                    {isAdmin && <th>Print</th>}
                   </tr>
                 </thead>
                 <tbody>
@@ -323,24 +346,25 @@ export default function OurAlumni() {
                         )}
 
                         <Link
-                          to={`/user/profile/${product.membernace}`}
+                          to={`/user/profile/${product.mnid}`}
                           className="nameLink"
                           onClick={scrollToTop}
+                          target="_blank"
                         >
                           {product.membernace}
                         </Link>
                       </td>
                       <td>{product.joiningyear}</td>
                       <td>{product?.batch || "not provided"}</td>
-                      <td>NA</td>
-                      <td>NA</td>
-                      <td>NA</td>
+                      <td>{product.qualification}</td>
+                      <td>{product.dob}</td>
+                      <td>{product.trade_category}</td>
                       <td>{product?.location || "not provided"}</td>
                       {isLogedIn && (
                         <td>
                           {product?.mobile_number_one || "Not available"}
                           {product?.mobile_number_two
-                            ? `, ${product.mobile_number_two}`
+                            ? ` ${product.mobile_number_two}`
                             : ""}
                         </td>
                       )}
@@ -367,25 +391,34 @@ export default function OurAlumni() {
                           )}
                         </td>
                       )}
+                      {isAdmin && (
+                        <td>
+                          <div
+                            className="btn btn-primary"
+                            onClick={() => handlePrint(product.mnid)}
+                          >
+                            Print
+                          </div>
+                        </td>
+                      )}
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
           </div>
-          <div className="col-lg-12">
-            <div className="pagination">{renderPagination()}</div>
-          </div>
         </div>
+        <div className="pagination">{renderPagination()}</div>
       </div>
-      {updateEmailModal && (
-        <Suspense fallback={<Loader />}>
+
+      <Suspense fallback={<Loader />}>
+        {updateEmailModal && (
           <UpdateEmail
             closeBtn={handleClose}
             userDetails={updateEmailDetails}
           />
-        </Suspense>
-      )}
+        )}
+      </Suspense>
     </section>
   );
 }

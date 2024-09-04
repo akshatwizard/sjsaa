@@ -167,6 +167,15 @@ export default function Header() {
               >
                 <Link to="/our-alumni">All Alumni List</Link>
               </li>
+              <li
+                onClick={() => {
+                  setMemberDropDownOpen(false);
+                  scrollToTop();
+                  setIsOpened(false);
+                }}
+              >
+                <Link to="/payment-page">Registration Process</Link>
+              </li>
             </ul>
           </div>
           {/* <div style={{width:"2px",height:"40px",backgroundColor:"black"}}></div> */}
