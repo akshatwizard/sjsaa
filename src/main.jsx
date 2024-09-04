@@ -22,6 +22,7 @@ const RegistrationForm = lazy(()=>import("./components/RegistrationForm/Registra
 const AdminDashboard = lazy(()=>import('./components/AdminDashboard/AdminDashboard.jsx')); 
 const PaymentPage = lazy(()=>import('./components/RegistrationForm/PaymentPage.jsx'))
 const DownloadPdf = lazy(()=>import('./components/DownloadPDF/DownloadPdf.jsx'));
+const Discussion = lazy(()=>import('./components/DiscussionForum/Discussion.jsx')) 
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -137,6 +138,14 @@ const router = createBrowserRouter(
         element={
           <Suspense fallback={<Loader/>}>
             <DownloadPdf />
+          </Suspense>
+        }
+      />
+      <Route
+        path='/members-post'
+        element={
+          <Suspense fallback={<Loader/>}>
+            <Discussion />
           </Suspense>
         }
       />
