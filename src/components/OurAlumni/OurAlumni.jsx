@@ -349,7 +349,7 @@ export default function OurAlumni() {
                           to={`/user/profile/${product.mnid}`}
                           className="nameLink"
                           onClick={scrollToTop}
-                          target="_blank"
+                          // target="_blank"
                         >
                           {product.membernace}
                         </Link>
