@@ -13,9 +13,8 @@
   --used-color: #f08a5d;
   --success_primary: #3dc480;
   --success_secondary: #b8babb;
-
 }
-a{
+a {
   text-decoration: none;
 }
 html,
@@ -1303,7 +1302,7 @@ table {
   }
 }
 
-.passwordModal{
+.passwordModal {
   overflow-y: hidden !important;
 }
 
@@ -1627,7 +1626,6 @@ table {
       width: 100%;
       margin-top: 50px;
 
-
       h3 {
         color: var(--third-color);
       }
@@ -1644,13 +1642,13 @@ table {
         align-items: center;
         gap: 20px;
 
-        a{
+        a {
           text-decoration: none;
 
-          &:nth-child(2){
+          &:nth-child(2) {
             color: #ff0000;
           }
-          &:nth-child(3){
+          &:nth-child(3) {
             color: #171717;
           }
         }
@@ -1673,7 +1671,6 @@ table {
             color: #f3f4f6;
           }
         }
-        
       }
       button {
         position: relative;
@@ -1685,7 +1682,7 @@ table {
         font-size: 16px;
         font-weight: 400;
 
-        &:hover{
+        &:hover {
           color: var(--third-color);
           border-color: var(--third-color);
         }
@@ -2450,8 +2447,8 @@ label {
   z-index: 99;
 }
 
-@media (min-width:902px) {
-  .clbt{
+@media (min-width: 902px) {
+  .clbt {
     display: none !important;
   }
 }
@@ -2716,7 +2713,7 @@ label {
     position: relative;
     float: right;
     transition: width 0.5s;
-  
+
     .rightNav {
       width: 100%;
       padding: 10px;
@@ -2724,13 +2721,13 @@ label {
       display: flex;
       align-items: center;
       justify-content: space-between;
-  
+
       .adminMenuBtn {
       }
-  
+
       .logoName {
         position: relative;
-  
+
         p {
           font-size: 16px !important;
           font-weight: 500;
@@ -2738,19 +2735,19 @@ label {
           margin: 0;
         }
       }
-  
+
       .otherContent {
         position: relative;
         display: flex;
         align-items: center;
         gap: 15px !important;
-  
+
         .adminProfile {
           width: 45px !important;
           height: 45px !important;
           border-radius: 50%;
           border: 1px solid #007bff;
-  
+
           img {
             width: 100%;
             height: 100%;
@@ -2781,9 +2778,7 @@ label {
       display: none;
     }
   }
-  
 }
-
 
 @media (max-width: 480px) {
   .logoName p {
@@ -2934,23 +2929,23 @@ label {
   }
 }
 
-.adminMainContent{
+.adminMainContent {
   position: relative;
   margin-top: 50px;
   width: 100%;
 }
 
-.adminDetailsContainer{
+.adminDetailsContainer {
   width: 100%;
   position: relative;
   padding: 20px;
   background-color: #212121;
   border-radius: 8px;
 
-  h3{
+  h3 {
     color: var(--success_secondary);
   }
-  h4{
+  h4 {
     color: var(--third-color);
     display: flex;
     align-items: center;
@@ -2958,8 +2953,7 @@ label {
   }
 }
 
-
-.image-preview-container{
+.image-preview-container {
   display: flex;
   flex-wrap: wrap;
   gap: 30px;
@@ -2969,19 +2963,19 @@ label {
   border-radius: 15px;
   margin: 20px 0 50px 0;
 
-  .image-preview-block{
+  .image-preview-block {
     position: relative;
     background-color: var(--primary-color);
     padding: 15px;
     border-radius: 10px;
   }
 
-  img{
+  img {
     border-radius: 5px;
   }
 }
 
-.upBtn{
+.upBtn {
   background-color: var(--text-color);
   color: var(--primary-color);
   padding: 13px 40px;
@@ -2991,26 +2985,25 @@ label {
   font-weight: 600;
   margin-left: 50px;
 
-
-  &:hover{
+  &:hover {
     color: var(--text-color);
-    background-color:var(--success_primary);
+    background-color: var(--success_primary);
   }
 }
 
-.upGallery{
+.upGallery {
   margin-bottom: 30px;
 
   input[type="file"] {
-    background-color: #333; 
-    color: #fff; 
-    border: 1px solid #555; 
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #555;
     padding: 10px;
-    border-radius: 5px; 
-    cursor: pointer; 
+    border-radius: 5px;
+    cursor: pointer;
     transition: background-color 0.3s, border-color 0.3s;
   }
-  
+
   input[type="file"]::-webkit-file-upload-button {
     background-color: #444;
     color: #fff;
@@ -3020,19 +3013,18 @@ label {
     cursor: pointer;
     transition: background-color 0.3s;
   }
-  
+
   input[type="file"]:hover {
-    background-color: #444; 
-    border-color: #666; 
+    background-color: #444;
+    border-color: #666;
   }
-  
+
   input[type="file"]::-webkit-file-upload-button:hover {
-    background-color: #555; 
+    background-color: #555;
   }
-  
 }
 
-.add-new-event-container{
+.add-new-event-container {
   width: 100%;
   position: relative;
   padding: 20px;
@@ -3040,8 +3032,8 @@ label {
   border-radius: 15px;
   margin: 10px 0 50px 0;
 
-
-  input, textarea {
+  input,
+  textarea {
     position: relative;
     width: 100%;
     height: 60px;
@@ -3066,7 +3058,7 @@ label {
     cursor: pointer;
   }
 
-  button{
+  button {
     padding: 12px 50px;
     background-color: var(--text-color);
     font-size: 23px;
@@ -3075,10 +3067,9 @@ label {
     border-radius: 10px;
     cursor: pointer;
 
-
-    &:hover{
+    &:hover {
       color: var(--text-color);
-      background-color:var(--success_primary);
+      background-color: var(--success_primary);
     }
   }
 }
@@ -3096,21 +3087,20 @@ label {
   cursor: pointer;
 }
 
-.pdfPreviewSection{
+.pdfPreviewSection {
   width: 100%;
   min-height: 100vh;
   background-color: var(--text-color);
   padding: 20px;
 
-
-  .pdfContainer{
+  .pdfContainer {
     border: 1px solid;
     position: relative;
     /* min-height: 100vh; */
     width: 100%;
     border-radius: 15px;
 
-    .pdfHeader{
+    .pdfHeader {
       position: relative;
       width: 100%;
       display: flex;
@@ -3119,91 +3109,95 @@ label {
       padding: 10px;
       border-bottom: 1px solid;
       gap: 10px;
-      
 
-      .pdfLogo{
+      .pdfLogo {
         margin-top: 5px;
         width: 100px;
         position: relative;
-        img{
+        img {
           width: 100%;
         }
       }
-      .schoolName{
+      .schoolName {
         position: relative;
 
-
-        h3{
+        h3 {
           margin-top: 10px;
           font-weight: 700;
           font-size: 14px;
         }
-        h5{
+        h5 {
           font-size: 10px;
           margin: 0;
         }
-        h4{
+        h4 {
           font-size: 10px;
           margin: 0;
         }
 
-        span{
+        span {
           font-weight: 600;
           font-size: 10px;
         }
-        h6{
+        h6 {
           font-size: 10px;
         }
       }
-
     }
 
-    .pdfBody{
+    .pdfBody {
       position: relative;
       padding: 20px;
-
     }
-
   }
 }
 
-.datacontainer{
+.datacontainer {
   width: 100%;
   position: relative;
   display: flex;
   gap: 5px;
 
-  div{
+  div {
     border-bottom: 1.3px dashed;
     font-weight: 400;
   }
-  span{
+  span {
     font-size: 18px;
     font-weight: 500;
   }
 }
 
-.data-content{
+.data-content {
   width: 100%;
   position: relative;
   display: flex;
   gap: 5px;
 
-  div{
+  div {
     font-weight: 400;
   }
-  span{
-    font-size: 18px;
+  span {
+    font-size: 15px;
     font-weight: 500;
   }
+  p{
+    margin: 0;
+  }
+  ol {
+    padding: 0;
+    li {
+      font-size: 15px;
+    }
+  }
 }
-
 
 @media print {
   body * {
     visibility: hidden;
   }
-  #printable-content, #printable-content * {
+  #printable-content,
+  #printable-content * {
     visibility: visible;
   }
   #printable-content {
@@ -3214,14 +3208,13 @@ label {
   }
 }
 
-
-.adminBtn{
+.adminBtn {
   margin-left: 20px;
-  button{
+  button {
     background-color: var(--third-color) !important;
     border-color: var(--third-color) !important;
 
-    &:hover{
+    &:hover {
       background-color: var(--text-color) !important;
       border-color: var(--text-color) !important;
       color: var(--primary-color) !important;
@@ -3229,14 +3222,12 @@ label {
   }
 }
 
-
-.post-container{
+.post-container {
   position: relative;
   width: 100%;
   padding: 10px;
 
-
-  .post-information{
+  .post-information {
     width: 100%;
     position: relative;
     top: 0;
@@ -3245,8 +3236,7 @@ label {
     padding: 10px;
     border-radius: 10px;
 
-
-    .user-image-container{
+    .user-image-container {
       position: relative;
       width: 100%;
       padding: 2px;
@@ -3254,26 +3244,24 @@ label {
       align-items: center;
       justify-content: center;
 
-      .user-img{
+      .user-img {
         position: relative;
         width: 55px;
         height: 55px;
         padding: 2px;
         background-color: var(--primary-color);
         border-radius: 50%;
-        
-        img{
+
+        img {
           width: 100%;
           height: 100%;
           object-fit: cover;
           border-radius: 50%;
         }
       }
-
-
     }
 
-    .user-textbox-container{
+    .user-textbox-container {
       position: relative;
       width: 100%;
       height: 55px;
@@ -3281,7 +3269,7 @@ label {
       align-items: center;
       justify-content: center;
 
-      input{
+      input {
         width: 100%;
         height: 100%;
         background-color: var(--primary-color);
@@ -3291,27 +3279,22 @@ label {
         font-size: 23px;
         cursor: pointer;
 
-        &:hover{
+        &:hover {
           background-color: #171717af;
         }
       }
     }
-
-
   }
 }
 
-
-.user-post-container{
+.user-post-container {
   position: relative;
   width: 100%;
   background-color: var(--secondry-color);
   /* padding:10px 20px; */
   border-radius: 15px;
 
-
-
-  .post-header{
+  .post-header {
     width: 100%;
     position: relative;
     display: flex;
@@ -3319,51 +3302,50 @@ label {
     /* height: 55px; */
     padding: 15px 20px 10px 20px;
 
-    .user-img{
+    .user-img {
       position: relative;
       width: 55px;
       height: 55px;
       padding: 2px;
       background-color: var(--primary-color);
       border-radius: 50%;
-      
-      img{
+
+      img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         border-radius: 50%;
       }
     }
-    .user-name{
+    .user-name {
       position: relative;
       height: 100%;
-      p{
+      p {
         margin: 0;
         color: var(--text-color);
         font-size: 20px;
       }
-      span{
+      span {
         color: var(--success_secondary);
         font-size: 14px;
       }
     }
   }
-  hr{
+  hr {
     background-color: rgb(223, 223, 223);
     width: 100%;
     height: 3px;
   }
 
-  .post-body{
+  .post-body {
     width: 100%;
     padding: 10px 40px;
     position: relative;
 
-
-    .post-text{
+    .post-text {
       color: var(--text-color);
 
-      button{
+      button {
         font-size: 12px;
         background-color: var(--third-color);
         border: none;
@@ -3373,12 +3355,12 @@ label {
       }
     }
 
-    .post-image{
+    .post-image {
       width: 100%;
       margin: 30px 0 20px 0;
       height: fit-content;
 
-      img{
+      img {
         width: 100%;
         object-fit: cover;
         object-position: center;
@@ -3387,7 +3369,7 @@ label {
     }
   }
 
-  .post-footer{
+  .post-footer {
     width: 100%;
     padding: 20px 40px;
     position: relative;
@@ -3395,7 +3377,7 @@ label {
     border-top: 2px solid rgb(56, 56, 56);
     gap: 15px;
 
-    .icon-container{
+    .icon-container {
       position: relative;
       width: 40px;
       height: 40px;
@@ -3406,16 +3388,14 @@ label {
       align-items: center;
       justify-content: center;
 
-      i{
+      i {
         font-size: 25px;
         color: var(--primary-color);
         margin-top: 3px;
       }
-      &:hover{
+      &:hover {
         background-color: #a1a1a1;
       }
     }
-
-
   }
 }

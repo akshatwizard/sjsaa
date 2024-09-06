@@ -54,11 +54,11 @@ export default function DownloadPdf() {
               </div>
               <div className="pdfBody">
                 <h4>REGISTRATION FOR MEMBERSHIP OF SJSAA 2022- 2023</h4>
-                <div className="row mt-4">
+                <div className="row ">
                   <div className="col-12">
-                    <div className="row row-gap-4">
-                      <div className="col-8 mt-4">
-                        <div className="row row-gap-4">
+                    <div className="row row-gap-1">
+                      <div className="col-8">
+                        <div className="row row-gap-1">
                           <div className="col-12">
                             <div className="datacontainer">
                               <span>Name:-</span>
@@ -135,7 +135,7 @@ export default function DownloadPdf() {
                       </div>
 
                       <div className="col-12">
-                        <div className="row row-gap-4">
+                        <div className="row row-gap-2">
                           <div className="col-12">
                             <div className="datacontainer">
                               <span>About Me:-</span>
@@ -212,22 +212,23 @@ export default function DownloadPdf() {
                                 </div>
                                 <div className="col-12">
                                   <div>
-                                    <span style={{ fontWeight: "600" }}>
-                                      1:- Demand Draft
-                                    </span>{" "}
-                                    : – Rs.3000/- in favour of “St. John’s
-                                    School, DLW Alumni Association” payable at
-                                    “VARANASI” to be dispatched of following
-                                    address:- To, The Board Members 2022-23,
-                                    SJSAA, c/o 20, Lajpat Nagar, Maldhaiya
-                                    Station Road, Varanasi – 221001. Contact No.
-                                    – 9415268833/ 8808480000
-                                    <br />
-                                    <span style={{ fontWeight: "600" }}>
+                                    <p>
+                                      <span style={{ fontWeight: "600" }}>
+                                        1:- Demand Draft
+                                      </span>{" "}
+                                      : – Rs.3000/- in favour of “St. John’s
+                                      School, DLW Alumni Association” payable at
+                                      “VARANASI” to be dispatched of following
+                                      address:- To, The Board Members 2022-23,
+                                      SJSAA, c/o 20, Lajpat Nagar, Maldhaiya
+                                      Station Road, Varanasi – 221001. Contact
+                                      No. – 9415268833/ 8808480000
+                                    </p>
+                                    <p><span style={{ fontWeight: "600" }}>
                                       2:- Cash
                                     </span>{" "}
                                     : To any Authorized Person of Managing
-                                    Committee Members 2022 - 23
+                                    Committee Members 2022 - 23</p>
                                   </div>
                                 </div>
                               </div>
@@ -239,30 +240,33 @@ export default function DownloadPdf() {
                             <div className="data-content">
                               <ol type="1">
                                 <li>
-                                  1:- In case of female, married ex-student please
-                                  provide maiden name within brackets
+                                  1:- In case of female, married ex-student
+                                  please provide maiden name within brackets
                                 </li>
                                 <li>
-                                2:- Class last studied in St. John’s School D.L.W. 
+                                  2:- Class last studied in St. John’s School
+                                  D.L.W.
+                                </li>
+                                <li>3:- Final qualification attained</li>
+                                <li>
+                                  4:- Designation/job/post and/or career held
+                                  presently.
                                 </li>
                                 <li>
-                                  3:- Final qualification
-                                  attained
-                                </li>
-                                <li>
-                                  4:- Designation/job/post and/or career held presently.
-                                </li>
-                                <li>
-                                  5:-Please provide both the dates in dd-mm-yyyy format. It is not mandatory to provide the year in DOB.
+                                  5:-Please provide both the dates in dd-mm-yyyy
+                                  format. It is not mandatory to provide the
+                                  year in DOB.
                                 </li>
                                 <li>
                                   6:- Please provide gender and date of birth
                                 </li>
                                 <li>
-                                  7:- Please provide country & area code with all telephone numbers
+                                  7:- Please provide country & area code with
+                                  all telephone numbers
                                 </li>
                                 <li>
-                                  8:- Please enclose/attach your and your spouse’s photograph with the form.
+                                  8:- Please enclose/attach your and your
+                                  spouse’s photograph with the form.
                                 </li>
                               </ol>
                             </div>
