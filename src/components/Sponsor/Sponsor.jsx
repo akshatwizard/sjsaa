@@ -5,7 +5,7 @@ export default function Sponsor() {
     <section className="sectionContainer">
       <div className="container" >
         <div className="title aboutTitle text-center">
-          <h1>Sponsors</h1>
+          <h1>Sponsors for 2024 Alumni Meet</h1>
         </div>
         <div className="row justify-content-md-center">
           
