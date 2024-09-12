@@ -7,6 +7,7 @@ const MessageForAlumni = lazy(() =>
 const Vision = lazy(() => import("../Vision/Vision"));
 const Stories = lazy(() => import("../Stories/Stories"));
 const AboutUs = lazy(() => import("../AboutUs/AboutUs"));
+const Sponsor = lazy(() => import("../Sponsor/Sponsor"));
 const Events = lazy(() => import("../Events/Events"));
 const ManagingCommittee = lazy(() =>
   import("../ManagingCommittee/ManagingCommittee")
@@ -18,6 +19,9 @@ export default function Home() {
     <>
       <Suspense fallback={<Loader />}>
         <Carousel />
+      </Suspense>
+      <Suspense fallback={<Loader />}>
+        <Sponsor />
       </Suspense>
       <Suspense fallback={<Loader />}>
         <AboutUs />

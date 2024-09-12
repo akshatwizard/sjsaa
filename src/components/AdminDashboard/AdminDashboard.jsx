@@ -1,15 +1,75 @@
-import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
-
+import React, { lazy, Suspense, useContext, useEffect, useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Context } from "../../context/Context";
+import ComponentLoader from "../ComponentLoader/ComponentLoader.jsx";
+import Dashboard from "./AdminComponents/Dashboard.jsx";
+// import GalleryUpdate from "./AdminComponents/GalleryUpdate.jsx";
+import AddMembers from "./AdminComponents/AddMembers.jsx";
+const OurAlumni = lazy(() => import("../OurAlumni/OurAlumni.jsx"));
+import Cookies from "js-cookie";
+import axios from "axios";
+import AddNewEvent from "./AdminComponents/AddNewEvent.jsx";
 export default function AdminDashboard() {
+  const { isLogedIn,setIsLogedIn } = useContext(Context);
   const [selectedTab, setSelectedTab] = useState("dashboard");
+  const [adminData, setAdminData] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [role,setRole] = useState("");
+  const { noOfMembers } = useContext(Context);
+  const navigator = useNavigate();
+  let date = new Date().getFullYear();
+  
   function handleClick(event) {
     setSelectedTab(event.target.id);
   }
   function handleMenuBtnClicked() {
     setIsMenuOpen(!isMenuOpen);
   }
+
+  useEffect(() => {
+    if (isLogedIn) {
+      const id = Cookies.get("mnid");
+      
+      const fetchUserDetails = async () => {
+        const formData = new FormData();
+        formData.append("mnid", id);
+        formData.append("Mod", "getMemberData");
+        
+        try {
+          const response = await axios.post(
+            `https://www.gdsons.co.in/draft/sjs/get-member-details`,
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          );
+          setAdminData(response?.data);
+          setRole(response?.data.userrole)
+          if (response?.data.userrole !== "Webadmin") {
+            navigator("/");
+          }
+        } catch (error) {
+          console.error("Error fetching user details:", error);
+        }
+      };
+
+      fetchUserDetails();
+    }
+    if (!isLogedIn) {
+      navigator("/");
+      return;
+    }
+
+  }, [isLogedIn, navigator]);
+
+  const handleLogOut = () => {
+    Cookies.remove("mnid");
+    setIsLogedIn(false);
+  };
+  // console.log(role);
+
   return (
     <section className="adminSection">
       <div className={!isMenuOpen ? "leftSection" : "closedLeftSection"}>
@@ -18,12 +78,31 @@ export default function AdminDashboard() {
             <Link to={"/"}>
               <img src="/images/8.png" alt="logo" />
             </Link>
+            {isMenuOpen && (
+              <i
+                onClick={() => setIsMenuOpen(false)}
+                class="clbt fa-solid fa-angle-left"
+                style={{
+                  color: "var(--text-color)",
+                  fontSize: "27px",
+                  position: "absolute",
+                  right: "20px",
+                  top: "15px",
+                  display: "flex",
+                  width: "47px",
+                  height: "47px",
+                  border: "2px solid white",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: "50%",
+                }}
+              ></i>
+            )}
           </div>
           <div className="adminLinkContainer">
             <div className="adminLinks">
               <div className="adminlink" onClick={handleClick}>
-                <Link
-                  to="#"
+                <div
                   id="dashboard"
                   className={`${
                     selectedTab === "dashboard" ? "activeTab" : ""
@@ -31,28 +110,35 @@ export default function AdminDashboard() {
                 >
                   <i class="fa-solid fa-house"></i>
                   <span>Dashboard</span>
-                </Link>
+                </div>
               </div>
 
               <div className="adminlink" onClick={handleClick}>
-                <NavLink
-                  to="#"
+                <div
                   id="Update"
                   className={`${selectedTab === "Update" ? "activeTab" : ""}`}
                 >
                   <i class="fa-regular fa-image"></i>
                   <span>Update Gallery</span>
-                </NavLink>
+                </div>
               </div>
               <div className="adminlink" onClick={handleClick}>
-                <NavLink
-                  to="#"
+                <div
                   id="Add"
                   className={`${selectedTab === "Add" ? "activeTab" : ""}`}
                 >
                   <i class="fa-solid fa-user"></i>
                   <span>Add Members</span>
-                </NavLink>
+                </div>
+              </div>
+              <div className="adminlink" onClick={handleClick}>
+                <div
+                  id="event"
+                  className={`${selectedTab === "event" ? "activeTab" : ""}`}
+                >
+                  <i class="fa-solid fa-calendar-days"></i>
+                  <span>Add Events</span>
+                </div>
               </div>
             </div>
           </div>
@@ -85,26 +171,40 @@ export default function AdminDashboard() {
             <p>St John's School Alumni Association</p>
           </div>
           <div className="otherContent">
-            <div className="adminProfile"></div>
+            <div className="adminProfile">
+              <img src={adminData?.profile_picture} alt="" />
+            </div>
             <div className="logOutbtn">
-              <button>Logout</button>
+              <button onClick={handleLogOut}>Logout</button>
             </div>
           </div>
         </div>
 
-        <div className="adminMainContent">
-          <div className="container">
-            <div className="row row-gap-4">
-              <div className="col-lg-4 col-md-4 col-4">
-                <h1>hello</h1>
-              </div>
-              <div className="col-lg-4 col-md-4 col-4">
-                <h1>hello</h1>
-              </div>
-              <div className="col-lg-4 col-md-4 col-4">
-                <h1>hello</h1>
-              </div>
-            </div>
+        {selectedTab === "dashboard" && (
+          <Dashboard
+            OurAlumni={OurAlumni}
+            noOfMembers={noOfMembers}
+            ComponentLoader={ComponentLoader}
+          />
+        )}
+
+        {/* {selectedTab === "Update" && <GalleryUpdate />} */}
+        {selectedTab === "Add" && <AddMembers />}
+        {selectedTab === "event" && <AddNewEvent/>}
+
+        
+        <div className="col-lg-12">
+          <div className="endSection">
+            <p>
+              {" "}
+              Copyright @ {date}{" "}
+              <span>St. John&apos;s School Alumni Association</span> | Made With{" "}
+              <i className="fa-solid fa-heart" style={{ color: "#C40C0C" }}></i>{" "}
+              By{" "}
+              <Link to="https://wizards.co.in/" target="_blank">
+                <span>Wizards.</span>
+              </Link>
+            </p>
           </div>
         </div>
       </div>

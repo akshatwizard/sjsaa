@@ -3,6 +3,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import Cookies from "js-cookie";
+import axios from "axios";
 
 export const Context = createContext();
 
@@ -14,61 +15,112 @@ export default function ContextProvider({ children }) {
   const container = useRef();
   const aboutRef = useRef();
   const [loading, setLoading] = useState(false);
+  const [noOfMembers, setNoOfMembers] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   gsap.registerPlugin(ScrollTrigger);
 
-  useGSAP(() => {
-    const logoElement = document.querySelector(".logoText");
-    if (logoElement) {
-      const tl = gsap.timeline();
-      const logo = logoElement.textContent
-        .split("")
-        .map((val) => (val === " " ? "&nbsp;" : `<span>${val}</span>`))
-        .join("");
+  useGSAP(
+    () => {
+      const logoElement = document.querySelector(".logoText");
+      if (logoElement) {
+        const tl = gsap.timeline();
+        const logo = logoElement.textContent
+          .split("")
+          .map((val) => (val === " " ? "&nbsp;" : `<span>${val}</span>`))
+          .join("");
 
-      logoElement.innerHTML = logo;
+        logoElement.innerHTML = logo;
 
-      tl.from(".logoText span", {
-        opacity: 0,
-        delay: 0.25,
-        duration: 0.5,
-        stagger: 0.09,
-      });
-      tl.from(".secondLogo", {
-        duration: 0.3,
-        opacity: 0,
-      });
-    }
+        tl.from(".logoText span", {
+          opacity: 0,
+          delay: 0.25,
+          duration: 0.5,
+          stagger: 0.09,
+        });
+        tl.from(".secondLogo", {
+          duration: 0.3,
+          opacity: 0,
+        });
+      }
 
-    const btnContainer = document.querySelector(".btnContainer");
-    if (btnContainer) {
-      gsap.from(".btnContainer", {
-        delay: 0.6,
-        y: -50,
-        duration: 0.5,
-        opacity: 0,
-      });
-    }
+      const btnContainer = document.querySelector(".btnContainer");
+      if (btnContainer) {
+        gsap.from(".btnContainer", {
+          delay: 0.6,
+          y: -50,
+          duration: 0.5,
+          opacity: 0,
+        });
+      }
 
-    const lkns = document.querySelectorAll(".lkns");
-    if (lkns.length) {
-      gsap.from(".lkns", {
-        delay: 0.6,
-        y: -50,
-        duration: 0.8,
-        opacity: 0,
-        stagger: 0.1,
-      });
-    }
-  }, { scope: container });
+      const lkns = document.querySelectorAll(".lkns");
+      if (lkns.length) {
+        gsap.from(".lkns", {
+          delay: 0.6,
+          y: -50,
+          duration: 0.8,
+          opacity: 0,
+          stagger: 0.1,
+        });
+      }
+    },
+    { scope: container }
+  );
 
   useEffect(() => {
-    const id = Cookies.get("mnid") || '';
+    const id = Cookies.get("mnid") || "";
 
     if (id) {
       setIsLogedIn(true);
     } else {
       setIsLogedIn(false);
     }
+  }, []);
+
+  useEffect(() => {
+    async function fetchMember() {
+      try {
+        const response = await axios.get(
+          "https://www.gdsons.co.in/draft/sjs/all-members"
+        );
+        setNoOfMembers(response.data.length);
+      } catch (error) {
+        console.error(error.message);
+      }
+    }
+    fetchMember();
+  }, []);
+
+  useEffect(() => {
+    const id = Cookies.get("mnid");
+    async function adminDetails() {
+      if (!id) return; // Ensure ID exists before fetching data
+
+      const formData = new FormData();
+      formData.append("mnid", id);
+      formData.append("Mod", "getMemberData");
+
+      try {
+        const response = await axios.post(
+          `https://www.gdsons.co.in/draft/sjs/get-member-details`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        const userData = response?.data;
+
+        if (userData?.userrole === "Webadmin") {
+          setIsAdmin(true);
+        }
+      } catch (error) {
+        console.error("Error fetching admin details:", error);
+      }
+    }
+
+    adminDetails();
   }, []);
 
   const contextValue = {
@@ -79,11 +131,9 @@ export default function ContextProvider({ children }) {
     setLoading,
     isLogedIn,
     setIsLogedIn,
+    noOfMembers,
+    isAdmin,
   };
 
-  return (
-    <Context.Provider value={contextValue}>
-      {children}
-    </Context.Provider>
-  );
+  return <Context.Provider value={contextValue}>{children}</Context.Provider>;
 }

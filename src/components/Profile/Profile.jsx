@@ -2,18 +2,75 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { Context } from "../../context/Context";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ComponentLoader from "../ComponentLoader/ComponentLoader";
+import UpdatePassword from "../UpdatePassword/UpdatePassword";
+import SuccessMessage from "./SuccessMessage";
 
 export default function Profile() {
   const [isFormEditable, setIsFormEditable] = useState(false);
   const [userData, setUserData] = useState("");
   const { isLogedIn, setIsLogedIn } = useContext(Context);
+  const [passwordModal, setPasswordModal] = useState(false);
   const navigator = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [fullUserData, setFullUserData] = useState({
+    name: "",
+    email: "",
+    batch: "",
+    contactNo: "",
+    contactNo2: "",
+    dob: "",
+    location: "",
+    joiningYear: "",
+    qualification: "",
+    career: "",
+    house: "",
+    spouse: "",
+    wedding: "",
+    children: "",
+    address: "",
+    aboutMe: "",
+    facebook: "",
+    linkedin: "",
+    instagram: "",
+    twitter: "",
+  });
+
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [userRole, setUserRole] = useState("");
+
+  const [profilePic, setProfilePic] = useState(null);
+
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    setFullUserData((prevValue) => {
+      return {
+        ...prevValue,
+        [id]: value,
+      };
+    });
+  };
+  // console.log(userData);
+
+  const handleProfilePictureChange = (e) => {
+    setProfilePic(e.target.files[0]);
+  };
 
   function handleEdit() {
     setIsFormEditable((prevState) => !prevState);
   }
+
+  useEffect(() => {
+    if (passwordModal || showSuccessMessage) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [passwordModal, showSuccessMessage]);
 
   useEffect(() => {
     if (!isLogedIn) {
@@ -38,8 +95,32 @@ export default function Profile() {
             },
           }
         );
-        setUserData(response.data);
-        // console.log(userData);
+
+        const data = response.data;
+        setUserRole(data.userrole);
+        setUserData(data);
+        setFullUserData({
+          name: data?.title || "",
+          email: data?.email_id || "",
+          batch: data?.batch || "",
+          contactNo: data?.mobile_number_one || "",
+          contactNo2: data?.mobile_number_two || "",
+          dob: data?.birth_date ? data.birth_date.split(" ")[0] : "",
+          location: data?.location || "",
+          joiningYear: data?.joining_year || "",
+          qualification: data?.qualification || "",
+          career: data?.trade_category || "",
+          house: data?.house || "",
+          spouse: data?.spouse_name || "",
+          wedding: data?.anniversary ? data.anniversary.split(" ")[0] : "",
+          children: data?.children_details || "",
+          address: data?.address || "",
+          aboutMe: data?.about_me || "",
+          facebook: data?.facebook || "",
+          linkedin: data?.linkedin || "",
+          instagram: data?.instagram || "",
+          twitter: data?.twitter || "",
+        });
       } catch (error) {
         console.error("Error fetching user details:", error);
       }
@@ -47,6 +128,48 @@ export default function Profile() {
 
     fetchUserDetails();
   }, [isLogedIn, navigator]);
+  // console.log(userRole);
+
+  async function handleDataSubmit(event) {
+    event.preventDefault();
+    setLoading(true);
+    const id = await Cookies.get("mnid");
+
+    const formData = new FormData();
+    formData.append("profilePic", profilePic);
+    formData.append("Mod", "updateMemberData");
+    formData.append("mnid", id);
+    Object.keys(fullUserData).forEach((key) => {
+      formData.append(key, fullUserData[key]);
+    });
+
+    try {
+      const response = await axios.post(
+        "https://www.gdsons.co.in/draft/sjs/update-members-data",
+        formData
+      );
+      // console.log(response.data);
+
+      if (response.data[0].message === "Updated") {
+        setShowSuccessMessage(true);
+        setIsFormEditable(false);
+
+        setUserData((prevData) => ({
+          ...prevData,
+          ...fullUserData,
+          profile_picture: profilePic
+            ? URL.createObjectURL(profilePic)
+            : prevData.profile_picture,
+        }));
+      }
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      setShowSuccessMessage(false);
+    }
+  }
+  // console.log(userData);
 
   return (
     <section className="sectionContainer">
@@ -81,13 +204,71 @@ export default function Profile() {
                   <div className="nameContainer">
                     <h3>{userData?.title}</h3>
                     <p>{userData?.trade_category}</p>
+                    <p>{userData?.email_id}</p>
+                    <p>
+                      {userData?.mobile_number_one},{" "}
+                      {userData?.mobile_number_two}
+                    </p>
                     <p>{userData?.address}</p>
                     <div className="socialMediaIcons">
-                      <i className="fa-brands fa-instagram"></i>
-                      <i className="fa-brands fa-x-twitter"></i>
-                      <i className="fa-brands fa-facebook-f"></i>
-                      <i className="fa-brands fa-linkedin-in"></i>
+                      {userData?.facebook?.trim() ? (
+                        <a
+                          href={userData.facebook}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <i className="fa-brands fa-facebook-f"></i>
+                        </a>
+                      ) : (
+                        ""
+                      )}
+                      {userData?.instagram?.trim() ? (
+                        <a
+                          href={userData.instagram}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <i className="fa-brands fa-instagram"></i>
+                        </a>
+                      ) : (
+                        ""
+                      )}
+                      {userData?.twitter?.trim() ? (
+                        <a
+                          href={userData.twitter}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <i className="fa-brands fa-x-twitter"></i>
+                        </a>
+                      ) : (
+                        ""
+                      )}
+                      {userData?.linkedin?.trim() ? (
+                        <a
+                          href={userData.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <i className="fa-brands fa-linkedin-in"></i>
+                        </a>
+                      ) : (
+                        ""
+                      )}
                     </div>
+
+                    <button onClick={() => setPasswordModal(true)}>
+                      Update Password
+                    </button>
+                    {userRole === "Webadmin" && (
+                      <Link
+                        to="/admin/dashboard"
+                        target="_blank"
+                        className="adminBtn"
+                      >
+                        <button>Admin Panel</button>
+                      </Link>
+                    )}
                   </div>
                   <div
                     style={{
@@ -98,14 +279,8 @@ export default function Profile() {
                   ></div>
                   <div className="summary">
                     <h6>About Me</h6>
-                    <p>
-                     
-                    </p>
+                    <p>{userData?.about_me}</p>
                   </div>
-                  {/* <div className="buttonContainer">
-                  <button>Message</button>
-                  <button>Call</button>
-                </div> */}
                 </div>
               </div>
             </div>
@@ -119,232 +294,254 @@ export default function Profile() {
                   <div className="editForm">
                     <div className="row">
                       <div className="col-lg-12">
-                        <form>
+                        <form onSubmit={handleDataSubmit}>
                           <div className="row row-gap-4">
-                            <div className="col-lg-6">
-                              <label htmlFor="name">Name</label>
-                              <input
-                                type="text"
-                                placeholder="Name"
-                                disabled
-                                id="name"
-                                value={userData.title}
-                              />
-                            </div>
-                            <div className="col-lg-6">
-                              <label htmlFor="batch">Batch</label>
-                              <input
-                                type="number"
-                                placeholder="Batch"
-                                disabled={!isFormEditable}
-                                id="batch"
-                                value={userData.batch}
-                              />
-                            </div>
-
-                            <div className="col-lg-6">
-                              <label htmlFor="email">Email</label>
-                              <input
-                                type="email"
-                                placeholder="Email"
-                                disabled
-                                id="email"
-                                value={userData.email_id}
-                              />
-                            </div>
-
-                            <div className="col-lg-6">
-                              <label htmlFor="contact">Contact No:</label>
-                              <input
-                                type="tel"
-                                placeholder="Contact No"
-                                id="contact"
-                                value={userData.mobile_number_one}
-                                disabled={!isFormEditable}
-                              />
-                            </div>
-                            <div className="col-lg-6">
-                              <label htmlFor="contact2">Contact No 2:</label>
-                              <input
-                                type="tel"
-                                placeholder="Alternate Contact no "
-                                id="contact2"
-                                value={userData?.mobile_number_two || ""}
-                                disabled={!isFormEditable}
-                              />
-                            </div>
-
-                            <div className="col-lg-6">
-                              <label htmlFor="dob">DOB</label>
-                              <input
-                                type="text"
-                                placeholder="Date of birth "
-                                id="dob"
-                                value={userData.birth_date}
-                                disabled={!isFormEditable}
-                              />
-                            </div>
-                            <div className="col-lg-6">
-                              <label htmlFor="location">Location</label>
-                              <input
-                                type="text"
-                                placeholder="Location"
-                                id="location"
-                                value={userData.location}
-                                disabled={!isFormEditable}
-                              />
-                            </div>
-                            <div className="col-lg-6">
-                              <label htmlFor="Joining">Joining Year</label>
-                              <input
-                                type="text"
-                                placeholder="Joining Year"
-                                id="Joining"
-                                value={userData.joining_year}
-                                disabled={!isFormEditable}
-                              />
-                            </div>
-
-                            <div className="col-lg-6">
-                              <label htmlFor="Qualification ">
-                                Qualification{" "}
-                              </label>
-                              <input
-                                type="text"
-                                placeholder="Qualification "
-                                id="Qualification "
-                                value={userData.qualification}
-                                disabled={!isFormEditable}
-                              />
-                            </div>
-
-                            <div className="col-lg-6">
-                              <label htmlFor="career">
-                                Current career/position{" "}
-                              </label>
-                              <input
-                                type="text"
-                                placeholder="Current career/position  "
-                                id="career "
-                                value={userData.trade_category}
-                                disabled={!isFormEditable}
-                              />
-                            </div>
-
-                            <div className="col-lg-6">
-                              <label htmlFor="House">House you belonged</label>
-                              <input
-                                type="text"
-                                placeholder="House you belonged"
-                                id="House "
-                                value={userData.house}
-                                disabled={!isFormEditable}
-                              />
-                            </div>
-
-                            <div className="col-lg-6">
-                              <label htmlFor="spouse">Name of spouse</label>
-                              <input
-                                type="text"
-                                placeholder="Name of spouse"
-                                id="spouse "
-                                value={userData.spouse_name}
-                                disabled={!isFormEditable}
-                              />
-                            </div>
-                            <div className="col-lg-6">
-                              <label htmlFor="Wedding">Wedding Date </label>
-                              <input
-                                type="text"
-                                placeholder="Wedding Date "
-                                id="Wedding "
-                                value={userData.anniversary}
-                                disabled={!isFormEditable}
-                              />
-                            </div>
-                            <div className="col-lg-6">
-                              <label htmlFor="Children">
-                                Details of Children
-                              </label>
-                              <input
-                                type="text"
-                                placeholder="Details of Children"
-                                id="Children "
-                                value={userData.children_details}
-                                disabled={!isFormEditable}
-                              />
-                            </div>
-
-                            <div className="col-lg-6">
-                              <label htmlFor="Children">Address</label>
-                              <input
-                                type="text"
-                                placeholder="Address"
-                                id="Address "
-                                value={userData.address}
-                                disabled={!isFormEditable}
-                              />
-                            </div>
-                            <div className="col-lg-6">
-                              <label htmlFor="About">About Me</label>
-                              <input
-                                type="text"
-                                placeholder="About Me"
-                                id="About "
-                                // value={userData.address}
-                                disabled={!isFormEditable}
-                              />
-                            </div>
-                            <div className="col-lg-6">
-                              <label htmlFor="FB">FB Profile</label>
-                              <input
-                                type="text"
-                                placeholder="FB Profile Link"
-                                id="FB "
-                                // value={userData.address}
-                                disabled={!isFormEditable}
-                              />
-                            </div>
-                            <div className="col-lg-6">
-                              <label htmlFor="LinkedIn">LinkedIn Profile</label>
-                              <input
-                                type="text"
-                                placeholder="Linked In Profile"
-                                id="LinkedIn "
-                                // value={userData.address}
-                                disabled={!isFormEditable}
-                              />
-                            </div>
-                            <div className="col-lg-6">
-                              <label htmlFor="Instagram">
-                                Instagram Profile
-                              </label>
-                              <input
-                                type="text"
-                                placeholder="Instagram Profile"
-                                id="Instagram "
-                                // value={userData.address}
-                                disabled={!isFormEditable}
-                              />
-                            </div>
-                            <div className="col-lg-6">
-                              <label htmlFor="Twitter">Twitter Profile</label>
-                              <input
-                                type="text"
-                                placeholder="Twitter Profile"
-                                id="Twitter "
-                                // value={userData.address}
-                                disabled={!isFormEditable}
-                              />
-                            </div>
-                            <div className="col-lg-6">
-                              <label htmlFor="Profile">Profile Picture :</label>
-                              <input
-                                type="file"
-                                id="Profile "
-                                // value={userData.address}
-                                disabled={!isFormEditable}
-                              />
+                            <div className="row row-gap-4">
+                              <div className="col-lg-6">
+                                <label htmlFor="name">Name</label>
+                                <input
+                                  type="text"
+                                  placeholder="Name"
+                                  disabled
+                                  id="name"
+                                  value={fullUserData.name}
+                                />
+                              </div>
+                              <div className="col-lg-6">
+                                <label htmlFor="batch">Batch</label>
+                                <input
+                                  type="number"
+                                  placeholder="Batch"
+                                  disabled={!isFormEditable}
+                                  id="batch"
+                                  value={fullUserData.batch}
+                                  onChange={handleInputChange}
+                                />
+                              </div>
+                              <div className="col-lg-6">
+                                <label htmlFor="email">Email</label>
+                                <input
+                                  type="email"
+                                  placeholder="Email"
+                                  disabled
+                                  id="email"
+                                  value={fullUserData.email}
+                                />
+                              </div>
+                              <div className="col-lg-6">
+                                <label htmlFor="contactNo">Contact No:</label>
+                                <input
+                                  type="tel"
+                                  placeholder="Contact No"
+                                  id="contactNo"
+                                  value={fullUserData.contactNo}
+                                  disabled={!isFormEditable}
+                                  onChange={handleInputChange}
+                                />
+                              </div>
+                              <div className="col-lg-6">
+                                <label htmlFor="contactNo2">
+                                  Contact No 2:
+                                </label>
+                                <input
+                                  type="tel"
+                                  placeholder="Alternate Contact No"
+                                  id="contactNo2"
+                                  value={fullUserData.contactNo2}
+                                  disabled={!isFormEditable}
+                                  onChange={handleInputChange}
+                                />
+                              </div>
+                              <div className="col-lg-6">
+                                <label htmlFor="dob">DOB</label>
+                                <input
+                                  type="date"
+                                  placeholder="Date of Birth"
+                                  id="dob"
+                                  value={fullUserData.dob}
+                                  disabled={!isFormEditable}
+                                  onChange={handleInputChange}
+                                />
+                              </div>
+                              <div className="col-lg-6">
+                                <label htmlFor="location">Location</label>
+                                <input
+                                  type="text"
+                                  placeholder="Location"
+                                  id="location"
+                                  value={fullUserData.location}
+                                  disabled={!isFormEditable}
+                                  onChange={handleInputChange}
+                                />
+                              </div>
+                              <div className="col-lg-6">
+                                <label htmlFor="joiningYear">
+                                  Alumni Joining Year
+                                </label>
+                                <input
+                                  type="text"
+                                  placeholder="Joining Year"
+                                  id="joiningYear"
+                                  value={fullUserData.joiningYear}
+                                  disabled={!isFormEditable}
+                                  onChange={handleInputChange}
+                                />
+                              </div>
+                              <div className="col-lg-6">
+                                <label htmlFor="qualification">
+                                  Qualification
+                                </label>
+                                <input
+                                  type="text"
+                                  placeholder="Qualification"
+                                  id="qualification"
+                                  value={fullUserData.qualification}
+                                  disabled={!isFormEditable}
+                                  onChange={handleInputChange}
+                                />
+                              </div>
+                              <div className="col-lg-6">
+                                <label htmlFor="career">
+                                  Current career/position
+                                </label>
+                                <input
+                                  type="text"
+                                  placeholder="Current career/position"
+                                  id="career"
+                                  value={fullUserData.career}
+                                  disabled={!isFormEditable}
+                                  onChange={handleInputChange}
+                                />
+                              </div>
+                              <div className="col-lg-6">
+                                <label htmlFor="house">
+                                  House you belonged
+                                </label>
+                                <input
+                                  type="text"
+                                  placeholder="House you belonged"
+                                  id="house"
+                                  value={fullUserData.house}
+                                  disabled={!isFormEditable}
+                                  onChange={handleInputChange}
+                                />
+                              </div>
+                              <div className="col-lg-6">
+                                <label htmlFor="spouse">Name of Spouse</label>
+                                <input
+                                  type="text"
+                                  placeholder="Name of Spouse"
+                                  id="spouse"
+                                  value={fullUserData.spouse}
+                                  disabled={!isFormEditable}
+                                  onChange={handleInputChange}
+                                />
+                              </div>
+                              <div className="col-lg-6">
+                                <label htmlFor="wedding">Wedding Date</label>
+                                <input
+                                  type="text"
+                                  placeholder="Wedding Date"
+                                  id="wedding"
+                                  value={fullUserData.wedding}
+                                  disabled={!isFormEditable}
+                                  onChange={handleInputChange}
+                                />
+                              </div>
+                              <div className="col-lg-6">
+                                <label htmlFor="children">
+                                  Details of Children
+                                </label>
+                                <input
+                                  type="text"
+                                  placeholder="Details of Children"
+                                  id="children"
+                                  value={fullUserData.children}
+                                  disabled={!isFormEditable}
+                                  onChange={handleInputChange}
+                                />
+                              </div>
+                              <div className="col-lg-6">
+                                <label htmlFor="address">Address</label>
+                                <input
+                                  type="text"
+                                  placeholder="Address"
+                                  id="address"
+                                  value={fullUserData.address}
+                                  disabled={!isFormEditable}
+                                  onChange={handleInputChange}
+                                />
+                              </div>
+                              <div className="col-lg-6">
+                                <label htmlFor="aboutMe">About Me</label>
+                                <textarea
+                                  type="text"
+                                  placeholder="About Me"
+                                  id="aboutMe"
+                                  value={fullUserData.aboutMe}
+                                  disabled={!isFormEditable}
+                                  onChange={handleInputChange}
+                                ></textarea>
+                              </div>
+                              <div className="col-lg-6">
+                                <label htmlFor="facebook">FB Profile</label>
+                                <input
+                                  type="text"
+                                  placeholder="FB Profile Link"
+                                  id="facebook"
+                                  value={fullUserData.facebook}
+                                  disabled={!isFormEditable}
+                                  onChange={handleInputChange}
+                                />
+                              </div>
+                              <div className="col-lg-6">
+                                <label htmlFor="linkedin">
+                                  LinkedIn Profile
+                                </label>
+                                <input
+                                  type="text"
+                                  placeholder="LinkedIn Profile"
+                                  id="linkedin"
+                                  value={fullUserData.linkedin}
+                                  disabled={!isFormEditable}
+                                  onChange={handleInputChange}
+                                />
+                              </div>
+                              <div className="col-lg-6">
+                                <label htmlFor="instagram">
+                                  Instagram Profile
+                                </label>
+                                <input
+                                  type="text"
+                                  placeholder="Instagram Profile"
+                                  id="instagram"
+                                  value={fullUserData.instagram}
+                                  disabled={!isFormEditable}
+                                  onChange={handleInputChange}
+                                />
+                              </div>
+                              <div className="col-lg-6">
+                                <label htmlFor="twitter">Twitter Profile</label>
+                                <input
+                                  type="text"
+                                  placeholder="Twitter Profile"
+                                  id="twitter"
+                                  value={fullUserData.twitter}
+                                  disabled={!isFormEditable}
+                                  onChange={handleInputChange}
+                                />
+                              </div>
+                              <div className="col-lg-6">
+                                <label htmlFor="profilePic">
+                                  Profile Picture:
+                                </label>
+                                <input
+                                  type="file"
+                                  id="profilePic"
+                                  onChange={handleProfilePictureChange}
+                                  disabled={!isFormEditable}
+                                />
+                              </div>
                             </div>
 
                             <button type="button" onClick={handleEdit}>
@@ -352,7 +549,9 @@ export default function Profile() {
                             </button>
                             {isFormEditable && (
                               <>
-                                <button type="submit">Save</button>
+                                <button type="submit">
+                                  {loading ? <ComponentLoader /> : "Save"}
+                                </button>
                                 <button type="reset">Reset</button>
                               </>
                             )}
@@ -367,6 +566,10 @@ export default function Profile() {
           </div>
         )}
       </div>
+      {passwordModal && <UpdatePassword closeBtn={setPasswordModal} />}
+      {showSuccessMessage && (
+        <SuccessMessage status={() => setShowSuccessMessage(false)} />
+      )}
     </section>
   );
 }

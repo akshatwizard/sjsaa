@@ -57,7 +57,7 @@ export default function UpdateEmail({ closeBtn, userDetails }) {
           },
         }
       );
-      // console.log(response.data);
+      console.log(response.data);
       setStep("success");
 
     } catch (err) {

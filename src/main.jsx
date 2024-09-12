@@ -6,7 +6,7 @@ import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route } 
 import ContextProvider from './context/Context.jsx'
 
 const Home = lazy(() => import('./components/Home/Home.jsx'));
-const AboutUs = lazy(() => import('./components/About/AboutUs.jsx'));
+const AboutUs = lazy(() => import('./components/About/About.jsx'));
 const OurAlumni = lazy(() => import('./components/OurAlumni/OurAlumni.jsx'));
 const UpcomingEvents = lazy(() => import('./components/UpcomingEvents/UpcomingEvents.jsx'));
 const Gallery = lazy(() => import('./components/Gallery/Gallery.jsx'));
@@ -15,13 +15,14 @@ const NotFoundPage = lazy(() => import('./components/NotFound/NotFoundPage.jsx')
 const UserProfile = lazy(() => import('./components/UserProfile/UserProfile.jsx'));
 const AllManagingMembers = lazy(() => import('./components/AllManagingMembers/AllManagingMembers.jsx'));
 import Loader from './components/Loader/Loader.jsx'
-import UpdateGallery from './components/AdminDashboard/UpdateGallery.jsx'
-import RegisterSuccess from './components/RegistrationForm/RegisterSuccess.jsx'
+// import UpdateGallery from './components/AdminDashboard/UpdateGallery.jsx'
 const MovieGallery = lazy(()=>import("./components/MovieGallery/MovieGallery.jsx"))
 const AGMElection = lazy(()=>import("./components/AGMElection/AGMElection.jsx"))
 const RegistrationForm = lazy(()=>import("./components/RegistrationForm/RegistrationForm.jsx"))
 const AdminDashboard = lazy(()=>import('./components/AdminDashboard/AdminDashboard.jsx')); 
-
+const PaymentPage = lazy(()=>import('./components/RegistrationForm/PaymentPage.jsx'))
+const DownloadPdf = lazy(()=>import('./components/DownloadPDF/DownloadPdf.jsx'));
+const Discussion = lazy(()=>import('./components/DiscussionForum/Discussion.jsx')) 
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -101,6 +102,14 @@ const router = createBrowserRouter(
         }
       />
       <Route
+        path='/payment-page'
+        element={
+          <Suspense fallback={<Loader/>}>
+            <PaymentPage />
+          </Suspense>
+        }
+      />
+      <Route
         path='/profile'
         element={
           <Suspense fallback={<Loader/>}>
@@ -125,20 +134,22 @@ const router = createBrowserRouter(
         }
       />
       <Route
-        path='/admin/update-gallery'
+        path='/member-preview/:id'
         element={
-          // <Suspense fallback={<Loader/>}>
-          //   <Up />
-          // </Suspense>
-          <UpdateGallery/>
+          <Suspense fallback={<Loader/>}>
+            <DownloadPdf />
+          </Suspense>
         }
       />
       <Route
-        path='/registration-success'
+        path='/members-post'
         element={
-          <RegisterSuccess/>
+          <Suspense fallback={<Loader/>}>
+            <Discussion />
+          </Suspense>
         }
       />
+      
       
       <Route
         path='*'

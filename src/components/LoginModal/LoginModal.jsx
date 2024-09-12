@@ -60,15 +60,24 @@ export default function LoginModal() {
           },
         }
       );
-      Cookies.set("mnid", response.data.mnid, { expires: 7 });
-      setLoading(false);
-      setLoginModal(false);
-      setIsLogedIn(true);
-      navigator("/profile");
+      if (response.data.login === "success") {
+          Cookies.set("mnid", response.data.mnid, { expires: 7 });
+          setLoading(false);
+          setLoginModal(false);
+          setIsLogedIn(true);
+          navigator("/profile");
+          if(response.data.role === "Webadmin"){
+              navigator("/admin/dashboard");
+          }
+      } else {
+          setLoading(false);
+          setIsLogedIn(false);
+          setError(true)
+      }
     } catch (error) {
-      console.error("Login failed:", error);
-      setLoading(false);
-      setIsLogedIn(false);
+        console.error("Login failed:", error);
+        setLoading(false);
+        setIsLogedIn(false);
     }
   }
 
@@ -145,6 +154,7 @@ export default function LoginModal() {
       } else {
         setLoading(false);
         setWrongOTP(true);
+        setIsLogedIn(false);
       }
     } catch (error) {
       console.error("Failed to send OTP:", error);
@@ -172,6 +182,7 @@ export default function LoginModal() {
                 value={formData.password}
                 placeholder="Password"
                 onChange={handleChange}
+                // style={{marginBottom:"10px"}}
               />
               {showPassword ? (
                 <img
@@ -188,6 +199,9 @@ export default function LoginModal() {
                   onClick={() => setShowPassword(!showPassword)}
                 />
               )}
+              {
+                error && <p style={{margin:"0 0 20px 0",width:"100%",textAlign:"end",color:"red"}}>please check your credentials and try again</p>
+              }
               {!otpButtonClicked && (
                 <>
                   <button type="submit">
