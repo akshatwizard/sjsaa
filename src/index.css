@@ -41,7 +41,7 @@ body {
   background: var(--third-color);
   color: var(--primary-color);
 }
-
+ 
 #root {
   width: 100%;
   min-height: 100%;
@@ -2376,9 +2376,7 @@ label {
     border-radius: 5px;
     font-size: 20px;
   }
-  input {
-    /* width: 300px; */
-  }
+
 }
 
 @media (max-width: 768px) {
@@ -2734,9 +2732,7 @@ label {
       align-items: center;
       justify-content: space-between;
 
-      .adminMenuBtn {
-      }
-
+     
       .logoName {
         position: relative;
 
