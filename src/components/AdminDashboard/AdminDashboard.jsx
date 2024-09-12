@@ -3,7 +3,11 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Context } from "../../context/Context";
 import ComponentLoader from "../ComponentLoader/ComponentLoader.jsx";
 import Dashboard from "./AdminComponents/Dashboard.jsx";
+<<<<<<< HEAD
 // import GalleryUpdate from "./AdminComponents/GalleryUpdate.jsx";
+=======
+import GalleryUpdate from "./AdminComponents/GalleryUpdate.jsx";
+>>>>>>> 7485e2666874a327ceada88710b0e16d7e0620b3
 import AddMembers from "./AdminComponents/AddMembers.jsx";
 const OurAlumni = lazy(() => import("../OurAlumni/OurAlumni.jsx"));
 import Cookies from "js-cookie";
@@ -188,7 +192,11 @@ export default function AdminDashboard() {
           />
         )}
 
+<<<<<<< HEAD
         {/* {selectedTab === "Update" && <GalleryUpdate />} */}
+=======
+        {selectedTab === "Update" && <GalleryUpdate />}
+>>>>>>> 7485e2666874a327ceada88710b0e16d7e0620b3
         {selectedTab === "Add" && <AddMembers />}
         {selectedTab === "event" && <AddNewEvent/>}
 

@@ -167,4 +167,8 @@ export default function GalleryUpdate() {
       </div>
     </section>
   );
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 7485e2666874a327ceada88710b0e16d7e0620b3

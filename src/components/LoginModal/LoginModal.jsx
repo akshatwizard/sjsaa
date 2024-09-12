@@ -61,6 +61,7 @@ export default function LoginModal() {
         }
       );
       if (response.data.login === "success") {
+<<<<<<< HEAD
           Cookies.set("mnid", response.data.mnid, { expires: 7 });
           setLoading(false);
           setLoginModal(false);
@@ -78,6 +79,22 @@ export default function LoginModal() {
         console.error("Login failed:", error);
         setLoading(false);
         setIsLogedIn(false);
+=======
+        Cookies.set("mnid", response.data.mnid, { expires: 7 });
+        setLoading(false);
+        setLoginModal(false);
+        setIsLogedIn(true);
+        navigator("/profile");
+      } else {
+        setLoading(false);
+        setIsLogedIn(false);
+        setError(true)
+      }
+    } catch (error) {
+      console.error("Login failed:", error);
+      setLoading(false);
+      setIsLogedIn(false);
+>>>>>>> 7485e2666874a327ceada88710b0e16d7e0620b3
     }
   }
 
