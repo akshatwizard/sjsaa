@@ -142,7 +142,7 @@ const router = createBrowserRouter(
         }
       />
       <Route
-        path='/members-post'
+        path='/members-feed'
         element={
           <Suspense fallback={<Loader/>}>
             <Discussion />
