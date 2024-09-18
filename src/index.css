@@ -3147,7 +3147,7 @@ label {
 
     .pdfBody {
       position: relative;
-      padding: 20px;
+      padding:10px 20px;
     }
   }
 }
@@ -3161,9 +3161,10 @@ label {
   div {
     border-bottom: 1.3px dashed;
     font-weight: 400;
+    font-size: 14px;
   }
   span {
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 500;
   }
 }
@@ -3178,16 +3179,17 @@ label {
     font-weight: 400;
   }
   span {
-    font-size: 15px;
+    font-size: 13px;
     font-weight: 500;
   }
   p{
     margin: 0;
+    font-size: 12px;
   }
   ol {
     padding: 0;
     li {
-      font-size: 15px;
+      font-size: 12px;
     }
   }
 }
