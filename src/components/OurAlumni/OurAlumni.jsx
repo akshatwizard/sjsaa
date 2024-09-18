@@ -179,51 +179,83 @@ export default function OurAlumni() {
 
   const handleDownloadPDF = () => {
     const doc = new jsPDF();
-
+  
     const img = "/images/8.png";
     doc.addImage(img, "PNG", 10, 10, 30, 30);
+  
     doc.setFontSize(25);
     doc.text("St John's School Alumni Association", 50, 25);
     doc.setLineWidth(0.5);
-    doc.line(10, 45, 200, 45);
-
+    doc.line(0, 45, 250, 45);
+  
     const tableColumn = [
       "Sr. No.",
       "Name",
-      "Joined Year",
+      // "Joined Year",
       "Batch",
       "Qualification",
       "Date of Birth",
       "Profession & Working As",
       "Current Location",
     ];
+  
+    if (isLogedIn) {
+      tableColumn.push("Email", "Contact No");
+    }
+  
     const tableRows = [];
-
+  
     const filtered = memberData.filter((product) =>
       product[filterCategory]
         ?.toString()
         .toLowerCase()
         .includes(filterValue.toLowerCase())
     );
-
+  
     filtered.forEach((member, index) => {
       const memberDetails = [
         index + 1,
-        member.membernace,
-        member.joiningyear || "not provided",
-        member.batch || "not provided",
-        member.qualification,
-        member.dob,
-        member.trade_category,
-        member.location || "not provided",
+        member.membernace || "N/A",
+        // member.joiningyear || "N/A",
+        member.batch || "N/A",
+        member.qualification || "N/A",
+        member.dob || "N/A",
+        member.trade_category || "N/A",
+        member.location || "N/A",
       ];
+  
+      if (isLogedIn) {
+        memberDetails.push(member?.email || "N/A", member?.mobile_number_one || "N/A");
+      }
+  
       tableRows.push(memberDetails);
     });
-
-    doc.autoTable(tableColumn, tableRows, { startY: 50 });
-
+  
+    doc.autoTable({
+      head: [tableColumn],
+      body: tableRows, 
+      startY: 50, 
+      tableWidth: 210,
+      margin: { left: 0 },
+      columnStyles: {
+        0: { cellWidth: 10 },
+        1: { cellWidth: 30 },
+        2: { cellWidth: 20 },
+        3: { cellWidth: 20 },
+        4: { cellWidth: 20 },
+        5: { cellWidth: 30 },
+        6: { cellWidth: 20 },
+        7: { cellWidth: 30 },
+        8: { cellWidth: 30 },
+      },
+      styles: {
+        overflow: 'linebreak', 
+      },
+    });
+  
     doc.save("filtered_members_list.pdf");
   };
+  
 
   useEffect(() => {
     if (updateEmailModal) {

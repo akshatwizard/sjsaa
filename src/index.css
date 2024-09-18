@@ -41,7 +41,7 @@ body {
   background: var(--third-color);
   color: var(--primary-color);
 }
- 
+
 #root {
   width: 100%;
   min-height: 100%;
@@ -1117,19 +1117,6 @@ table {
   td {
     background-color: var(--secondry-color) !important;
     color: var(--text-color) !important;
-  }
-}
-
-.aboutContainer_2 {
-  /* background: var(--secondry-color); */
-  padding: 10px;
-  border-radius: 10px;
-  position: relative;
-  color: var(--text-color);
-
-  .sponsor-h {
-    color: var(--text-color);
-    font-size: 22px;
   }
 }
 
@@ -2376,7 +2363,6 @@ label {
     border-radius: 5px;
     font-size: 20px;
   }
-
 }
 
 @media (max-width: 768px) {
@@ -2623,8 +2609,6 @@ label {
       align-items: center !important;
       justify-content: space-between !important;
 
-     
-
       .logoName {
         position: relative !important;
 
@@ -2732,7 +2716,6 @@ label {
       align-items: center;
       justify-content: space-between;
 
-     
       .logoName {
         position: relative;
 
@@ -2879,8 +2862,6 @@ label {
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    
 
     .logoName {
       position: relative;
@@ -3188,7 +3169,7 @@ label {
     font-size: 15px;
     font-weight: 500;
   }
-  p{
+  p {
     margin: 0;
   }
   ol {
@@ -3404,5 +3385,50 @@ label {
         background-color: #a1a1a1;
       }
     }
+  }
+}
+.sponserImage {
+  width: 100%;
+  position: relative;
+  height: 200px;
+  background-color: var(--secondry-color);
+  padding: 30px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  img {
+    width: 100%;
+  }
+  p {
+    margin: 0;
+    font-weight: bold;
+    font-size: 20px;
+    background-color: #ffe53b;
+    background-image: linear-gradient(
+      147deg,
+      #ffe53b 0%,
+      #ff2525 33%,
+      #7a0bc0 66%,
+      #3b82f6 100%
+    );
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradientMove 5s ease infinite;
+  }
+}
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
