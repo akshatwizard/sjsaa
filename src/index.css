@@ -2479,34 +2479,38 @@ label {
       .adminlink {
         width: 100%;
         margin-bottom: 15px;
+
         div {
-          border-radius: 10px;
           background-color: var(--primary-color);
+          border-radius: 10px;
           color: var(--text-color);
-          display: inline-block;
+          display: flex; /* Make it a flexbox for proper alignment */
+          align-items: center; /* Vertically center items */
+          justify-content: flex-start; /* Align items to the left */
           font-weight: 500;
-          width: 100%;
-          /* height: 100%; */
-          padding: 10px 10px;
+          padding: 10px;
           cursor: pointer;
+          width: 100%; /* Ensure the full width is clickable */
+
           i {
             color: var(--text-color);
             margin-right: 10px;
             font-size: 20px;
           }
+
           span {
-            transition-delay: 1s;
             transition: display 0.5s;
           }
         }
-      }
 
-      .activeTab {
-        background-color: var(--text-color) !important;
-        color: var(--primary-color) !important;
-        font-weight: 700 !important;
-        i {
+        .activeTab {
+          background-color: var(--text-color) !important;
           color: var(--primary-color) !important;
+          font-weight: 700 !important;
+
+          i {
+            color: var(--primary-color) !important;
+          }
         }
       }
     }
