@@ -17,6 +17,7 @@ export default function ContextProvider({ children }) {
   const [loading, setLoading] = useState(false);
   const [noOfMembers, setNoOfMembers] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [onlyAdmin, setOnlyAdmin] = useState(false)
   gsap.registerPlugin(ScrollTrigger);
 
   useGSAP(
@@ -69,12 +70,17 @@ export default function ContextProvider({ children }) {
 
   useEffect(() => {
     const id = Cookies.get("mnid") || "";
-
-    if (id) {
+    
+    if (id === "0") {
+      setOnlyAdmin(true);
+    } else if (parseInt(id) > 0) {
       setIsLogedIn(true);
+      setOnlyAdmin(false);
     } else {
       setIsLogedIn(false);
+      setOnlyAdmin(false);
     }
+    
   }, []);
 
   useEffect(() => {
@@ -94,7 +100,7 @@ export default function ContextProvider({ children }) {
   useEffect(() => {
     const id = Cookies.get("mnid");
     async function adminDetails() {
-      if (!id) return; // Ensure ID exists before fetching data
+      if (!id) return; 
 
       const formData = new FormData();
       formData.append("mnid", id);
@@ -133,6 +139,8 @@ export default function ContextProvider({ children }) {
     setIsLogedIn,
     noOfMembers,
     isAdmin,
+    onlyAdmin,
+    setOnlyAdmin,
   };
 
   return <Context.Provider value={contextValue}>{children}</Context.Provider>;

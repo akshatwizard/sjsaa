@@ -2,7 +2,7 @@ import React, { lazy, Suspense, useContext, useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Context } from "../../context/Context";
 import ComponentLoader from "../ComponentLoader/ComponentLoader.jsx";
-import Dashboard from "./AdminComponents/Dashboard.jsx"; 
+import Dashboard from "./AdminComponents/Dashboard.jsx";
 import GalleryUpdate from "./AdminComponents/GalleryUpdate.jsx";
 import AddMembers from "./AdminComponents/AddMembers.jsx";
 const OurAlumni = lazy(() => import("../OurAlumni/OurAlumni.jsx"));
@@ -10,15 +10,16 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import AddNewEvent from "./AdminComponents/AddNewEvent.jsx";
 export default function AdminDashboard() {
-  const { isLogedIn,setIsLogedIn } = useContext(Context);
+  const { isLogedIn, setIsLogedIn, onlyAdmin, setOnlyAdmin } =
+    useContext(Context);
   const [selectedTab, setSelectedTab] = useState("dashboard");
   const [adminData, setAdminData] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [role,setRole] = useState("");
+  const [role, setRole] = useState("");
   const { noOfMembers } = useContext(Context);
   const navigator = useNavigate();
   let date = new Date().getFullYear();
-  
+
   function handleClick(event) {
     setSelectedTab(event.target.id);
   }
@@ -29,12 +30,12 @@ export default function AdminDashboard() {
   useEffect(() => {
     if (isLogedIn) {
       const id = Cookies.get("mnid");
-      
+
       const fetchUserDetails = async () => {
         const formData = new FormData();
         formData.append("mnid", id);
         formData.append("Mod", "getMemberData");
-        
+
         try {
           const response = await axios.post(
             `https://www.gdsons.co.in/draft/sjs/get-member-details`,
@@ -46,7 +47,7 @@ export default function AdminDashboard() {
             }
           );
           setAdminData(response?.data);
-          setRole(response?.data.userrole)
+          setRole(response?.data.userrole);
           if (response?.data.userrole !== "Webadmin") {
             navigator("/");
           }
@@ -57,16 +58,16 @@ export default function AdminDashboard() {
 
       fetchUserDetails();
     }
-    if (!isLogedIn) {
+    if (!isLogedIn && !onlyAdmin) {
       navigator("/");
       return;
     }
-
-  }, [isLogedIn, navigator]);
+  }, [isLogedIn, navigator, onlyAdmin]);
 
   const handleLogOut = () => {
     Cookies.remove("mnid");
     setIsLogedIn(false);
+    setOnlyAdmin(false);
   };
   // console.log(role);
 
@@ -75,7 +76,7 @@ export default function AdminDashboard() {
       <div className={!isMenuOpen ? "leftSection" : "closedLeftSection"}>
         <div className="adminNav">
           <div className="adminLogoContainer">
-            <Link to={"/"}>
+            <Link to={`${isLogedIn ? "/" : ""}`}>
               <img src="/images/8.png" alt="logo" />
             </Link>
             {isMenuOpen && (
@@ -101,42 +102,48 @@ export default function AdminDashboard() {
           </div>
           <div className="adminLinkContainer">
             <div className="adminLinks">
-              <div className="adminlink" onClick={handleClick}>
+              <div className="adminlink">
                 <div
                   id="dashboard"
                   className={`${
                     selectedTab === "dashboard" ? "activeTab" : ""
                   }`}
+                  onClick={handleClick}
                 >
-                  <i class="fa-solid fa-house"></i>
+                  <i className="fa-solid fa-house"></i>
                   <span>Dashboard</span>
                 </div>
               </div>
 
-              <div className="adminlink" onClick={handleClick}>
+              <div className="adminlink">
                 <div
                   id="Update"
                   className={`${selectedTab === "Update" ? "activeTab" : ""}`}
+                  onClick={handleClick}
                 >
-                  <i class="fa-regular fa-image"></i>
+                  <i className="fa-regular fa-image"></i>
                   <span>Update Gallery</span>
                 </div>
               </div>
-              <div className="adminlink" onClick={handleClick}>
+
+              <div className="adminlink">
                 <div
                   id="Add"
                   className={`${selectedTab === "Add" ? "activeTab" : ""}`}
+                  onClick={handleClick}
                 >
-                  <i class="fa-solid fa-user"></i>
+                  <i className="fa-solid fa-user"></i>
                   <span>Add Members</span>
                 </div>
               </div>
-              <div className="adminlink" onClick={handleClick}>
+
+              <div className="adminlink">
                 <div
                   id="event"
                   className={`${selectedTab === "event" ? "activeTab" : ""}`}
+                  onClick={handleClick} // Move onClick here
                 >
-                  <i class="fa-solid fa-calendar-days"></i>
+                  <i className="fa-solid fa-calendar-days"></i>
                   <span>Add Events</span>
                 </div>
               </div>
@@ -171,9 +178,11 @@ export default function AdminDashboard() {
             <p>St John's School Alumni Association</p>
           </div>
           <div className="otherContent">
-            <div className="adminProfile">
-              <img src={adminData?.profile_picture} alt="" />
-            </div>
+            {!onlyAdmin && (
+              <div className="adminProfile">
+                <img src={adminData?.profile_picture} alt="" />
+              </div>
+            )}
             <div className="logOutbtn">
               <button onClick={handleLogOut}>Logout</button>
             </div>
@@ -190,9 +199,8 @@ export default function AdminDashboard() {
 
         {selectedTab === "Update" && <GalleryUpdate />}
         {selectedTab === "Add" && <AddMembers />}
-        {selectedTab === "event" && <AddNewEvent/>}
+        {selectedTab === "event" && <AddNewEvent />}
 
-        
         <div className="col-lg-12">
           <div className="endSection">
             <p>

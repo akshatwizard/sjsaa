@@ -16,7 +16,8 @@ export default function Header() {
   const headerRef = useRef(null);
   const [dropDownOpen, setDropOpen] = useState(false);
   const [memberDropDownOpen, setMemberDropDownOpen] = useState(false);
-  const { loginModal, setLoginModal, container } = useContext(Context);
+  const { loginModal, setLoginModal, container, onlyAdmin, setOnlyAdmin } =
+    useContext(Context);
   const linkRef = useRef();
   const handleToggle = () => {
     setIsOpened(!isOpened);
@@ -64,7 +65,8 @@ export default function Header() {
   const handleLogout = () => {
     Cookies.remove("mnid");
     setIsLogedIn(false);
-    setIsOpened(false); 
+    setOnlyAdmin(false);
+    setIsOpened(false);
   };
 
   return (
@@ -241,7 +243,7 @@ export default function Header() {
               Gallery
             </NavLink>
           </div>
-          {isLogedIn && (
+          {isLogedIn && !onlyAdmin && (
             <div className="lkns">
               <NavLink
                 to="/profile"
@@ -257,10 +259,29 @@ export default function Header() {
               </NavLink>
             </div>
           )}
+
+          {!isLogedIn && onlyAdmin && (
+            <div className="lkns">
+              <NavLink
+                to="/admin/dashboard"
+                className={({ isActive }) => (isActive ? "act" : "navLinks")}
+                onClick={() => {
+                  setIsOpened(false);
+                  setDropOpen(false);
+                  scrollToTop();
+                  setMemberDropDownOpen(false);
+                }}
+              >
+                Dashboard
+              </NavLink>
+            </div>
+          )}
         </div>
         <div className="btnContainer">
           {isLogedIn ? (
-            <button className="loginBtn" onClick={handleLogout}>Logout</button>
+            <button className="loginBtn" onClick={handleLogout}>
+              Logout
+            </button>
           ) : (
             <button className="loginBtn" onClick={() => setLoginModal(true)}>
               Login

@@ -17,7 +17,7 @@ import Fancybox from "../ImageZoom/Fancybox.jsx";
 const UpdateEmail = lazy(() => import("../UpdateEmail/UpdateEmail.jsx"));
 
 export default function OurAlumni() {
-  const { setLoginModal, isAdmin } = useContext(Context);
+  const { setLoginModal, isAdmin,onlyAdmin} = useContext(Context);
   const [memberData, setMemberData] = useState([]);
   const [filterValue, setFilterValue] = useState("");
   const [filterCategory, setFilterCategory] = useState("membernace");
@@ -199,7 +199,7 @@ export default function OurAlumni() {
       "Current Location",
     ];
   
-    if (isLogedIn) {
+    if (isLogedIn || onlyAdmin) {
       tableColumn.push("Email", "Contact No");
     }
   
@@ -224,7 +224,7 @@ export default function OurAlumni() {
         member.location || "N/A",
       ];
   
-      if (isLogedIn) {
+      if (isLogedIn || onlyAdmin) {
         memberDetails.push(member?.email || "N/A", member?.mobile_number_one || "N/A");
       }
   
@@ -335,10 +335,10 @@ export default function OurAlumni() {
                     <th>Date of Birth</th>
                     <th>Profession & Working As</th>
                     <th>Current Location</th>
-                    {isLogedIn && <th>Contact No</th>}
-                    {isLogedIn && <th>Email</th>}
-                    {isLogedIn ? "" : <th>Action</th>}
-                    {isAdmin && <th>Print</th>}
+                    {isLogedIn || onlyAdmin  && <th>Contact No</th>}
+                    {isLogedIn || onlyAdmin && <th>Email</th>}
+                    {isLogedIn || onlyAdmin ? "" : <th>Action</th>}
+                    {isAdmin || onlyAdmin && <th>Print</th>}
                   </tr>
                 </thead>
                 <tbody>
@@ -392,7 +392,7 @@ export default function OurAlumni() {
                       <td>{product.dob}</td>
                       <td>{product.trade_category}</td>
                       <td>{product?.location || "not provided"}</td>
-                      {isLogedIn && (
+                      {isLogedIn || onlyAdmin && (
                         <td>
                           {product?.mobile_number_one || "Not available"}
                           {product?.mobile_number_two
@@ -400,8 +400,8 @@ export default function OurAlumni() {
                             : ""}
                         </td>
                       )}
-                      {isLogedIn && <td>{product?.email || "not avilable"}</td>}
-                      {isLogedIn ? (
+                      {isLogedIn || onlyAdmin && <td>{product?.email || "not avilable"}</td>}
+                      {isLogedIn || onlyAdmin ? (
                         ""
                       ) : (
                         <td>
@@ -423,7 +423,7 @@ export default function OurAlumni() {
                           )}
                         </td>
                       )}
-                      {isAdmin && (
+                      {isAdmin || onlyAdmin && (
                         <td>
                           <div
                             className="btn btn-primary"
