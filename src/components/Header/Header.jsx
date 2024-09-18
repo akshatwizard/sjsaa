@@ -278,7 +278,7 @@ export default function Header() {
           )}
         </div>
         <div className="btnContainer">
-          {isLogedIn ? (
+          {isLogedIn || onlyAdmin ? (
             <button className="loginBtn" onClick={handleLogout}>
               Logout
             </button>
