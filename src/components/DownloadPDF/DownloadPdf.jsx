@@ -53,7 +53,7 @@ export default function DownloadPdf() {
                 </div>
               </div>
               <div className="pdfBody">
-                <h4>REGISTRATION FOR MEMBERSHIP OF SJSAA 2022- 2023</h4>
+                <h5 className="text-center">REGISTRATION FOR MEMBERSHIP OF SJSAA 2022- 2023</h5>
                 <div className="row ">
                   <div className="col-12">
                     <div className="row row-gap-1">
@@ -80,7 +80,7 @@ export default function DownloadPdf() {
                             </div>
                           </div>
 
-                          <div className="col-5">
+                          <div className="col-12">
                             <div className="datacontainer">
                               <span>DOB:-</span>
                               <div>
@@ -105,7 +105,7 @@ export default function DownloadPdf() {
                             </div>
                           </div>
 
-                          <div className="col-7">
+                          <div className="col-12">
                             <div className="datacontainer">
                               <span>Qualification:-</span>
                               <div>
@@ -127,8 +127,8 @@ export default function DownloadPdf() {
                           src={memberData.profile_picture || "not provided"}
                           alt=""
                           style={{
-                            height: "200px",
-                            width: "200px",
+                            height: "180px",
+                            width: "180px",
                             objectFit: "contain",
                           }}
                         />
