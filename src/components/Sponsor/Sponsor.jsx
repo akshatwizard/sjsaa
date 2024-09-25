@@ -5,15 +5,24 @@ export default function Sponsor() {
     <section className="sectionContainer">
       <div className="container">
         <div className="title">
-          <h1>Sponsors for Alumni Meet 2024</h1>
+          <h2 >Sponsors for Alumni Meet 2024</h2>
         </div>
-        <div className="row row-gap-4 justify-content-between">
-          <div className="col-lg-3 col-md-4 col-6">
-            <div className="sponserImage">
-              <img src="/images/sponsors/SMAuto.png" alt="" />
+        <div className="row row-gap-4">
+          <div className="col-lg-9 col-md-8 col-12">
+            <div className="row row-gap-4">
+              <div className="col-lg-4 col-md-4 col-6">
+                <div className="sponserImage">
+                  <img src="/images/sponsors/SMAuto.png" alt="" />
+                </div>
+              </div>
+              <div className="col-lg-4 col-md-4 col-6">
+                <div className="sponserImage">
+                  <img src="/images/sponsors/kartik-steels.jpeg" alt="" style={{height:"150px",objectFit:"contain"}} />
+                </div>
+              </div>
             </div>
           </div>
-          <div className="col-lg-3 col-md-4 col-6">
+          <div className="col-lg-3 col-md-4 col-12">
             <div className="sponserImage">
               <img src="/images/sponsors/WizardsNext.png" alt="" />
               <p>Digital Partner.</p>

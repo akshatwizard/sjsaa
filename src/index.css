@@ -237,12 +237,12 @@ body {
   position: relative;
 }
 
-.title > h1 {
+.title > h1, .title>h2 {
   position: relative;
   width: fit-content;
   color: var(--text-color);
 }
-.title > h1::after {
+.title > h1::after, .title>h2::after {
   content: "";
   position: absolute;
   width: 40%;
@@ -3406,7 +3406,9 @@ label {
   flex-direction: column;
 
   img {
+    max-width: 100%;
     width: 100%;
+    border-radius: 8px;
   }
   p {
     margin: 0;
