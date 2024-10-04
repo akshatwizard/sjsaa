@@ -1,7 +1,8 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 import Cropper from "react-easy-crop";
 import axios from "axios";
 import { Slider, Button } from "@mui/material";
+import ComponentLoader from "../../ComponentLoader/ComponentLoader.jsx";
 
 export default function GalleryUpdate() {
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -10,6 +11,11 @@ export default function GalleryUpdate() {
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
   const [croppingIndex, setCroppingIndex] = useState(null);
+  const [isUploaded, setIsUploaded] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [allimage, setAllImage] = useState();
+
+  const fileInputRef = useRef(null);
 
   const handleFileChange = (event) => {
     const files = Array.from(event.target.files);
@@ -24,6 +30,39 @@ export default function GalleryUpdate() {
     const previews = files.map((file) => URL.createObjectURL(file));
     setImagePreviews(previews);
   };
+
+  const getAllImage = async () => {
+    const formData = new FormData();
+    formData.append("gallery_list", "gallery_list");
+
+    try {
+      const response = await axios.post(
+        "https://www.gdsons.co.in/draft/sjs/gallery-list",
+        formData
+      );
+      setAllImage(response?.data);
+    } catch (error) {
+      console.error("Error fetching gallery images:", error);
+    }
+  };
+
+  useEffect(() => {
+    // Fetch the initial set of images when the component mounts
+    getAllImage();
+  }, []); // Empty dependency array ensures this only runs once
+
+  // useEffect(() => {
+  //   const formData = new FormData();
+  //   formData.append("gallery_list", "gallery_list");
+  //   async function getAllImage() {
+  //     const response = await axios.post(
+  //       "https://www.gdsons.co.in/draft/sjs/gallery-list",
+  //       formData
+  //     );
+  //     setAllImage(response?.data);
+  //   }
+  //   getAllImage();
+  // }, []);
 
   const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
@@ -85,20 +124,69 @@ export default function GalleryUpdate() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    setLoading(true);
+
     const formData = new FormData();
     imagePreviews.forEach((preview, index) =>
-      formData.append("images", selectedFiles[index])
+      formData.append("gallery_image[]", selectedFiles[index])
     );
 
     try {
-      const response = await axios.post("YOUR_BACKEND_ENDPOINT", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await axios.post(
+        "https://www.gdsons.co.in/draft/sjs/upload-gallery",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       console.log("Upload successful:", response.data);
+      if (response.data.status == 1) {
+        setIsUploaded(true);
+        setLoading(false);
+        setImagePreviews([]);
+        setSelectedFiles([]);
+        fileInputRef.current.value = "";
+        await getAllImage();
+      }
     } catch (error) {
       console.error("Error uploading files:", error);
+      setLoading(false);
+    }
+  };
+
+  const handleDelete = async (imageID) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this image?"
+    );
+
+    if (confirmDelete) {
+      try {
+        const formData = new FormData();
+        formData.append("gallery_nid", imageID);
+
+        const response = await axios.post(
+          "https://www.gdsons.co.in/draft/sjs/gallery-delete",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        if (response.data[0].status == "1") {
+          alert("Image deleted successfully!");
+          await getAllImage();
+        } else {
+          alert("Failed to delete the image. Please try again.");
+        }
+      } catch (error) {
+        console.error("Error deleting image:", error);
+        alert("An error occurred while deleting the image.");
+      }
+    } else {
+      console.log("Deletion canceled");
     }
   };
 
@@ -113,13 +201,15 @@ export default function GalleryUpdate() {
                 multiple
                 onChange={handleFileChange}
                 accept="image/*"
+                name="gallery_image[]"
+                ref={fileInputRef} // Attach the ref to the file input
               />
               <button className="upBtn" type="submit">
-                Upload Images
+                {loading ? <ComponentLoader /> : "Upload Images"}
               </button>
             </form>
 
-            {selectedFiles.length > 0 && (
+            {selectedFiles?.length > 0 && (
               <div className="image-preview-container">
                 {imagePreviews.map((preview, index) => (
                   <div
@@ -163,8 +253,71 @@ export default function GalleryUpdate() {
               </div>
             )}
           </div>
+
+          <div className="col-lg-12">
+            <div className="all-img">
+              <div className="row row-gap-4 ">
+                {allimage?.map((value) => (
+                  <div
+                    className="col-lg-4 col-md-6 col-12"
+                    key={value.gallery_id}
+                  >
+                    <div className="im-container">
+                      <img
+                        src={value.gallery_file}
+                        alt=""
+                        key={value.gallery_id}
+                        className="im"
+                      />
+                      <div
+                        className="delete-btn"
+                        onClick={() => handleDelete(value.gallery_id)}
+                      >
+                        <i class="fa-solid fa-xmark"></i>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+
+      {isUploaded && (
+        <div className="upload-modal">
+          <div className="upload-modal-body">
+            <svg
+              className="checkmark"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 52 52"
+            >
+              <circle
+                className="checkmark__circle"
+                cx="26"
+                cy="26"
+                r="25"
+                fill="none"
+              />
+              <path
+                className="checkmark__check"
+                fill="none"
+                d="M14.1 27.2l7.1 7.2 16.7-16.8"
+              />
+            </svg>
+
+            <p>Uploaded Successfully</p>
+            <div
+              className="modalCloseBtn"
+              onClick={() => {
+                setIsUploaded(false);
+              }}
+            >
+              <i className="fa-solid fa-xmark" style={{ color: "white" }}></i>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
