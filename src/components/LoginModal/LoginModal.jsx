@@ -65,9 +65,9 @@ export default function LoginModal() {
           setLoading(false);
           setLoginModal(false);
           setIsLogedIn(true);
-          navigator("/profile");
+          window.location.href = "/profile";
           if(response.data.role === "Webadmin"){
-              navigator("/admin/dashboard");
+            window.location.href = "/admin/dashboard";
           }
       } else {
           setLoading(false);
