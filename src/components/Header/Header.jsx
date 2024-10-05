@@ -67,6 +67,7 @@ export default function Header() {
     setIsLogedIn(false);
     setOnlyAdmin(false);
     setIsOpened(false);
+    window.location.href = "/";
   };
 
   return (
