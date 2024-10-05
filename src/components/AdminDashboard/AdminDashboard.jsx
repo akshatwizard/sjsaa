@@ -50,7 +50,7 @@ export default function AdminDashboard() {
           setAdminData(response?.data);
           setRole(response?.data.userrole);
           if (response?.data.userrole !== "Webadmin") {
-            navigator("/");
+            window.location.href = '/';
           }
         } catch (error) {
           console.error("Error fetching user details:", error);
@@ -60,7 +60,7 @@ export default function AdminDashboard() {
       fetchUserDetails();
     }
     if (!isLogedIn && !onlyAdmin) {
-      navigator("/");
+      window.location.href = '/';
       return;
     }
   }, [isLogedIn, navigator, onlyAdmin]);
@@ -69,6 +69,7 @@ export default function AdminDashboard() {
     Cookies.remove("mnid");
     setIsLogedIn(false);
     setOnlyAdmin(false);
+    window.location.href = '/';
   };
   // console.log(role);
 
