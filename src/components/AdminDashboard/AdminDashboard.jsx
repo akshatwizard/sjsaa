@@ -2,13 +2,14 @@ import React, { lazy, Suspense, useContext, useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Context } from "../../context/Context";
 import ComponentLoader from "../ComponentLoader/ComponentLoader.jsx";
-import Dashboard from "./AdminComponents/Dashboard.jsx";
-import GalleryUpdate from "./AdminComponents/GalleryUpdate.jsx";
-import AddMembers from "./AdminComponents/AddMembers.jsx";
+const Dashboard = lazy(() => import("./AdminComponents/Dashboard.jsx"));
+const AddMembers = lazy(() => import("./AdminComponents/AddMembers.jsx"));
+const GalleryUpdate = lazy(() => import("./AdminComponents/GalleryUpdate.jsx"));
 const OurAlumni = lazy(() => import("../OurAlumni/OurAlumni.jsx"));
+const AddNewEvent = lazy(() => import("./AdminComponents/AddNewEvent.jsx"));
 import Cookies from "js-cookie";
 import axios from "axios";
-import AddNewEvent from "./AdminComponents/AddNewEvent.jsx";
+import Loader from "../Loader/Loader.jsx";
 export default function AdminDashboard() {
   const { isLogedIn, setIsLogedIn, onlyAdmin, setOnlyAdmin } =
     useContext(Context);
@@ -191,16 +192,30 @@ export default function AdminDashboard() {
         </div>
 
         {selectedTab === "dashboard" && (
-          <Dashboard
-            OurAlumni={OurAlumni}
-            noOfMembers={noOfMembers}
-            ComponentLoader={ComponentLoader}
-          />
+          <Suspense fallback={<Loader />}>
+            <Dashboard
+              OurAlumni={OurAlumni}
+              noOfMembers={noOfMembers}
+              ComponentLoader={ComponentLoader}
+            />
+          </Suspense>
         )}
 
-        {selectedTab === "Update" && <GalleryUpdate />}
-        {selectedTab === "Add" && <AddMembers />}
-        {selectedTab === "event" && <AddNewEvent />}
+        {selectedTab === "Update" && (
+          <Suspense fallback={<Loader />}>
+            <GalleryUpdate />
+          </Suspense>
+        )}
+        {selectedTab === "Add" && (
+          <Suspense fallback={<Loader />}>
+            <AddMembers />
+          </Suspense>
+        )}
+        {selectedTab === "event" && (
+          <Suspense fallback={<Loader />}>
+            <AddNewEvent />
+          </Suspense>
+        )}
 
         <div className="col-lg-12">
           <div className="endSection">
