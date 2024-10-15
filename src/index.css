@@ -3765,3 +3765,28 @@ label {
 .atbody, .athead{
   border-color: rgb(246 200 56);
 }
+
+.youtube-video-container{
+  position: relative;
+  width: 100%;
+  background-color: var(--secondry-color);
+  padding: 20px;
+  border-radius: 15px;
+
+  iframe{
+    width: 100%;
+    height: 285px;
+    border-radius: 8px;
+  }
+}
+
+@media (max-width:480px) {
+  .youtube-video-container iframe{
+    height: 230px;
+  }
+}
+@media (max-width:360px) {
+  .youtube-video-container iframe{
+    height: 169px;
+  }
+}

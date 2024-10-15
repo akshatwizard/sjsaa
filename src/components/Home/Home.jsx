@@ -13,6 +13,7 @@ const ManagingCommittee = lazy(() =>
   import("../ManagingCommittee/ManagingCommittee")
 );
 const Achievers = lazy(() => import("../Achievers/Achievers"));
+const Youtube = lazy(()=>import("../Youtube/Youtube"));
 
 export default function Home() {
   return (
@@ -28,6 +29,9 @@ export default function Home() {
       </Suspense>
       <Suspense fallback={<Loader />}>
         <ManagingCommittee />
+      </Suspense>
+      <Suspense fallback={<Loader />}>
+        <Youtube />
       </Suspense>
       <Suspense fallback={<Loader />}>
         <Events />
