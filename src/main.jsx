@@ -23,6 +23,7 @@ const AdminDashboard = lazy(()=>import('./components/AdminDashboard/AdminDashboa
 const PaymentPage = lazy(()=>import('./components/RegistrationForm/PaymentPage.jsx'))
 const DownloadPdf = lazy(()=>import('./components/DownloadPDF/DownloadPdf.jsx'));
 const Discussion = lazy(()=>import('./components/DiscussionForum/Discussion.jsx')) 
+const WishMe = lazy(()=>import('./components/WishMe/WishMe.jsx'));
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -141,6 +142,16 @@ const router = createBrowserRouter(
           </Suspense>
         }
       />
+
+      <Route
+        path='/wish-me'
+        element={
+          <Suspense fallback={<Loader/>}>
+            <WishMe />
+          </Suspense>
+        }
+      />
+
       <Route
         path='/members-feed'
         element={
