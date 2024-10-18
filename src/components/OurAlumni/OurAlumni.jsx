@@ -17,7 +17,7 @@ import Fancybox from "../ImageZoom/Fancybox.jsx";
 const UpdateEmail = lazy(() => import("../UpdateEmail/UpdateEmail.jsx"));
 
 export default function OurAlumni() {
-  const { setLoginModal, isAdmin,onlyAdmin} = useContext(Context);
+  const { setLoginModal, isAdmin, onlyAdmin } = useContext(Context);
   const [memberData, setMemberData] = useState([]);
   const [filterValue, setFilterValue] = useState("");
   const [filterCategory, setFilterCategory] = useState("membernace");
@@ -179,15 +179,15 @@ export default function OurAlumni() {
 
   const handleDownloadPDF = () => {
     const doc = new jsPDF();
-  
+
     const img = "/images/8.png";
     doc.addImage(img, "PNG", 10, 10, 30, 30);
-  
+
     doc.setFontSize(25);
     doc.text("St John's School Alumni Association", 50, 25);
     doc.setLineWidth(0.5);
     doc.line(0, 45, 250, 45);
-  
+
     const tableColumn = [
       "Sr. No.",
       "Name",
@@ -198,20 +198,20 @@ export default function OurAlumni() {
       "Profession & Working As",
       "Current Location",
     ];
-  
+
     if (isLogedIn || onlyAdmin) {
       tableColumn.push("Email", "Contact No");
     }
-  
+
     const tableRows = [];
-  
+
     const filtered = memberData.filter((product) =>
       product[filterCategory]
         ?.toString()
         .toLowerCase()
         .includes(filterValue.toLowerCase())
     );
-  
+
     filtered.forEach((member, index) => {
       const memberDetails = [
         index + 1,
@@ -223,18 +223,21 @@ export default function OurAlumni() {
         member.trade_category || "N/A",
         member.location || "N/A",
       ];
-  
+
       if (isLogedIn || onlyAdmin) {
-        memberDetails.push(member?.email || "N/A", member?.mobile_number_one || "N/A");
+        memberDetails.push(
+          member?.email || "N/A",
+          member?.mobile_number_one || "N/A"
+        );
       }
-  
+
       tableRows.push(memberDetails);
     });
-  
+
     doc.autoTable({
       head: [tableColumn],
-      body: tableRows, 
-      startY: 50, 
+      body: tableRows,
+      startY: 50,
       tableWidth: 210,
       margin: { left: 0 },
       columnStyles: {
@@ -249,13 +252,12 @@ export default function OurAlumni() {
         8: { cellWidth: 30 },
       },
       styles: {
-        overflow: 'linebreak', 
+        overflow: "linebreak",
       },
     });
-  
+
     doc.save("filtered_members_list.pdf");
   };
-  
 
   useEffect(() => {
     if (updateEmailModal) {
@@ -335,10 +337,10 @@ export default function OurAlumni() {
                     <th>Date of Birth</th>
                     <th>Profession & Working As</th>
                     <th>Current Location</th>
-                    {isLogedIn || onlyAdmin  && <th>Contact No</th>}
-                    {isLogedIn || onlyAdmin && <th>Email</th>}
+                    {(isLogedIn || onlyAdmin || isAdmin) && <th>Contact No</th>}
+                    {(isLogedIn || onlyAdmin || isAdmin) && <th>Email</th>}
                     {isLogedIn || onlyAdmin ? "" : <th>Action</th>}
-                    {isAdmin || onlyAdmin && <th>Print</th>}
+                    {(isAdmin || onlyAdmin) && <th>Print</th>}
                   </tr>
                 </thead>
                 <tbody>
@@ -392,7 +394,7 @@ export default function OurAlumni() {
                       <td>{product.dob}</td>
                       <td>{product.trade_category}</td>
                       <td>{product?.location || "not provided"}</td>
-                      {isLogedIn || onlyAdmin && (
+                      {(isLogedIn || onlyAdmin || isAdmin) && (
                         <td>
                           {product?.mobile_number_one || "Not available"}
                           {product?.mobile_number_two
@@ -400,8 +402,10 @@ export default function OurAlumni() {
                             : ""}
                         </td>
                       )}
-                      {isLogedIn || onlyAdmin && <td>{product?.email || "not avilable"}</td>}
-                      {isLogedIn || onlyAdmin ? (
+                      {(isLogedIn || onlyAdmin || isAdmin) && (
+                        <td>{product.email}</td>
+                      )}
+                      {isLogedIn || onlyAdmin || isAdmin ? (
                         ""
                       ) : (
                         <td>
@@ -423,7 +427,7 @@ export default function OurAlumni() {
                           )}
                         </td>
                       )}
-                      {isAdmin || onlyAdmin && (
+                      {(isAdmin || onlyAdmin) && (
                         <td>
                           <div
                             className="btn btn-primary"
