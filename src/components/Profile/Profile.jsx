@@ -355,7 +355,7 @@ export default function Profile() {
                               <div className="col-lg-6">
                                 <label htmlFor="dob">DOB</label>
                                 <input
-                                  type="text"
+                                  type="date"
                                   placeholder="Date of Birth"
                                   id="dob"
                                   value={fullUserData.dob}
