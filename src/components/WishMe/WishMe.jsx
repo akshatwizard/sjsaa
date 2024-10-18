@@ -45,7 +45,7 @@ export default function WishMe() {
   }, []);
   return (
     <section className="sectionContainer">
-      <img src="images/events/3.png" className="flg" />
+      {/* <img src="images/events/3.png" className="flg" /> */}
       <div className="container">
         <div className="title">
           <h3 className="wish-tagline">Wish Me.....</h3>
