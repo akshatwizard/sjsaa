@@ -1309,8 +1309,8 @@ table {
     left: 0 !important;
     transition: display 0.5s;
 
-    li:last-child {
-      border-top: 1px solid var(--text-color) !important;
+    li {
+      border-color: var(--third-color) !important;
     }
 
     li a {
@@ -2382,9 +2382,6 @@ label {
     border-radius: 5px;
     font-size: 20px;
   }
-  input {
-    /* width: 300px; */
-  }
 }
 
 @media (max-width: 768px) {
@@ -2631,8 +2628,6 @@ label {
       align-items: center !important;
       justify-content: space-between !important;
 
-      .adminMenuBtn {
-      }
 
       .logoName {
         position: relative !important;
@@ -2740,9 +2735,6 @@ label {
       display: flex;
       align-items: center;
       justify-content: space-between;
-
-      .adminMenuBtn {
-      }
 
       .logoName {
         position: relative;
@@ -2891,9 +2883,7 @@ label {
     align-items: center;
     justify-content: space-between;
 
-    .adminMenuBtn {
-    }
-
+    
     .logoName {
       position: relative;
 
