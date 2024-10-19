@@ -24,8 +24,8 @@ export default function RegistrationForm() {
     wedding: "",
     address: "",
     Mod: "addMember",
-    joiningYear: "",
-    lifeMember: "no",
+    joiningYear: new Date().getFullYear(),
+    lifeMember: "",
   });
   const { loading, setLoading } = useContext(Context);
 
@@ -39,6 +39,14 @@ export default function RegistrationForm() {
       document.body.style.overflow = "auto";
     };
   }, [isRegistrationSuccess]);
+
+  useEffect(() => {
+    const currentYear = new Date().getFullYear();
+    setUserData((prevData) => ({
+      ...prevData,
+      joiningYear: currentYear,
+    }));
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -97,9 +105,9 @@ export default function RegistrationForm() {
       formData.append(key, userData[key]);
     });
 
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
-    }
+    // for (let [key, value] of formData.entries()) {
+    //   console.log(`${key}: ${value}`);
+    // }
     try {
       const response = await axios.post(
         "https://www.gdsons.co.in/draft/sjs/get-members-data",
@@ -276,7 +284,7 @@ export default function RegistrationForm() {
 
                 {/* Additional Form Fields */}
                 <div className="col-lg-4 mt-5">
-                  <label htmlFor="qualification">Alumni Joining Year</label>
+                  <label htmlFor="joiningYear">Alumni Joining Year</label>
                   <input
                     type="text"
                     id="joiningYear"
@@ -284,6 +292,7 @@ export default function RegistrationForm() {
                     placeholder="Your Joining Year"
                     value={userData.joiningYear}
                     onChange={handleInputChange}
+                    disabled
                   />
                 </div>
 
@@ -364,30 +373,30 @@ export default function RegistrationForm() {
                 </div>
 
                 <div className="col-lg-4 mt-3 text-light">
-                  <label>Life Member</label>
-                  <label htmlFor="lifeMemberYes" style={{ width: "50%" }}>
-                    Yes
+                  <label>Type of Registration</label>
+                  <label htmlFor="General" style={{ width: "50%" }}>
+                    General
                   </label>
                   <input
                     style={{ width: "10%" }}
                     type="radio"
                     name="lifeMember"
-                    id="lifeMemberYes"
-                    value="Yes"
-                    checked={userData.lifeMember === "Yes"}
+                    id="General"
+                    value="General"
+                    checked={userData.lifeMember === "General"}
                     onChange={handleInputChange}
                   />
 
-                  <label htmlFor="lifeMemberNo" style={{ width: "50%" }}>
-                    No
+                  <label htmlFor="Life" style={{ width: "70%" }}>
+                    Life (Paid with Special Privileges)
                   </label>
                   <input
                     style={{ width: "10%" }}
                     type="radio"
-                    id="lifeMemberNo"
+                    id="Life"
                     name="lifeMember"
-                    value="No"
-                    checked={userData.lifeMember === "No"}
+                    value="Life"
+                    checked={userData.lifeMember === "Life"}
                     onChange={handleInputChange}
                   />
                 </div>
