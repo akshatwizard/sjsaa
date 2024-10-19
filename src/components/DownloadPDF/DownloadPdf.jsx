@@ -213,7 +213,7 @@ export default function DownloadPdf() {
                                 </div>
                                 <div className="col-12">
                                   <div>
-                                    <p>
+                                    <p style={{fontSize:"12px"}}>
                                       <span style={{ fontWeight: "600" }}>
                                         1:- Demand Draft
                                       </span>{" "}
@@ -225,7 +225,7 @@ export default function DownloadPdf() {
                                       Station Road, Varanasi – 221001. Contact
                                       No. – 9415268833/ 8808480000
                                     </p>
-                                    <p><span style={{ fontWeight: "600" }}>
+                                    <p style={{fontSize:"12px"}}><span style={{ fontWeight: "600" }}>
                                       2:- Cash
                                     </span>{" "}
                                     : To any Authorized Person of Managing
