@@ -7,6 +7,9 @@ const AddMembers = lazy(() => import("./AdminComponents/AddMembers.jsx"));
 const GalleryUpdate = lazy(() => import("./AdminComponents/GalleryUpdate.jsx"));
 const OurAlumni = lazy(() => import("../OurAlumni/OurAlumni.jsx"));
 const AddNewEvent = lazy(() => import("./AdminComponents/AddNewEvent.jsx"));
+const AddAchievements = lazy(() =>
+  import("./AdminComponents/AddAchievements.jsx")
+);
 import Cookies from "js-cookie";
 import axios from "axios";
 import Loader from "../Loader/Loader.jsx";
@@ -22,7 +25,7 @@ export default function AdminDashboard() {
   let date = new Date().getFullYear();
 
   function handleClick(event) {
-    setSelectedTab(event.target.id);
+    setSelectedTab(event.currentTarget.id);
   }
   function handleMenuBtnClicked() {
     setIsMenuOpen(!isMenuOpen);
@@ -50,7 +53,7 @@ export default function AdminDashboard() {
           setAdminData(response?.data);
           setRole(response?.data.userrole);
           if (response?.data.userrole !== "Webadmin") {
-            window.location.href = '/';
+            window.location.href = "/";
           }
         } catch (error) {
           console.error("Error fetching user details:", error);
@@ -60,7 +63,7 @@ export default function AdminDashboard() {
       fetchUserDetails();
     }
     if (!isLogedIn && !onlyAdmin) {
-      window.location.href = '/';
+      window.location.href = "/";
       return;
     }
   }, [isLogedIn, navigator, onlyAdmin]);
@@ -69,7 +72,7 @@ export default function AdminDashboard() {
     Cookies.remove("mnid");
     setIsLogedIn(false);
     setOnlyAdmin(false);
-    window.location.href = '/';
+    window.location.href = "/";
   };
   // console.log(role);
 
@@ -149,6 +152,19 @@ export default function AdminDashboard() {
                   <span>Add Events</span>
                 </div>
               </div>
+
+              <div className="adminlink">
+                <div
+                  id="achievements"
+                  className={`${
+                    selectedTab === "achievements" ? "activeTab" : ""
+                  }`}
+                  onClick={handleClick} // Move onClick here
+                >
+                  <i class="fa-solid fa-star"></i>
+                  <span>Add Achievement</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -214,6 +230,12 @@ export default function AdminDashboard() {
         {selectedTab === "event" && (
           <Suspense fallback={<Loader />}>
             <AddNewEvent />
+          </Suspense>
+        )}
+
+        {selectedTab === "achievements" && (
+          <Suspense fallback={<Loader />}>
+            <AddAchievements />
           </Suspense>
         )}
 
