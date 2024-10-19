@@ -76,7 +76,7 @@ export default function AddAchievements() {
     //   setLoading(false);
     // }
 
-    
+
   };
   return (
     <section className="adminMainContent">
@@ -94,7 +94,7 @@ export default function AddAchievements() {
                       Achievement Title <sup>*</sup>{" "}
                     </label>
                     <textarea
-                      placeholder="Event Title"
+                      placeholder="Achievement Title"
                       name="title"
                       id="title"
                       value={formData.title}
@@ -106,7 +106,7 @@ export default function AddAchievements() {
                       Achievement Description <sup>*</sup>{" "}
                     </label>
                     <textarea
-                      placeholder="Event Description"
+                      placeholder="Achievement Description"
                       name="description"
                       id="description"
                       value={formData.description}
