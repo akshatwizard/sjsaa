@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 export default function DownloadPdf() {
   const [memberData, setMemberData] = useState({});
   const { id } = useParams();
+  const currentYear = new Date().getFullYear()
 
   useEffect(() => {
     async function fetchMember() {
@@ -53,7 +54,7 @@ export default function DownloadPdf() {
                 </div>
               </div>
               <div className="pdfBody">
-                <h5 className="text-center">REGISTRATION FOR MEMBERSHIP OF SJSAA 2022- 2023</h5>
+                <h5 className="text-center">REGISTRATION FOR MEMBERSHIP OF SJSAA {currentYear} - {currentYear + 1} </h5>
                 <div className="row ">
                   <div className="col-12">
                     <div className="row row-gap-1">
