@@ -82,6 +82,7 @@ export default function Header() {
               <p>
                 <span className="logoText">St John&apos;s School</span>
                 <span className="secondLogo">Alumni Association</span>
+                <em className="giftLine">Gifted by Class of '99'</em>
               </p>
             </div>
           </Link>

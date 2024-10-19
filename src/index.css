@@ -83,26 +83,27 @@ body {
     justify-content: space-between;
 
     .logoContainer {
-      text-align: center;
+      /* text-align: center; */
 
       a {
         display: flex;
         align-items: center;
       }
       .textLogoContainer {
-        width: 250px;
+        width: 235px;
+        padding: 0 13px;
       }
 
       p {
         color: var(--text-color);
         font-weight: 700;
         margin: 0;
-        font-size: 19.7px;
-        line-height: 22px;
+        font-size: 16.5px;
+        line-height: 18px;
         text-transform: uppercase;
 
         .logoText {
-          font-size: 22px;
+          font-size: 19px;
           display: inline-block;
 
           span {
@@ -114,7 +115,7 @@ body {
         }
       }
       .logoImg {
-        width: 70px;
+        width: 75px;
 
         img {
           width: 100%;
@@ -1056,7 +1057,8 @@ body.menu-open {
       width: 50px !important;
     }
     .textLogoContainer {
-      width: 155px !important;
+      width: 165px !important;
+      padding: 0 10px !important;
     }
 
     p {
@@ -2628,7 +2630,6 @@ label {
       align-items: center !important;
       justify-content: space-between !important;
 
-
       .logoName {
         position: relative !important;
 
@@ -2883,7 +2884,6 @@ label {
     align-items: center;
     justify-content: space-between;
 
-    
     .logoName {
       position: relative;
 
@@ -3698,9 +3698,8 @@ label {
   color: transparent !important;
   animation: gradientMove 5s ease infinite;
   position: relative;
-    width: fit-content;
+  width: fit-content;
 }
-
 
 .wish-me-container {
   width: 100%;
@@ -3720,14 +3719,13 @@ label {
       color: rgb(0, 174, 255);
     }
   }
-  .wish-me-body{
+  .wish-me-body {
     width: 100%;
     background-color: var(--primary-color);
     padding: 20px;
     border-radius: 8px;
     position: relative;
     margin-top: 20px;
- 
   }
 }
 
@@ -3738,45 +3736,57 @@ label {
   width: 25%;
   transform: rotate(45deg);
 }
-.thead{
+.thead {
   background-color: #007bff !important;
 }
-.tbody, .thead{
+.tbody,
+.thead {
   border-color: #007bff;
 }
 
-.tbody{
+.tbody {
   min-width: 120px;
 }
 
-.athead{
+.athead {
   background-color: rgb(246 200 56) !important;
 }
-.atbody, .athead{
+.atbody,
+.athead {
   border-color: rgb(246 200 56);
 }
 
-.youtube-video-container{
+.youtube-video-container {
   position: relative;
   width: 100%;
   background-color: var(--secondry-color);
   padding: 20px;
   border-radius: 15px;
 
-  iframe{
+  iframe {
     width: 100%;
     height: 285px;
     border-radius: 8px;
   }
 }
 
-@media (max-width:480px) {
-  .youtube-video-container iframe{
+@media (max-width: 480px) {
+  .youtube-video-container iframe {
     height: 230px;
   }
 }
-@media (max-width:360px) {
-  .youtube-video-container iframe{
+@media (max-width: 360px) {
+  .youtube-video-container iframe {
     height: 169px;
   }
+}
+
+.giftLine {
+  font-size: 10px;
+  font-weight: 300;
+  font-style: italic;
+  text-align: left !important;
+  margin: 0;
+  display: block;
+  color: var(--third-color);
 }

@@ -42,6 +42,11 @@ export default function ContextProvider({ children }) {
           duration: 0.3,
           opacity: 0,
         });
+        tl.from('.giftLine',{
+          opacity: 0,
+          transform: "translateY(20px)",
+          duration:0.5,
+        })
       }
 
       const btnContainer = document.querySelector(".btnContainer");

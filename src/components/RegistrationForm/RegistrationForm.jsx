@@ -25,6 +25,7 @@ export default function RegistrationForm() {
     address: "",
     Mod: "addMember",
     joiningYear: "",
+    lifeMember: "no",
   });
   const { loading, setLoading } = useContext(Context);
 
@@ -96,9 +97,9 @@ export default function RegistrationForm() {
       formData.append(key, userData[key]);
     });
 
-    // for (let [key, value] of formData.entries()) {
-    //   console.log(`${key}: ${value}`);
-    // }
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}: ${value}`);
+    }
     try {
       const response = await axios.post(
         "https://www.gdsons.co.in/draft/sjs/get-members-data",
@@ -362,7 +363,36 @@ export default function RegistrationForm() {
                   />
                 </div>
 
-                <div className="col-lg-8 mt-3">
+                <div className="col-lg-4 mt-3 text-light">
+                  <label>Life Member</label>
+                  <label htmlFor="lifeMemberYes" style={{ width: "50%" }}>
+                    Yes
+                  </label>
+                  <input
+                    style={{ width: "10%" }}
+                    type="radio"
+                    name="lifeMember"
+                    id="lifeMemberYes"
+                    value="Yes"
+                    checked={userData.lifeMember === "Yes"}
+                    onChange={handleInputChange}
+                  />
+
+                  <label htmlFor="lifeMemberNo" style={{ width: "50%" }}>
+                    No
+                  </label>
+                  <input
+                    style={{ width: "10%" }}
+                    type="radio"
+                    id="lifeMemberNo"
+                    name="lifeMember"
+                    value="No"
+                    checked={userData.lifeMember === "No"}
+                    onChange={handleInputChange}
+                  />
+                </div>
+
+                <div className="col-lg-4 mt-3">
                   <label htmlFor="address">Address</label>
                   <textarea
                     id="address"
