@@ -378,7 +378,7 @@ export default function RegistrationForm() {
                     General
                   </label>
                   <input
-                    style={{ width: "10%" }}
+                    style={{ width: "50%" }}
                     type="radio"
                     name="lifeMember"
                     id="General"
@@ -388,7 +388,7 @@ export default function RegistrationForm() {
                   />
 
                   <label htmlFor="Life" style={{ width: "70%" }}>
-                    Life (Paid with Special Privileges)
+                    Life <em style={{fontSize:"11px", color:"#f08a5d"}}>(Paid with Special Privileges)</em>
                   </label>
                   <input
                     style={{ width: "10%" }}
