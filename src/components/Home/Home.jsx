@@ -4,7 +4,7 @@ const Carousel = lazy(() => import("../Carousel/Carousel"));
 const MessageForAlumni = lazy(() =>
   import("../MessageForAlumni/MessageForAlumni")
 );
-const Vision = lazy(() => import("../Vision/Vision"));
+// const Vision = lazy(() => import("../Vision/Vision"));
 const Stories = lazy(() => import("../Stories/Stories"));
 const AboutUs = lazy(() => import("../AboutUs/AboutUs"));
 const Sponsor = lazy(() => import("../Sponsor/Sponsor"));
@@ -43,9 +43,9 @@ export default function Home() {
       <Suspense fallback={<Loader />}>
         <Stories />
       </Suspense>
-      <Suspense fallback={<Loader />}>
+      {/* <Suspense fallback={<Loader />}>
         <Vision />
-      </Suspense>
+      </Suspense> */}
       <Suspense fallback={<Loader />}>
         <MessageForAlumni />
       </Suspense>
