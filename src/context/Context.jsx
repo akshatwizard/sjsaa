@@ -17,7 +17,8 @@ export default function ContextProvider({ children }) {
   const [loading, setLoading] = useState(false);
   const [noOfMembers, setNoOfMembers] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [onlyAdmin, setOnlyAdmin] = useState(false)
+  const [onlyAdmin, setOnlyAdmin] = useState(false);
+  const [totalEvents, setTotalEvents] = useState(null);
   gsap.registerPlugin(ScrollTrigger);
 
   useGSAP(
@@ -42,11 +43,11 @@ export default function ContextProvider({ children }) {
           duration: 0.3,
           opacity: 0,
         });
-        tl.from('.giftLine',{
+        tl.from(".giftLine", {
           opacity: 0,
           transform: "translateY(20px)",
-          duration:0.5,
-        })
+          duration: 0.5,
+        });
       }
 
       const btnContainer = document.querySelector(".btnContainer");
@@ -75,7 +76,7 @@ export default function ContextProvider({ children }) {
 
   useEffect(() => {
     const id = Cookies.get("mnid") || "";
-    
+
     if (id === "0") {
       setOnlyAdmin(true);
     } else if (parseInt(id) > 0) {
@@ -85,7 +86,6 @@ export default function ContextProvider({ children }) {
       setIsLogedIn(false);
       setOnlyAdmin(false);
     }
-    
   }, []);
 
   useEffect(() => {
@@ -105,7 +105,7 @@ export default function ContextProvider({ children }) {
   useEffect(() => {
     const id = Cookies.get("mnid");
     async function adminDetails() {
-      if (!id) return; 
+      if (!id) return;
 
       const formData = new FormData();
       formData.append("mnid", id);
@@ -134,6 +134,24 @@ export default function ContextProvider({ children }) {
     adminDetails();
   }, []);
 
+  useEffect(() => {
+    async function totalEvents() {
+      const formData = new FormData();
+      formData.append("event_list", "event_list");
+      try {
+        const response = await axios.post(
+          "https://www.gdsons.co.in/draft/sjs/event-listapi",
+          formData
+        );
+        // console.log(response.data.length);
+        setTotalEvents(response.data.length)
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+    totalEvents()
+  }, []);
+
   const contextValue = {
     loginModal,
     setLoginModal,
@@ -146,6 +164,7 @@ export default function ContextProvider({ children }) {
     isAdmin,
     onlyAdmin,
     setOnlyAdmin,
+    totalEvents,
   };
 
   return <Context.Provider value={contextValue}>{children}</Context.Provider>;
