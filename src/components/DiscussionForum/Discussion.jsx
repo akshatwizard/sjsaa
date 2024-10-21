@@ -1,12 +1,45 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Discussion() {
+  const [writePostContainer, setWritePostContainer] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
+
   // Sample post data
   const postData = {
     text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus ipsum non soluta vero odit recusandae provident, odio dolorum eveniet aliquam, repellendus ab natus deserunt ad nemo accusantium aperiam perferendis quam Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis voluptas sint eius id hic animi, quas mollitia, dolore consequuntur numquam voluptatibus laudantium at culpa esse ullam exercitationem incidunt deserunt. Tenetur corrupti recusandae ad, ex veniam delectus ratione excepturi qui dicta voluptatum adipisci, eum id officia. Veniam, vero voluptate! Iste, atque.",
     imageUrl: "/images/banner/banner-01.jpg",
     author: "Priyesh Rai",
     role: "A full stack Developer",
+  };
+
+  useEffect(() => {
+    if (writePostContainer) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [writePostContainer]);
+
+  async function handleClick(event) {
+    console.log(event.target);
+  }
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const previewUrl = URL.createObjectURL(file);
+      setSelectedImage(file);
+      setImagePreviewUrl(previewUrl);
+    }
+  };
+
+  const handleDeleteImage = () => {
+    setSelectedImage(null);
+    setImagePreviewUrl(null);
   };
 
   return (
@@ -33,7 +66,8 @@ export default function Discussion() {
                             <input
                               type="text"
                               placeholder="Start your post"
-                              disabled
+                              readOnly
+                              onClick={()=>setWritePostContainer(true)}
                             />
                           </div>
                         </div>
@@ -65,10 +99,10 @@ export default function Discussion() {
 
                       <div className="post-footer">
                         <div className="icon-container">
-                          <i class="fa-regular fa-heart"></i>
+                          <i className="fa-regular fa-heart"></i>
                         </div>
                         <div className="icon-container">
-                        <i class="fa-solid fa-message"></i>
+                          <i className="fa-solid fa-message"></i>
                         </div>
                       </div>
                     </div>
@@ -79,6 +113,66 @@ export default function Discussion() {
             <div className="col-lg-2  col-0"></div>
           </div>
         </div>
+
+        {writePostContainer && (
+          <div className="write-post-container">
+            <div className="write-post-wraper">
+              <div className="write-post-header">
+                <div className="writer-image-container">
+                  <img src="/images/userDefault.png" alt="" />
+                </div>
+                <div className="writer-name-container">
+                  <p>Priyesh Rai</p>
+                  <span>Full Stack Developer</span>
+                </div>
+                <div className="write-post-close-btn" onClick={()=>setWritePostContainer(false)}>
+                  <i className="fa-solid fa-xmark"></i>
+                </div>
+              </div>
+
+              <div className="write-post-body">
+                <textarea
+                  name="postdata"
+                  id="postData"
+                  rows="10"
+                  placeholder="Start writing your post"
+                ></textarea>
+
+                <div className="write-post-image-preview">
+                  {imagePreviewUrl && (
+                    <div className="preview-container">
+                      <img src={imagePreviewUrl} alt="Selected" />
+                      <i
+                        className="fa-solid fa-xmark"
+                        onClick={handleDeleteImage}
+                      ></i>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="write-post-footer">
+                <div
+                  className="image-selector"
+                  onClick={() => document.getElementById("fileInput").click()}
+                >
+                  <i className="fa-solid fa-image"></i>
+                  <input
+                    type="file"
+                    id="fileInput"
+                    accept="image/*"
+                    style={{ display: "none" }}
+                    onChange={handleImageChange}
+                  />
+                </div>
+
+                <div className="post-btn">
+                  <button>Post</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </section>
     </div>
   );

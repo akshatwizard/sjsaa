@@ -1330,7 +1330,8 @@ table {
 .upload-modal,
 .successMessgaeContainer,
 .updateEmailContainer,
-.post-box-container {
+.post-box-container,
+.write-post-container {
   position: fixed;
   top: 0;
   left: 0;
@@ -3190,7 +3191,7 @@ label {
   }
 }
 
-.data-content ol{
+.data-content ol {
   padding: 0;
   font-size: 12px;
 }
@@ -3281,6 +3282,7 @@ label {
         padding: 20px;
         font-size: 23px;
         cursor: pointer;
+        outline: none;
 
         &:hover {
           background-color: #171717af;
@@ -3794,4 +3796,172 @@ label {
   margin: 0;
   display: block;
   color: var(--third-color);
+}
+
+.write-post-wraper {
+  width: 700px;
+  height: 90vh;
+  position: relative;
+  background: var(--secondry-color);
+  border-radius: 15px;
+
+  .write-post-header {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #1d1d1d;
+    padding: 10px 20px;
+    border-radius: 15px 15px 0 0;
+
+    .writer-image-container {
+      position: relative;
+      width: 70px;
+      height: 70px;
+      background-color: var(--primary-color);
+      border-radius: 50%;
+      padding: 2px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center center;
+      }
+    }
+
+    .writer-name-container {
+      position: relative;
+
+      p {
+        margin: 0;
+        font-size: 19px;
+        color: var(--text-color);
+      }
+      span {
+        color: var(--third-color);
+        font-size: 13px;
+      }
+    }
+    .write-post-close-btn {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      background-color: var(--primary-color);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+
+      &:hover > i {
+        color: red;
+      }
+
+      i {
+        font-size: 25px;
+        color: #007bff;
+        transition: color 0.2s linear;
+      }
+    }
+  }
+
+  .write-post-body {
+    position: relative;
+    width: 100%;
+    height: 65vh;
+    overflow-y: auto;
+
+    textarea {
+      width: 100%;
+      height: 200px;
+      background-color: transparent;
+      outline: none;
+      padding: 20px;
+      font-size: 25px;
+      color: var(--text-color);
+      border: none;
+    }
+
+    .write-post-image-preview {
+      width: 100%;
+      position: relative;
+      padding: 20px;
+      margin-top: 15px;
+
+      .preview-container {
+        margin-top: 35px;
+        width: 100%;
+        position: relative;
+        display: flex;
+
+        img {
+          object-fit: contain;
+          width: 100%;
+        }
+
+        i {
+          position: absolute;
+          font-size: 30px;
+          top: -40px;
+          right: 0;
+          color: red;
+          cursor: pointer;
+          background-color: #383838;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    }
+  }
+
+  .write-post-footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    background-color: #1d1d1d;
+    height: 70px;
+    border-radius: 0 0 15px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+
+    .image-selector {
+      position: relative;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+
+      i {
+        font-size: 25px;
+        color: var(--text-color);
+      }
+    }
+
+    .post-btn{
+      position: relative;
+
+      button{
+        padding: 7px 30px;
+        background-color: #007bff;
+        border: none;
+        color: var(--text-color);
+        border-radius: 20px;
+        cursor: pointer;
+      }
+    }
+  }
 }
