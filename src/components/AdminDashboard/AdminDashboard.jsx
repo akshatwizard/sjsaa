@@ -20,7 +20,7 @@ export default function AdminDashboard() {
   const [adminData, setAdminData] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [role, setRole] = useState("");
-  const { noOfMembers } = useContext(Context);
+  const { noOfMembers, totalEvents } = useContext(Context);
   const navigator = useNavigate();
   let date = new Date().getFullYear();
 
@@ -213,6 +213,7 @@ export default function AdminDashboard() {
               OurAlumni={OurAlumni}
               noOfMembers={noOfMembers}
               ComponentLoader={ComponentLoader}
+              totalEvents={totalEvents}
             />
           </Suspense>
         )}
