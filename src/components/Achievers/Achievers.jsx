@@ -17,9 +17,45 @@ export default function Achievers() {
                     <div
                       className="achieveImg"
                       data-fancybox="gallery"
+                      href="/images/achievers/SashwatSharma.png"
+                    >
+                      <img
+                        src="/images/achievers/SashwatSharma.png"
+                        alt=""
+                        loading="lazy"
+                      />
+                    </div>
+                  </Fancybox>
+                </div>
+                <div className="col-lg-9 col-md-8 col-12">
+                  <h2>
+                    Bharti Airtel named COO Shashwat Sharma (batch 1999) as MD &
+                    CEO.
+                  </h2>
+                  <p>
+                    Achievement Description: A Very Proud moment for us XJs as
+                    Telecom Major Bharti Airtel, on October 28, said Shashwat
+                    Sharma, currently Chief Operating Officer, will be appointed
+                    MD & CEO on Januray 1, 2026. In preparation to this role, he
+                    is being appointed CEO designate of the Company and will be
+                    mentored and groomed by current MD & CEO Gopal Vittal.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="col-lg-12">
+            <div className="achieversContainer">
+              <div className="row">
+                <div className="col-lg-3 col-md-4 col-12">
+                  <Fancybox>
+                    <div
+                      className="achieveImg"
+                      data-fancybox="gallery"
                       href="/images/invitation.jpg"
                     >
-                      <img src="/images/invitation.jpg" alt="" loading="lazy"/>
+                      <img src="/images/invitation.jpg" alt="" loading="lazy" />
                     </div>
                   </Fancybox>
                 </div>
@@ -57,20 +93,26 @@ export default function Achievers() {
                       data-fancybox="gallery"
                       href="/images/achievers/01.jpg"
                     >
-                      <img src="/images/achievers/01.jpg" alt="" loading="lazy"/>
+                      <img
+                        src="/images/achievers/01.jpg"
+                        alt=""
+                        loading="lazy"
+                      />
                     </div>
                   </Fancybox>
                 </div>
                 <div className="col-lg-9 col-md-8 col-12">
                   <h2>
-                    Dainik Jagran Achiever Award was given to XJ Manoj Kumar Shah
+                    Dainik Jagran Achiever Award was given to XJ Manoj Kumar
+                    Shah
                   </h2>
                   <p>
                     Happy to inform that Dainik Jagran Achiever Award was given
                     to XJ Manoj Kumar Shah in the Healthcare Category and to his
                     wife Dr Shalini Shah in the Education & Women Empowerment
-                    Category. <br /> This award was given at the annual celebration
-                    organized by Jagran at Baku, Azerbaijan last evening.
+                    Category. <br /> This award was given at the annual
+                    celebration organized by Jagran at Baku, Azerbaijan last
+                    evening.
                   </p>
                 </div>
               </div>
