@@ -33,7 +33,7 @@ export default function Achievers() {
                     CEO.
                   </h2>
                   <p>
-                    Achievement Description: A Very Proud moment for us XJs as
+                    A Very Proud moment for us XJs as
                     Telecom Major Bharti Airtel, on October 28, said Shashwat
                     Sharma, currently Chief Operating Officer, will be appointed
                     MD & CEO on Januray 1, 2026. In preparation to this role, he
