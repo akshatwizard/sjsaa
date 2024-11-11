@@ -409,22 +409,23 @@ export default function OurAlumni() {
                         ""
                       ) : (
                         <td>
-                          {product?.email ? (
-                            <div
-                              className="btn btn-primary"
-                              onClick={() => setLoginModal(true)}
-                            >
-                              Login
-                            </div>
-                          ) : (
-                            <div
-                              className="btn btn-light"
-                              style={{ padding: "5px", fontSize: "15px" }}
-                              onClick={() => handleUpdateEmail(product)}
-                            >
-                              Update Email
-                            </div>
-                          )}
+                          {product?.life_member === "Life" &&
+                            (product?.email ? (
+                              <div
+                                className="btn btn-primary"
+                                onClick={() => setLoginModal(true)}
+                              >
+                                Login
+                              </div>
+                            ) : (
+                              <div
+                                className="btn btn-light"
+                                style={{ padding: "5px", fontSize: "15px" }}
+                                onClick={() => handleUpdateEmail(product)}
+                              >
+                                Update Email
+                              </div>
+                            ))}
                         </td>
                       )}
                       {(isAdmin || onlyAdmin) && (
