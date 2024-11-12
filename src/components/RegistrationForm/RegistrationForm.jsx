@@ -372,13 +372,20 @@ export default function RegistrationForm() {
                   />
                 </div>
 
-                <div className="col-lg-4 mt-3 text-light">
-                  <label>Type of Registration</label>
-                  <label htmlFor="General" style={{ width: "50%" }}>
-                    General
-                  </label>
+                <div className="col-lg-8 mt-3">
+                  <label htmlFor="address">Address</label>
+                  <textarea
+                    id="address"
+                    name="address"
+                    value={userData.address}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="col-lg-12 mt-3 text-light">
+                  <h5>Type of Registration</h5>
+                  <label htmlFor="General" style={{width:"20%"}}>General</label>
                   <input
-                    style={{ width: "50%" }}
+                  style={{width:"10%"}}
                     type="radio"
                     name="lifeMember"
                     id="General"
@@ -387,26 +394,19 @@ export default function RegistrationForm() {
                     onChange={handleInputChange}
                   />
 
-                  <label htmlFor="Life" style={{ width: "70%" }}>
-                    Life <em style={{fontSize:"11px", color:"#f08a5d"}}>(Paid with Special Privileges)</em>
+                  <label htmlFor="Life" style={{width:"20%"}}>
+                    Life{" "}
+                    <em style={{ fontSize: "11px", color: "#f08a5d" }}>
+                      (Paid with Special Privileges)
+                    </em>
                   </label>
                   <input
-                    style={{ width: "10%" }}
+                   style={{width:"10%"}}
                     type="radio"
                     id="Life"
                     name="lifeMember"
                     value="Life"
                     checked={userData.lifeMember === "Life"}
-                    onChange={handleInputChange}
-                  />
-                </div>
-
-                <div className="col-lg-4 mt-3">
-                  <label htmlFor="address">Address</label>
-                  <textarea
-                    id="address"
-                    name="address"
-                    value={userData.address}
                     onChange={handleInputChange}
                   />
                 </div>
