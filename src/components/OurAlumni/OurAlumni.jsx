@@ -6,7 +6,7 @@ import React, {
   lazy,
   Suspense,
 } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { scrollToTop } from "../../helper/scroll.js";
 import axios from "axios";
 import { Context } from "../../context/Context.jsx";
@@ -27,6 +27,9 @@ export default function OurAlumni() {
   const rowsPerPage = 20;
   const { isLogedIn, setIsLogedIn } = useContext(Context);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const hideCol = location.pathname.startsWith("/admin");
 
   useEffect(() => {
     async function fetchMember() {
@@ -287,6 +290,41 @@ export default function OurAlumni() {
     window.open(`/member-preview/${userId}`, "_blank");
   }
 
+  async function changeStatus(status, id) {
+    const newStatus = status === "Life" ? "General" : "Life";
+    const formData = new FormData();
+    formData.append("Mod", "memStatusUpd");
+    formData.append("mnid", id);
+    formData.append("newStat", newStatus);
+
+    try {
+      const response = await axios.post(
+        "https://www.gdsons.co.in/draft/sjs/update_mem_status",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      if (response.status) {
+        alert(`Status changed to ${newStatus}`);
+        setMemberData((prevData) => {
+          return prevData.map((member) => {
+            if (member.mnid === id) {
+              return { ...member, life_member: newStatus };
+            }
+            return member;
+          });
+        });
+      } else {
+        console.error("Status update failed:", response.data);
+      }
+    } catch (error) {
+      console.error("Error updating status:", error);
+    }
+  }
+
   return (
     <section className="sectionContainer">
       <div className="container">
@@ -333,9 +371,13 @@ export default function OurAlumni() {
                     <th>Name</th>
                     <th>Alumni Joined Year</th>
                     <th>Batch</th>
-                    <th>Qualification</th>
-                    <th>Date of Birth</th>
-                    <th>Profession & Working As</th>
+                    {hideCol ? (
+                      <th>Membership Status</th>
+                    ) : (
+                      <th>Qualification</th>
+                    )}
+                    {hideCol ? "" : <th>Date of Birth</th>}
+                    {hideCol ? "" : <th>Profession & Working As</th>}
                     <th>Current Location</th>
                     {(isLogedIn || onlyAdmin || isAdmin) && <th>Contact No</th>}
                     {(isLogedIn || onlyAdmin || isAdmin) && <th>Email</th>}
@@ -390,9 +432,32 @@ export default function OurAlumni() {
                       </td>
                       <td>{product.joiningyear}</td>
                       <td>{product?.batch || "not provided"}</td>
-                      <td>{product.qualification}</td>
-                      <td>{product.dob}</td>
-                      <td>{product.trade_category}</td>
+
+                      {hideCol ? (
+                        <td>
+                          {product.life_member}
+                          <div
+                            style={{ fontSize: "12px" }}
+                            className={
+                              product?.life_member === "Life"
+                                ? "btn btn-info"
+                                : "btn btn-primary"
+                            }
+                            onClick={(e) =>
+                              changeStatus(product?.life_member, product?.mnid)
+                            }
+                          >
+                            {product?.life_member === "Life"
+                              ? "Make General"
+                              : "Make Life"}
+                          </div>
+                        </td>
+                      ) : (
+                        <td>{product.qualification}</td>
+                      )}
+
+                      {hideCol ? "" : <td>{product.dob}</td>}
+                      {hideCol ? "" : <td>{product.trade_category}</td>}
                       <td>{product?.location || "not provided"}</td>
                       {(isLogedIn || onlyAdmin || isAdmin) && (
                         <td>
