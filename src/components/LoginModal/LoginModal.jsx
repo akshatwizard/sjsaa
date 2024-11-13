@@ -15,7 +15,6 @@ export default function LoginModal() {
     Mod: "loginMember",
   });
   const navigator = useNavigate();
-
   const [error, setError] = useState(false);
 
   const [otpData, setOtpData] = useState({
@@ -29,7 +28,7 @@ export default function LoginModal() {
   const [loading, setLoading] = useState(false);
   const [otpSentMessage, setOtpSentMessage] = useState("");
   const { isLogedIn, setIsLogedIn } = useContext(Context);
-  const [wrongOTP,setWrongOTP] = useState(false)
+  const [wrongOTP, setWrongOTP] = useState(false);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -60,24 +59,32 @@ export default function LoginModal() {
           },
         }
       );
+
       if (response.data.login === "success") {
-          Cookies.set("mnid", response.data.mnid, { expires: 7 });
-          setLoading(false);
-          setLoginModal(false);
-          setIsLogedIn(true);
-          window.location.href = "/profile";
-          if(response.data.role === "Webadmin"){
-            window.location.href = "/admin/dashboard";
-          }
-      } else {
-          setLoading(false);
-          setIsLogedIn(false);
-          setError(true)
+        Cookies.set("mnid", response.data.mnid, { expires: 7 });
+        setLoading(false);
+        setLoginModal(false);
+        setIsLogedIn(true);
+        window.location.href = "/profile";
+        if (response.data.role === "Webadmin") {
+          window.location.href = "/admin/dashboard";
+        }
       }
-    } catch (error) {
-        console.error("Login failed:", error);
+      else if (response.data.login === "notLifeMember") {
         setLoading(false);
         setIsLogedIn(false);
+        setLoginModal(false);
+        alert("Login is not allowed for non-Life Members.")
+      }
+      else {
+        setLoading(false);
+        setIsLogedIn(false);
+        setError(true);
+      }
+    } catch (error) {
+      console.error("Login failed:", error);
+      setLoading(false);
+      setIsLogedIn(false);
     }
   }
 
@@ -199,9 +206,18 @@ export default function LoginModal() {
                   onClick={() => setShowPassword(!showPassword)}
                 />
               )}
-              {
-                error && <p style={{margin:"0 0 20px 0",width:"100%",textAlign:"end",color:"red"}}>please check your credentials and try again</p>
-              }
+              {error && (
+                <p
+                  style={{
+                    margin: "0 0 20px 0",
+                    width: "100%",
+                    textAlign: "end",
+                    color: "red",
+                  }}
+                >
+                  please check your credentials and try again
+                </p>
+              )}
               {!otpButtonClicked && (
                 <>
                   <button type="submit">
