@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 
 export default function Sponsor() {
   return (
     <section className="sectionContainer">
       <div className="container">
         <div className="title">
-          <h2 >Sponsors for Alumni Meet 2024</h2>
+          <h2>Sponsors for Alumni Meet 2024</h2>
         </div>
         <div className="row row-gap-4">
           <div className="col-lg-9 col-md-8 col-12">
@@ -17,14 +18,20 @@ export default function Sponsor() {
               </div>
               <div className="col-lg-4 col-md-4 col-6">
                 <div className="sponserImage">
-                  <img src="/images/sponsors/kartik-steels.jpeg" alt="" style={{height:"150px",objectFit:"contain"}} />
+                  <img
+                    src="/images/sponsors/kartik-steels.jpeg"
+                    alt=""
+                    style={{ height: "150px", objectFit: "contain" }}
+                  />
                 </div>
               </div>
             </div>
           </div>
           <div className="col-lg-3 col-md-4 col-12">
             <div className="sponserImage">
-              <img src="/images/sponsors/WizardsNext.png" alt="" />
+              <Link to="https://wizards.co.in/">
+                <img src="/images/sponsors/WizardsNext.png" alt="" />
+              </Link>
               <p>Digital Partner.</p>
             </div>
           </div>
