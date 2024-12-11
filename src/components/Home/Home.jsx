@@ -7,14 +7,14 @@ const MessageForAlumni = lazy(() =>
 // const Vision = lazy(() => import("../Vision/Vision"));
 const Stories = lazy(() => import("../Stories/Stories"));
 const AboutUs = lazy(() => import("../AboutUs/AboutUs"));
-const Sponsor = lazy(() => import("../Sponsor/Sponsor"));
+// const Sponsor = lazy(() => import("../Sponsor/Sponsor"));
 const Events = lazy(() => import("../Events/Events"));
 const ManagingCommittee = lazy(() =>
   import("../ManagingCommittee/ManagingCommittee")
 );
 const Achievers = lazy(() => import("../Achievers/Achievers"));
-const Youtube = lazy(()=>import("../Youtube/Youtube"));
-const WishMe = lazy(()=> import("../WishMe/WishMe"));
+const Youtube = lazy(() => import("../Youtube/Youtube"));
+const WishMe = lazy(() => import("../WishMe/WishMe"));
 
 export default function Home() {
   return (
@@ -22,9 +22,9 @@ export default function Home() {
       <Suspense fallback={<Loader />}>
         <Carousel />
       </Suspense>
-      <Suspense fallback={<Loader />}>
+      {/* <Suspense fallback={<Loader />}>
         <Sponsor />
-      </Suspense>
+      </Suspense> */}
       <Suspense fallback={<Loader />}>
         <AboutUs />
       </Suspense>
