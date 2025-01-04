@@ -3965,3 +3965,9 @@ label {
     }
   }
 }
+
+.lfm{
+  display: block;
+  font-size: 12px;
+  color: var(--success_primary);
+}

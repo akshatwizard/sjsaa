@@ -429,6 +429,7 @@ export default function OurAlumni() {
                         >
                           {product.membernace}
                         </Link>
+                        <span className="lfm">{`(${product?.life_member})`}</span>
                       </td>
                       <td>{product.joiningyear}</td>
                       <td>{product?.batch || "not provided"}</td>
