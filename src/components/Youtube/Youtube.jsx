@@ -11,7 +11,7 @@ export default function Youtube() {
         <div className="row row-gap-3">
           <div className="col-lg-6 colmd-6 col-12">
             <div className="youtube-video-container">
-              <iframe src="https://www.youtube.com/embed/4pjrPc_5JOo?autoplay=1&mute=1&loop=1"></iframe>
+              <iframe src="https://www.youtube.com/embed/w-cpsm_d2fA?autoplay=1&mute=1&loop=1" title="YouTube video player" referrerpolicy="strict-origin-when-cross-origin"></iframe>
             </div>
           </div>
           <div className="col-lg-6 colmd-6 col-12">
