@@ -114,6 +114,14 @@ export default function DownloadPdf() {
                               </div>
                             </div>
                           </div>
+                          <div className="col-12">
+                            <div className="datacontainer">
+                              <span>Member Ship Status:-</span>
+                              <div>
+                                {memberData.life_member || "not provided"}
+                              </div>
+                            </div>
+                          </div>
                           <div className="col-5">
                             <div className="datacontainer">
                               <span>House:-</span>
@@ -213,7 +221,7 @@ export default function DownloadPdf() {
                                 </div>
                                 <div className="col-12">
                                   <div>
-                                    <p style={{fontSize:"12px"}}>
+                                    <p style={{ fontSize: "12px" }}>
                                       <span style={{ fontWeight: "600" }}>
                                         1:- Demand Draft
                                       </span>{" "}
@@ -225,11 +233,11 @@ export default function DownloadPdf() {
                                       Station Road, Varanasi – 221001. Contact
                                       No. – 9415268833/ 8808480000
                                     </p>
-                                    <p style={{fontSize:"12px"}}><span style={{ fontWeight: "600" }}>
+                                    <p style={{ fontSize: "12px" }}><span style={{ fontWeight: "600" }}>
                                       2:- Cash
                                     </span>{" "}
-                                    : To any Authorized Person of Managing
-                                    Committee Members 2022 - 23</p>
+                                      : To any Authorized Person of Managing
+                                      Committee Members 2022 - 23</p>
                                   </div>
                                 </div>
                               </div>
