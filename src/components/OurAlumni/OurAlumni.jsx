@@ -196,7 +196,7 @@ export default function OurAlumni() {
       "Name",
       // "Joined Year",
       "Batch",
-      "Qualification",
+      "M'Ship Status",
       "Date of Birth",
       "Profession & Working As",
       "Current Location",
@@ -221,7 +221,7 @@ export default function OurAlumni() {
         member.membernace || "N/A",
         // member.joiningyear || "N/A",
         member.batch || "N/A",
-        member.qualification || "N/A",
+        member.life_member || "N/A",
         member.dob || "N/A",
         member.trade_category || "N/A",
         member.location || "N/A",
@@ -374,7 +374,7 @@ export default function OurAlumni() {
                     {hideCol ? (
                       <th>Membership Status</th>
                     ) : (
-                      <th>Qualification</th>
+                      <th>M'Ship Status</th>
                     )}
                     {hideCol ? "" : <th>Date of Birth</th>}
                     {hideCol ? "" : <th>Profession & Working As</th>}
@@ -429,7 +429,7 @@ export default function OurAlumni() {
                         >
                           {product.membernace}
                         </Link>
-                        <span className="lfm">{`(${product?.life_member ? product.life_member : "user"})`}</span>
+                        {/* <span className="lfm">{`(${product?.life_member ? product.life_member : "General"})`}</span> */}
                       </td>
                       <td>{product.joiningyear}</td>
                       <td>{product?.batch || "not provided"}</td>
@@ -454,7 +454,7 @@ export default function OurAlumni() {
                           </div>
                         </td>
                       ) : (
-                        <td>{product.qualification}</td>
+                        <td>{product.life_member}</td>
                       )}
 
                       {hideCol ? "" : <td>{product.dob}</td>}
