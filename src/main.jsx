@@ -78,7 +78,7 @@ const router = createBrowserRouter(
       />
 
       <Route
-        path='/gallery/movie-gallery'
+        path='/gallery/album-gallery/:albumId'
         element={
           <Suspense fallback={<Loader/>}>
             <MovieGallery />
