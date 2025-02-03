@@ -141,7 +141,7 @@ export default function GalleryUpdate() {
           },
         }
       );
-      console.log("Upload successful:", response.data);
+      // console.log("Upload successful:", response.data);
       if (response.data.status == 1) {
         setIsUploaded(true);
         setLoading(false);
@@ -190,10 +190,92 @@ export default function GalleryUpdate() {
     }
   };
 
+  const [albumTitle, setAlbumTitle] = useState("")
+  const [albumList, setAlbumList] = useState([])
+  async function createAlbum(e) {
+    e.preventDefault();
+    setLoading(true)
+    const formData = new FormData();
+    formData.append('mod', "add_album");
+    formData.append('album_title', albumTitle);
+    try {
+      const response = await axios.post("https://www.gdsons.co.in/draft/sjs/create-album", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      // console.log(response?.data[0]?.status);
+      if (response?.data[0]?.status == 1) {
+        setLoading(false);
+        setAlbumTitle("")
+      }
+    } catch (error) {
+      console.error("Error creating album:", error);
+    }
+    finally {
+      setLoading(false);
+    }
+  }
+  useEffect(() => {
+    async function getAlbum() {
+      try {
+        const responce = await axios.get("https://www.gdsons.co.in/draft/sjs/get-all-albums");
+        setAlbumList(responce?.data)
+
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getAlbum()
+  }, [])
+  console.log(albumList);
   return (
     <section className="adminMainContent">
       <div className="container">
         <div className="row">
+          <div className="col-lg-12">
+            <div className="album">
+              <h1>Add New Album</h1>
+            </div>
+            <div className="add-new-event-container">
+              <div className="row">
+                <div className="col-6">
+                  <label htmlFor="title">
+                    Album Title <sup>*</sup>{" "}
+                  </label>
+                  <input
+                    value={albumTitle}
+                    type="text"
+                    placeholder="Album Title"
+                    name="albumtitle"
+                    id="albumtitle"
+                    onChange={(e) => setAlbumTitle(e.target.value)}
+                  />
+
+                </div>
+                <div className="col-4">
+                  <button className="upBtn m-0 mt-4" onClick={createAlbum}>
+                    {loading ? <ComponentLoader /> : "Add Album"}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="col-lg-12 mb-5">
+            <div className="album">
+              <h1>Select Album</h1>
+            </div>
+            <select name="albums" id="albums" className="mt-3 sel">
+              <option value="">Select an album</option>
+              {albumList?.map((album) => (
+                <option key={album.id} value={album.id}>
+                  {album.album_name}
+                </option>
+              ))}
+            </select>
+          </div>
+
           <div className="col-lg-12">
             <form onSubmit={handleSubmit} className="upGallery">
               <input
