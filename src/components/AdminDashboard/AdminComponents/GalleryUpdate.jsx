@@ -47,9 +47,9 @@ export default function GalleryUpdate() {
   };
 
   useEffect(() => {
-    // Fetch the initial set of images when the component mounts
     getAllImage();
-  }, []); // Empty dependency array ensures this only runs once
+    getAlbum()
+  }, []);
 
   // useEffect(() => {
   //   const formData = new FormData();
@@ -123,10 +123,14 @@ export default function GalleryUpdate() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    if (!selectedAlbum) {
+      alert("Please select an album before uploading images.");
+      return;
+    }
     setLoading(true);
 
     const formData = new FormData();
+    formData.append("album_id", selectedAlbum)
     imagePreviews.forEach((preview, index) =>
       formData.append("gallery_image[]", selectedFiles[index])
     );
@@ -147,6 +151,7 @@ export default function GalleryUpdate() {
         setLoading(false);
         setImagePreviews([]);
         setSelectedFiles([]);
+        setSelectedAlbum('')
         fileInputRef.current.value = "";
         await getAllImage();
       }
@@ -192,6 +197,17 @@ export default function GalleryUpdate() {
 
   const [albumTitle, setAlbumTitle] = useState("")
   const [albumList, setAlbumList] = useState([])
+  const [selectedAlbum, setSelectedAlbum] = useState(null)
+  async function getAlbum() {
+    try {
+      const responce = await axios.get("https://www.gdsons.co.in/draft/sjs/get-all-albums");
+      setAlbumList(responce?.data)
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async function createAlbum(e) {
     e.preventDefault();
     setLoading(true)
@@ -208,27 +224,17 @@ export default function GalleryUpdate() {
       if (response?.data[0]?.status == 1) {
         setLoading(false);
         setAlbumTitle("")
+        await getAlbum()
       }
     } catch (error) {
       console.error("Error creating album:", error);
     }
     finally {
       setLoading(false);
+      await getAlbum()
     }
   }
-  useEffect(() => {
-    async function getAlbum() {
-      try {
-        const responce = await axios.get("https://www.gdsons.co.in/draft/sjs/get-all-albums");
-        setAlbumList(responce?.data)
-
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    getAlbum()
-  }, [])
-  console.log(albumList);
+  
   return (
     <section className="adminMainContent">
       <div className="container">
@@ -266,10 +272,12 @@ export default function GalleryUpdate() {
             <div className="album">
               <h1>Select Album</h1>
             </div>
-            <select name="albums" id="albums" className="mt-3 sel">
-              <option value="">Select an album</option>
+            <select name="albums" id="albums" className="mt-3 sel"
+              value={selectedAlbum}
+              onChange={(e) => setSelectedAlbum(e.target.value)}>
+              <option value=''>Select an album</option>
               {albumList?.map((album) => (
-                <option key={album.id} value={album.id}>
+                <option key={album.album_id} value={album.album_id}>
                   {album.album_name}
                 </option>
               ))}
