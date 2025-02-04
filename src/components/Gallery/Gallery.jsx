@@ -33,14 +33,14 @@ export default function Gallery() {
           <h1>Gallery Album</h1>
         </div>
         <div className="row row-gap-5">
-
           {
             albums?.map((data) => (
-              <div className="col-lg-6 col-md-6 col-12" key={data.album_id}>
+              data?.gallery_files?.length == 3 &&
+              (<div className="col-lg-6 col-md-6 col-12" key={data.album_id}>
                 <div className="albumContainer">
                   <div className="albumImage">
                     {
-                      data.gallery_files.map((img, index) => (
+                      data?.gallery_files.map((img, index) => (
                         <div
                           className={`albumImageContainer`}
                         >
@@ -51,15 +51,15 @@ export default function Gallery() {
                     }
                   </div>
                   <div className="albumTitle">
-                    <h4>{data.album_name}</h4>
+                    <h4>{data?.album_name}</h4>
                   </div>
                   <div className="viewBtn">
-                    <Link to={`album-gallery/${data.album_id}`}>
+                    <Link to={`album-gallery/${data?.album_id}`}>
                       <button className="view-more-btn" onClick={scrollToTop}>View More</button>
                     </Link>
                   </div>
                 </div>
-              </div>
+              </div>)
             ))
           }
 
