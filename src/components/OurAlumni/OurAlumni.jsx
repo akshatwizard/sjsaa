@@ -15,6 +15,7 @@ import "jspdf-autotable";
 import Loader from "../Loader/Loader.jsx";
 import Fancybox from "../ImageZoom/Fancybox.jsx";
 const UpdateEmail = lazy(() => import("../UpdateEmail/UpdateEmail.jsx"));
+import * as XLSX from "xlsx";
 
 export default function OurAlumni() {
   const { setLoginModal, isAdmin, onlyAdmin } = useContext(Context);
@@ -262,6 +263,50 @@ export default function OurAlumni() {
     doc.save("filtered_members_list.pdf");
   };
 
+  function handleDownloadExcel() {
+    const tableData = [];
+    const tableColumn = [
+      "Sr. No.",
+      "Name",
+      "Batch",
+      "M'Ship Status",
+      "Date of Birth",
+      "Profession & Working As",
+      "Current Location",
+      "Email",
+      "Contact No"
+    ];
+    tableData.push(tableColumn);
+
+    const filtered = memberData.filter((product) =>
+      product[filterCategory]
+        ?.toString()
+        .toLowerCase()
+        .includes(filterValue.toLowerCase())
+    );
+
+    filtered.forEach((member, index) => {
+      const row = [
+        index + 1,
+        member.membernace || "N/A",
+        member.batch || "N/A",
+        member.life_member || "N/A",
+        member.dob || "N/A",
+        member.trade_category || "N/A",
+        member.location || "N/A",
+        member.email || "N/A", 
+        member.mobile_number_one || "N/A"
+      ];
+      tableData.push(row);
+    });
+
+    const worksheet = XLSX.utils.aoa_to_sheet(tableData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Filtered Members");
+
+    XLSX.writeFile(workbook, `${`filtered_members_list_${new Date().toISOString()}.xlsx`}`);
+  }
+
   useEffect(() => {
     if (updateEmailModal) {
       document.body.style.overflow = "hidden";
@@ -360,6 +405,13 @@ export default function OurAlumni() {
               >
                 Download PDF
               </button>
+              {onlyAdmin || isAdmin ? <button
+                className="btn btn-primary"
+                onClick={handleDownloadExcel}
+                style={{ height: "65px", width: "170px" }}
+              >
+                Download Excel
+              </button> : ""}
             </div>
           </div>
           <div className="col-lg-12">
