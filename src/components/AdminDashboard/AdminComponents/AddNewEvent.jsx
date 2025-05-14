@@ -222,7 +222,7 @@ export default function AddNewEvent() {
                           className="event-delete-btn"
                           onClick={() => handleDelete(event.event_nid)}
                         >
-                          <i class="fa-solid fa-xmark"></i>
+                          <iclassName="fa-solid fa-xmark"></i>
                         </div>
                         <div className="col-lg-2 col-md-2 col-sm-3 text-center py-2">
                           <div className="dateContainer">

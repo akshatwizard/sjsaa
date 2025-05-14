@@ -146,7 +146,7 @@ export default function AddAchievements() {
                     <div className="eventContainer">
                       <div className="row row-gap-3">
                         <div className="event-delete-btn">
-                          <i class="fa-solid fa-xmark"></i>
+                          <iclassName="fa-solid fa-xmark"></i>
                         </div>
                         <div className="col-lg-2 col-md-2 col-sm-3 text-center py-2">
                           <div className="dateContainer">

@@ -129,7 +129,7 @@ export default function Header() {
             >
               Members
               <i
-                class="fa-solid fa-angle-right"
+                className="fa-solid fa-angle-right"
                 style={{
                   transform: `${
                     !memberDropDownOpen
@@ -193,7 +193,7 @@ export default function Header() {
             >
               Engage{" "}
               <i
-                class="fa-solid fa-angle-right"
+               className="fa-solid fa-angle-right"
                 style={{
                   transform: `${
                     !dropDownOpen ? "rotate(90deg)" : "rotate(-90deg)"

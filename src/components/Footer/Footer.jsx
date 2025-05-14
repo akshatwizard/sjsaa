@@ -86,16 +86,16 @@ export default function Footer() {
             <div className="col-lg-3 col-md-4 col-sm-12 ">
               <div className="footerLinksContainers">
                 <h3>Contact US</h3>
-                <span className="mobNo"><i class="fa-solid fa-at" style={{color:"var(--third-color)"}}></i>&nbsp;  sjsaa1999@gmail.com</span>
+                <span className="mobNo"><i className="fa-solid fa-at" style={{color:"var(--third-color)"}}></i>&nbsp;  sjsaa.info@gmail.com</span>
                 
                 <br />
                 
-                <span className="mobNo"><i class="fa-solid fa-at" style={{color:"var(--third-color)"}}></i>&nbsp; sjsaadlwvns@gmail.com</span>
+                <span className="mobNo"><i className="fa-solid fa-at" style={{color:"var(--third-color)"}}></i>&nbsp; sjsaadlwvns@gmail.com</span>
                 <p>
-                <i class="fa-solid fa-location-dot" style={{color:"var(--third-color)"}}></i>&nbsp; School Off: BLW, Varanasi, Uttar Pradesh 221004, India
+                <i className="fa-solid fa-location-dot" style={{color:"var(--third-color)"}}></i>&nbsp; School Off: BLW, Varanasi, Uttar Pradesh 221004, India
                   <br />
                   <br />
-                  <i class="fa-solid fa-location-dot" style={{color:"var(--third-color)"}}></i>&nbsp; Admin Off: c/o 20, Lajpat Nagar, Maldhaiya Station Road,
+                  <i className="fa-solid fa-location-dot" style={{color:"var(--third-color)"}}></i>&nbsp; Admin Off: c/o 20, Lajpat Nagar, Maldhaiya Station Road,
                   Varanasi – 221001.
                 </p>
               </div>
