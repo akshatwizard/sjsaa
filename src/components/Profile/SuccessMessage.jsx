@@ -16,10 +16,10 @@ export default function SuccessMessage({ status }) {
             d="M17.7,40.9l10.9,10.9l28.7-28.7"
           />
         </svg>
-        <h1className="success-message__title">Profile updated</h1>
+        <h1 className="success-message__title">Profile updated</h1>
         <div className="success-close-btn">
           <span onClick={() => status(false)}>
-            <iclassName="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
           </span>
         </div>
       </div>
