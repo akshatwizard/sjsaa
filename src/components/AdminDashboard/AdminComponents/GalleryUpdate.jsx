@@ -363,7 +363,7 @@ export default function GalleryUpdate() {
                         className="delete-btn"
                         onClick={() => handleDelete(value.gallery_id)}
                       >
-                        <iclassName="fa-solid fa-xmark"></i>
+                        <i className="fa-solid fa-xmark"></i>
                       </div>
                     </div>
                   </div>
