@@ -90,7 +90,6 @@ export default function Footer() {
                 
                 <br />
                 
-                <span className="mobNo"><i className="fa-solid fa-at" style={{color:"var(--third-color)"}}></i>&nbsp; sjsaadlwvns@gmail.com</span>
                 <p>
                 <i className="fa-solid fa-location-dot" style={{color:"var(--third-color)"}}></i>&nbsp; School Off: BLW, Varanasi, Uttar Pradesh 221004, India
                   <br />

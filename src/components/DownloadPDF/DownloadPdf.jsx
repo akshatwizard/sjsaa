@@ -48,7 +48,7 @@ export default function DownloadPdf() {
                     Varanasi – 221001.
                   </h4>
                   <h6>
-                    <span>Email</span> – sjsaadlwvns@gmail.com |{" "}
+                    <span>Email</span> – sjsaa.info@gmail.com |{" "}
                     <span>Contact No</span> – 9415268833 / 8808480000/9935039747
                   </h6>
                 </div>
