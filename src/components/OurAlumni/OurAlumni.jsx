@@ -421,7 +421,7 @@ export default function OurAlumni() {
                   <tr>
                     <th>Sr. No.</th>
                     <th>Name</th>
-                    <th>Alumni Joined Year</th>
+                    <th>Membership Id</th>
                     <th>Batch</th>
                     {hideCol ? (
                       <th>Membership Status</th>
@@ -483,7 +483,7 @@ export default function OurAlumni() {
                         </Link>
                         {/* <span className="lfm">{`(${product?.life_member ? product.life_member : "General"})`}</span> */}
                       </td>
-                      <td>{product.joiningyear}</td>
+                      <td>{product.memid}</td>
                       <td>{product?.batch || "not provided"}</td>
 
                       {hideCol ? (
