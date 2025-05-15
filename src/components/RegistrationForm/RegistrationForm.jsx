@@ -10,6 +10,7 @@ export default function RegistrationForm() {
   const [profilePic, setProfilePic] = useState(null);
   const [errors, setErrors] = useState({});
   const [paymentImage, setPaymentImage] = useState(null)
+  const [isUploaded, setIsUploaded] = useState(false);
   const [userData, setUserData] = useState({
     name: "",
     batch: "",
@@ -165,6 +166,7 @@ export default function RegistrationForm() {
       })
       setProfilePic(null);
       setPaymentImage(null)
+      isUploaded(true)
     } catch (error) {
       setLoading(false);
       console.error("There was an error submitting the form:", error);
@@ -523,6 +525,43 @@ export default function RegistrationForm() {
       ) : (
         ""
       )}
+
+      {isUploaded && (
+        <div className="upload-modal">
+          <div className="upload-modal-body">
+            <svg
+              className="checkmark"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 52 52"
+            >
+              <circle
+                className="checkmark__circle"
+                cx="26"
+                cy="26"
+                r="25"
+                fill="none"
+              />
+              <path
+                className="checkmark__check"
+                fill="none"
+                d="M14.1 27.2l7.1 7.2 16.7-16.8"
+              />
+            </svg>
+
+            <p>Registration Form Submitted Successfully You will get an approvel email after few Hours. <br /> Thanks...!</p>
+            <div
+              className="modalCloseBtn"
+              onClick={() => {
+                setIsUploaded(false);
+              }}
+            >
+              <i className="fa-solid fa-xmark" style={{ color: "white" }}></i>
+            </div>
+          </div>
+        </div>
+      )}
+
+
     </section>
   );
 }
