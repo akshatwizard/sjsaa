@@ -87,7 +87,7 @@ export default function AdminDashboard() {
             {isMenuOpen && (
               <i
                 onClick={() => setIsMenuOpen(false)}
-                class="clbt fa-solid fa-angle-left"
+               className="clbt fa-solid fa-angle-left"
                 style={{
                   color: "var(--text-color)",
                   fontSize: "27px",
@@ -161,7 +161,7 @@ export default function AdminDashboard() {
                   }`}
                   onClick={handleClick} // Move onClick here
                 >
-                  <i class="fa-solid fa-star"></i>
+                  <i className="fa-solid fa-star"></i>
                   <span>Add Achievement</span>
                 </div>
               </div>

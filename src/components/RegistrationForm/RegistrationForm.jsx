@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import SuccessMessage from "../SuccessMessage/SuccessMessage";
 import { Context } from "../../context/Context";
 import ComponentLoader from "../ComponentLoader/ComponentLoader.jsx";
 import { Link } from "react-router-dom";
@@ -9,6 +8,8 @@ export default function RegistrationForm() {
   const [isRegistrationSuccess, setIsRegistrationSuccess] = useState(false);
   const [profilePic, setProfilePic] = useState(null);
   const [errors, setErrors] = useState({});
+  const [paymentImage, setPaymentImage] = useState(null)
+  const [isUploaded, setIsUploaded] = useState(false);
   const [userData, setUserData] = useState({
     name: "",
     batch: "",
@@ -25,7 +26,6 @@ export default function RegistrationForm() {
     address: "",
     Mod: "addMember",
     joiningYear: new Date().getFullYear(),
-    lifeMember: "",
   });
   const { loading, setLoading } = useContext(Context);
 
@@ -72,8 +72,21 @@ export default function RegistrationForm() {
         });
       }
     }
-    console.log(file);
   };
+
+  function handlePaymentImage(e) {
+    const file = e.target.files[0];
+    if (file) {
+      const fileType = file.type;
+      const validImageTypes = ["image/jpeg", "image/png", "image/jpg"];
+      if (validImageTypes.includes(fileType)) {
+        setPaymentImage(file);
+      } else {
+        setPaymentImage(null);
+      }
+    }
+
+  }
 
   const validateForm = () => {
     const newErrors = {};
@@ -90,6 +103,14 @@ export default function RegistrationForm() {
     return Object.keys(newErrors).length === 0;
   };
 
+  function handleUploadPaymentSS() {
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsRegistrationSuccess(true);
+  }
+
   const handleSubmitBtn = async (event) => {
     event.preventDefault();
 
@@ -97,10 +118,16 @@ export default function RegistrationForm() {
       return;
     }
 
+    const uploadError = {};
+    if (!paymentImage) {
+      uploadError.paymentImageError = "Payment Confirmation Image is Required";
+      setErrors(uploadError);
+      return Object.keys(uploadError).length === 0;
+    }
     setLoading(true);
-
     const formData = new FormData();
     formData.append("profilePic", profilePic);
+    formData.append("paymentscreen", paymentImage);
     Object.keys(userData).forEach((key) => {
       formData.append(key, userData[key]);
     });
@@ -118,9 +145,27 @@ export default function RegistrationForm() {
           },
         }
       );
-
       setLoading(false);
-      setIsRegistrationSuccess(true);
+      setIsRegistrationSuccess(false)
+      setUserData({
+        name: "",
+        batch: "",
+        email: "",
+        contactNo: "",
+        dob: "",
+        location: "",
+        qualification: "",
+        house: "",
+        career: "",
+        spouse: "",
+        children: "",
+        wedding: "",
+        address: "",
+        joiningYear: new Date().getFullYear(),
+      })
+      setProfilePic(null);
+      setPaymentImage(null)
+      isUploaded(true)
     } catch (error) {
       setLoading(false);
       console.error("There was an error submitting the form:", error);
@@ -381,39 +426,10 @@ export default function RegistrationForm() {
                     onChange={handleInputChange}
                   />
                 </div>
-                <div className="col-lg-12 mt-3 text-light">
-                  <h5>Type of Registration</h5>
-                  <label htmlFor="General" style={{width:"20%"}}>General</label>
-                  <input
-                  style={{width:"10%"}}
-                    type="radio"
-                    name="lifeMember"
-                    id="General"
-                    value="General"
-                    checked={userData.lifeMember === "General"}
-                    onChange={handleInputChange}
-                  />
-
-                  <label htmlFor="Life" style={{width:"20%"}}>
-                    Life{" "}
-                    <em style={{ fontSize: "11px", color: "#f08a5d" }}>
-                      (Paid with Special Privileges)
-                    </em>
-                  </label>
-                  <input
-                   style={{width:"10%"}}
-                    type="radio"
-                    id="Life"
-                    name="lifeMember"
-                    value="Life"
-                    checked={userData.lifeMember === "Life"}
-                    onChange={handleInputChange}
-                  />
-                </div>
               </div>
               <div className="regSubmitBtn">
-                <button onClick={handleSubmitBtn}>
-                  {loading ? <ComponentLoader /> : "Register"}
+                <button onClick={handleUploadPaymentSS}>
+                  {loading ? <ComponentLoader /> : "Submit Now"}
                 </button>
               </div>
             </div>
@@ -437,11 +453,114 @@ export default function RegistrationForm() {
           </div>
         </div>
       </div>
+
+
       {isRegistrationSuccess ? (
-        <SuccessMessage status={setIsRegistrationSuccess} />
+        <section className="successMessgaeContainer">
+          <div className="successMessage">
+            <div className="success-message">
+              <h1 className="success-message__title">Thanks for your Pesence!</h1>
+              <div className="otherMessage">
+                <h5 style={{ textAlign: "left" }}>
+                  In the meantime, please process the payment of{" "}
+                  <span style={{ color: "red", fontWeight: "500" }}>Rs. 3000</span>{" "}
+                  for Lifetime Membership of SJSAA on given QR Code and upload the confirmation Image
+                </h5>
+                <div className="row">
+                  <div className="col-lg-5 col-md-6 col-12">
+                    <p>Make Payment to the given QR Code</p>
+                    <img src="/images/or.jpeg" alt="" />
+                  </div>
+
+                  <div className="col-lg-7 col-md-6 col-12">
+                    <label htmlFor="profile" style={{ color: "black" }}>
+                      Payment ScreenShot <sup>*</sup>
+                    </label>
+                    <div
+                      className="up-ss"
+                      style={{
+                        border: "1px solid",
+                        backgroundImage: paymentImage
+                          ? `url(${URL.createObjectURL(paymentImage)})`
+                          : "none",
+                      }}
+                    >
+                      <input
+                        type="file"
+                        name="profile"
+                        id="profile"
+                        onChange={handlePaymentImage}
+                        accept="image/jpeg, image/png, image/jpg"
+                        style={{
+                          opacity: 0,
+                          inset: 0,
+                          position: "absolute",
+                          width: "100%",
+                          height: "100%",
+                          cursor: "pointer",
+                        }}
+                        required
+                      />
+                    </div>
+                    {errors.paymentImageError && <p className="error">{errors.paymentImageError}</p>}
+
+                    <div className="regSubmitBtn">
+                      <button onClick={handleSubmitBtn}>
+                        {loading ? <ComponentLoader /> : "Submit Now"}
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <div className="success-close-btn">
+              <span onClick={() => setIsRegistrationSuccess(false)}>
+                <i className="fa-solid fa-xmark"></i>
+              </span>
+            </div>
+          </div>
+        </section>
       ) : (
         ""
       )}
+
+      {isUploaded && (
+        <div className="upload-modal">
+          <div className="upload-modal-body">
+            <svg
+              className="checkmark"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 52 52"
+            >
+              <circle
+                className="checkmark__circle"
+                cx="26"
+                cy="26"
+                r="25"
+                fill="none"
+              />
+              <path
+                className="checkmark__check"
+                fill="none"
+                d="M14.1 27.2l7.1 7.2 16.7-16.8"
+              />
+            </svg>
+
+            <p>Registration Form Submitted Successfully You will get an approvel email after few Hours. <br /> Thanks...!</p>
+            <div
+              className="modalCloseBtn"
+              onClick={() => {
+                setIsUploaded(false);
+              }}
+            >
+              <i className="fa-solid fa-xmark" style={{ color: "white" }}></i>
+            </div>
+          </div>
+        </div>
+      )}
+
+
     </section>
   );
 }

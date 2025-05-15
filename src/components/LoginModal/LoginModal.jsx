@@ -61,13 +61,14 @@ export default function LoginModal() {
       );
 
       if (response.data.login === "success") {
-        Cookies.set("mnid", response.data.mnid, { expires: 7 });
+        Cookies.set("mnid", response.data.mnid, { expires: 1 });
         setLoading(false);
         setLoginModal(false);
         setIsLogedIn(true);
-        window.location.href = "/profile";
         if (response.data.role === "Webadmin") {
           window.location.href = "/admin/dashboard";
+        } else {
+          window.location.href = "/profile";
         }
       }
       else if (response.data.login === "notLifeMember") {
@@ -189,7 +190,7 @@ export default function LoginModal() {
                 value={formData.password}
                 placeholder="Password"
                 onChange={handleChange}
-                // style={{marginBottom:"10px"}}
+              // style={{marginBottom:"10px"}}
               />
               {showPassword ? (
                 <img
@@ -215,7 +216,7 @@ export default function LoginModal() {
                     color: "red",
                   }}
                 >
-                  please check your credentials and try again
+                  Invalid E-Mail Id.
                 </p>
               )}
               {!otpButtonClicked && (
