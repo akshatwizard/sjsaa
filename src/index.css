@@ -3722,6 +3722,9 @@ label {
   }
   .wish-me-body {
     width: 100%;
+    height: 450px;
+    overflow-y: scroll;
+    /* scrollbar-width: none; */
     background-color: var(--primary-color);
     padding: 20px;
     border-radius: 8px;
