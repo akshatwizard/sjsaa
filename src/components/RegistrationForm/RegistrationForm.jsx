@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import SuccessMessage from "../SuccessMessage/SuccessMessage";
 import { Context } from "../../context/Context";
 import ComponentLoader from "../ComponentLoader/ComponentLoader.jsx";
 import { Link } from "react-router-dom";
