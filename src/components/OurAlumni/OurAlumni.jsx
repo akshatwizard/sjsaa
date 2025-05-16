@@ -179,7 +179,6 @@ export default function OurAlumni() {
 
     return pages;
   };
-  console.log(memberData);
 
   const handleDownloadPDF = () => {
     const doc = new jsPDF();
