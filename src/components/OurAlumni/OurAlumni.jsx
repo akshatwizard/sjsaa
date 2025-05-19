@@ -179,7 +179,6 @@ export default function OurAlumni() {
 
     return pages;
   };
-  // console.log(isAdmin);
 
   const handleDownloadPDF = () => {
     const doc = new jsPDF();
@@ -267,14 +266,18 @@ export default function OurAlumni() {
     const tableData = [];
     const tableColumn = [
       "Sr. No.",
+      "Member Id",
       "Name",
       "Batch",
+      "Joining Year",
       "M'Ship Status",
+      "Qualificatin",
       "Date of Birth",
       "Profession & Working As",
       "Current Location",
       "Email",
-      "Contact No"
+      "Contact No One",
+      "Contact No Two"
     ];
     tableData.push(tableColumn);
 
@@ -288,14 +291,18 @@ export default function OurAlumni() {
     filtered.forEach((member, index) => {
       const row = [
         index + 1,
-        member.membernace || "N/A",
-        member.batch || "N/A",
-        member.life_member || "N/A",
-        member.dob || "N/A",
-        member.trade_category || "N/A",
-        member.location || "N/A",
-        member.email || "N/A", 
-        member.mobile_number_one || "N/A"
+        member.memid || "Not Available",
+        member.membernace || "Not Available",
+        member.batch || "Not Available",
+        member.joiningyear || "Not Available",
+        member.life_member || "Not Available",
+        member.qualification || "Not Available",
+        member.dob || "Not Available",
+        member.trade_category || "Not Available",
+        member.location || "Not Available",
+        member.email || "Not Available",
+        member.mobile_number_one || "Not Available",
+        member.mobile_number_two || "Not Available"
       ];
       tableData.push(row);
     });
