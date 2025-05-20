@@ -106,7 +106,7 @@ export default function AddNewEvent() {
 
   const handleDelete = async (eventID) => {
     const confirmDelete = window.confirm(
-      "Are you sure you want to delete this image?"
+      "Are you sure you want to delete this Event ?"
     );
 
     if (confirmDelete) {
@@ -125,14 +125,14 @@ export default function AddNewEvent() {
           }
         );
         if (response.data[0].status == "1") {
-          alert("Image deleted successfully!");
+          alert("Event deleted successfully!");
           await getAllEvent();
         } else {
-          alert("Failed to delete the image. Please try again.");
+          alert("Failed to delete the Event. Please try again.");
         }
       } catch (error) {
-        console.error("Error deleting image:", error);
-        alert("An error occurred while deleting the image.");
+        console.error("Error deleting Event:", error);
+        alert("An error occurred while deleting the Event.");
       }
     } else {
       console.log("Deletion canceled");
