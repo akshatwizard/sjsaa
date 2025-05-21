@@ -74,7 +74,7 @@ export default function AddAchievements() {
     data.append("achievement_title", formData.title);
     data.append("achievement_description", formData.description);
     data.append("achievement_image", formData.eventImage);
-    additionalImg.forEach((img) => {
+    additionalImg?.forEach((img) => {
       data.append("event_more_images[]", img);
     });
     data.append("album", selectedOption === "yes" ? "true" : selectedAlbum);
@@ -93,7 +93,6 @@ export default function AddAchievements() {
           },
         }
       );
-      console.log(response.data);
 
       if (response.data[0].status == "1") {
         setIsUploaded(true);
@@ -137,6 +136,9 @@ export default function AddAchievements() {
       console.error("Error fetching gallery images:", error);
     }
   };
+
+  console.log(allAchievement);
+  
 
   return (
     <section className="adminMainContent">
@@ -251,7 +253,7 @@ export default function AddAchievements() {
               </div>
             </div>
 
-            {/* {allAchievement?.map((achievements) => {
+            {allAchievement?.map((achievements) => {
               return (
                 <div className="col-lg-12">
                   <div className="achieversContainer">
@@ -261,10 +263,10 @@ export default function AddAchievements() {
                           <div
                             className="achieveImg"
                             data-fancybox="gallery"
-                            href="/images/achievers/SashwatSharma.png"
+                            href={achievements?.achievement_images}
                           >
                             <img
-                              src="/images/achievers/SashwatSharma.png"
+                              src={achievements?.achievement_images}
                               alt=""
                               loading="lazy"
                             />
@@ -273,23 +275,17 @@ export default function AddAchievements() {
                       </div>
                       <div className="col-lg-9 col-md-8 col-12">
                         <h2>
-                          Bharti Airtel named COO Shashwat Sharma (batch 1999) as MD &
-                          CEO.
+                          {achievements?.achievement_title}
                         </h2>
                         <p>
-                          A Very Proud moment for us XJs as
-                          Telecom Major Bharti Airtel, on October 28, said Shashwat
-                          Sharma, currently Chief Operating Officer, will be appointed
-                          MD & CEO on Januray 1, 2026. In preparation to this role, he
-                          is being appointed CEO designate of the Company and will be
-                          mentored and groomed by current MD & CEO Gopal Vittal.
+                          {achievements?.achievement_details}
                         </p>
                       </div>
                     </div>
                   </div>
                 </div>
               );
-            })} */}
+            })}
           </div>
         </form>
       </div >

@@ -87,7 +87,7 @@ export default function AdminDashboard() {
             {isMenuOpen && (
               <i
                 onClick={() => setIsMenuOpen(false)}
-               className="clbt fa-solid fa-angle-left"
+                className="clbt fa-solid fa-angle-left"
                 style={{
                   color: "var(--text-color)",
                   fontSize: "27px",
@@ -110,9 +110,8 @@ export default function AdminDashboard() {
               <div className="adminlink">
                 <div
                   id="dashboard"
-                  className={`${
-                    selectedTab === "dashboard" ? "activeTab" : ""
-                  }`}
+                  className={`${selectedTab === "dashboard" ? "activeTab" : ""
+                    }`}
                   onClick={handleClick}
                 >
                   <i className="fa-solid fa-house"></i>
@@ -156,9 +155,8 @@ export default function AdminDashboard() {
               <div className="adminlink">
                 <div
                   id="achievements"
-                  className={`${
-                    selectedTab === "achievements" ? "activeTab" : ""
-                  }`}
+                  className={`${selectedTab === "achievements" ? "activeTab" : ""
+                    }`}
                   onClick={handleClick} // Move onClick here
                 >
                   <i className="fa-solid fa-star"></i>
@@ -240,7 +238,7 @@ export default function AdminDashboard() {
           </Suspense>
         )}
 
-        <div className="col-lg-12">
+        <div className="col-lg-12 mt-5">
           <div className="endSection">
             <p>
               {" "}
