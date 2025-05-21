@@ -31,23 +31,22 @@ export default function GalleryUpdate() {
     setImagePreviews(previews);
   };
 
-  const getAllImage = async () => {
-    const formData = new FormData();
-    formData.append("gallery_list", "gallery_list");
+  // const getAllImage = async () => {
+  //   const formData = new FormData();
+  //   formData.append("gallery_list", "gallery_list");
 
-    try {
-      const response = await axios.post(
-        "https://www.gdsons.co.in/draft/sjs/gallery-list",
-        formData
-      );
-      setAllImage(response?.data);
-    } catch (error) {
-      console.error("Error fetching gallery images:", error);
-    }
-  };
+  //   try {
+  //     const response = await axios.post(
+  //       "https://www.gdsons.co.in/draft/sjs/gallery-list",
+  //       formData
+  //     );
+  //     setAllImage(response?.data);
+  //   } catch (error) {
+  //     console.error("Error fetching gallery images:", error);
+  //   }
+  // };
 
   useEffect(() => {
-    getAllImage();
     getAlbum()
   }, []);
 
@@ -234,7 +233,7 @@ export default function GalleryUpdate() {
       await getAlbum()
     }
   }
-  
+
   return (
     <section className="adminMainContent">
       <div className="container">
@@ -342,34 +341,6 @@ export default function GalleryUpdate() {
                 <Button onClick={showCroppedImage}>Crop</Button>
               </div>
             )}
-          </div>
-
-          <div className="col-lg-12">
-            <div className="all-img">
-              <div className="row row-gap-4 ">
-                {allimage?.map((value) => (
-                  <div
-                    className="col-lg-4 col-md-6 col-12"
-                    key={value.gallery_id}
-                  >
-                    <div className="im-container">
-                      <img
-                        src={value.gallery_file}
-                        alt=""
-                        key={value.gallery_id}
-                        className="im"
-                      />
-                      <div
-                        className="delete-btn"
-                        onClick={() => handleDelete(value.gallery_id)}
-                      >
-                        <i className="fa-solid fa-xmark"></i>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
         </div>
       </div>

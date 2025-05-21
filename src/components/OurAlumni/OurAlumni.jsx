@@ -29,6 +29,7 @@ export default function OurAlumni() {
   const { isLogedIn, setIsLogedIn } = useContext(Context);
   const navigate = useNavigate();
   const location = useLocation();
+  const [memberAllData, setMemberAllData] = useState([]);
 
   const hideCol = location.pathname.startsWith("/admin");
 
@@ -262,27 +263,49 @@ export default function OurAlumni() {
     doc.save("filtered_members_list.pdf");
   };
 
+  useEffect(() => {
+    async function getMembersFullData() {
+      const response = await axios.get("https://gdsons.co.in/draft/sjs/all-members-excel-dnld")
+      setMemberAllData(response.data);
+    }
+    getMembersFullData();
+  }, [filterCategory, filterValue]);
+
   function handleDownloadExcel() {
+
     const tableData = [];
     const tableColumn = [
       "Sr. No.",
-      "Member Id",
+      "Member ID",
       "Name",
       "Batch",
       "Joining Year",
-      "M'Ship Status",
-      "Qualificatin",
+      "Membership Status",
+      "Qualification",
       "Date of Birth",
-      "Profession & Working As",
+      "Profession / Working As",
       "Current Location",
       "Email",
       "Contact No One",
-      "Contact No Two"
+      "Contact No Two",
+      "Address",
+      "Business Name",
+      "Business Address",
+      "Spouse Name",
+      "Children Details",
+      "House",
+      "About Me",
+      "Facebook Profile",
+      "Twitter Profile",
+      "LinkedIn Profile",
+      "Instagram Profile",
+      "Anniversary"
     ];
+
     tableData.push(tableColumn);
 
-    const filtered = memberData.filter((product) =>
-      product[filterCategory]
+    const filtered = memberAllData.filter((data) =>
+      data[filterCategory]
         ?.toString()
         .toLowerCase()
         .includes(filterValue.toLowerCase())
@@ -302,8 +325,21 @@ export default function OurAlumni() {
         member.location || "Not Available",
         member.email || "Not Available",
         member.mobile_number_one || "Not Available",
-        member.mobile_number_two || "Not Available"
+        member.mobile_number_two || "Not Available",
+        member.address || "Not Available",
+        member.business_name || "Not Available",
+        member.business_address || "Not Available",
+        member.spousename || "Not Available",
+        member.children || "Not Available",
+        member.house || "Not Available",
+        member.about || "Not Available",
+        member.fb || "Not Available",
+        member.tw || "Not Available",
+        member.li || "Not Available",
+        member.insta || "Not Available",
+        member.anniversary || "Not Available"
       ];
+
       tableData.push(row);
     });
 
@@ -311,7 +347,7 @@ export default function OurAlumni() {
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Filtered Members");
 
-    XLSX.writeFile(workbook, `${`filtered_members_list_${new Date().toISOString()}.xlsx`}`);
+    XLSX.writeFile(workbook, `${`all_members_list_${new Date().toISOString()}.xlsx`}`);
   }
 
   useEffect(() => {
