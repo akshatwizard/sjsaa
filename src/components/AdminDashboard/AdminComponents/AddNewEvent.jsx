@@ -115,7 +115,6 @@ export default function AddNewEvent() {
     setAdditionalImg(files)
   }
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -142,9 +141,9 @@ export default function AddNewEvent() {
     });
     data.append("album", selectedOption === "yes" ? "true" : selectedAlbum);
 
-    for (const [key, value] of data.entries()) {
-      console.log(key, value);
-    }
+    // for (const [key, value] of data.entries()) {
+    //   console.log(key, value);
+    // }
 
     try {
       const response = await axios.post(
@@ -157,23 +156,27 @@ export default function AddNewEvent() {
         }
       );
 
-      console.log(response.data);
-      
-
-      // if (response.data[0].status == "1") {
-      //   setIsUploaded(true);
-      //   setFormData({
-      //     title: "",
-      //     description: "",
-      //     date: "",
-      //     eventImage: null,
-      //   });
-      //   setLoading(false);
-      //   getAllEvent();
-      // } else {
-      //   alert("Failed to add the event. Please try again.");
-      //   setLoading(false);
-      // }
+      if (response.data[0].status == "1") {
+        setIsUploaded(true);
+        setFormData({
+          title: "",
+          description: "",
+          date: "",
+          eventImage: null,
+        });
+        setFormData((prevData) => ({
+          ...prevData,
+          eventImage: null,
+        }));
+        setAdditionalImg(null);
+        setSelectedOption("")
+        setSelectedAlbum(null)
+        setLoading(false);
+        getAllEvent();
+      } else {
+        alert("Failed to add the event. Please try again.");
+        setLoading(false);
+      }
     } catch (error) {
       console.error("Error adding event:", error);
       alert("An error occurred while adding the event.");
