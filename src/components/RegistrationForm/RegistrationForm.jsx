@@ -25,7 +25,7 @@ export default function RegistrationForm() {
     wedding: "",
     address: "",
     Mod: "addMember",
-    joiningYear: new Date().getFullYear(),
+    joiningYear: new Date().toISOString().slice(0, 10),
   });
   const { loading, setLoading } = useContext(Context);
 
@@ -40,13 +40,13 @@ export default function RegistrationForm() {
     };
   }, [isRegistrationSuccess]);
 
-  useEffect(() => {
-    const currentYear = new Date().getFullYear();
-    setUserData((prevData) => ({
-      ...prevData,
-      joiningYear: currentYear,
-    }));
-  }, []);
+  // useEffect(() => {
+  //   // const currentYear = new Date().get
+  //   setUserData((prevData) => ({
+  //     ...prevData,
+  //     // joiningYear: currentYear,
+  //   }));
+  // }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -161,7 +161,7 @@ export default function RegistrationForm() {
         children: "",
         wedding: "",
         address: "",
-        joiningYear: new Date().getFullYear(),
+        joiningYear: new Date().toISOString().slice(0, 10),
       })
       setProfilePic(null);
       setPaymentImage(null)
@@ -213,7 +213,7 @@ export default function RegistrationForm() {
                         Batch<sup>*</sup>{" "}
                       </label>
                       <input
-                        type="text"
+                        type="number"
                         id="batch"
                         name="batch"
                         placeholder="Batch Ex :- 1998"
