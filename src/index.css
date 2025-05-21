@@ -4022,3 +4022,26 @@ label {
     }
   }
 }
+
+
+.additional-image-field-container{
+  position: relative;
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.rdo-container{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+}
+
+.additional-image-Field{
+  width: 20px !important;
+  height: 20px !important;
+  margin: 0 !important;
+}

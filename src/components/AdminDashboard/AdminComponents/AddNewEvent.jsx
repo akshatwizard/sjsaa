@@ -10,9 +10,13 @@ export default function AddNewEvent() {
     date: "",
     eventImage: null,
   });
+  const [additionalImg, setAdditionalImg] = useState([])
+  const [selectedOption, setSelectedOption] = useState("")
   const [isUploaded, setIsUploaded] = useState(false);
   const [loading, setLoading] = useState(false);
   const [allEvent, setAllEvent] = useState();
+  const [albumList, setAlbumList] = useState([])
+  const [selectedAlbum, setSelectedAlbum] = useState(null)
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -28,6 +32,88 @@ export default function AddNewEvent() {
       eventImage: e.target.files[0],
     }));
   };
+
+
+  const getAllEvent = async () => {
+    const formData = new FormData();
+    formData.append("event_list", "event_list");
+
+    try {
+      const response = await axios.post(
+        "https://www.gdsons.co.in/draft/sjs/event-listapi",
+        formData
+      );
+
+      setAllEvent(response?.data);
+    } catch (error) {
+      console.error("Error fetching gallery images:", error);
+    }
+  };
+
+  useEffect(() => {
+    getAllEvent();
+  }, []);
+
+  const handleDelete = async (eventID) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this Event ?"
+    );
+
+    if (confirmDelete) {
+      try {
+        const formData = new FormData();
+        formData.append("mod", "delete_event");
+        formData.append("event_nid", eventID);
+
+        const response = await axios.post(
+          "https://www.gdsons.co.in/draft/sjs/manage-event",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        if (response.data[0].status == "1") {
+          alert("Event deleted successfully!");
+          await getAllEvent();
+        } else {
+          alert("Failed to delete the Event. Please try again.");
+        }
+      } catch (error) {
+        console.error("Error deleting Event:", error);
+        alert("An error occurred while deleting the Event.");
+      }
+    } else {
+      console.log("Deletion canceled");
+    }
+  };
+
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value)
+  }
+
+  useEffect(() => {
+    async function getAlbum() {
+      try {
+        const responce = await axios.get("https://www.gdsons.co.in/draft/sjs/get-all-albums");
+        setAlbumList(responce?.data)
+
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getAlbum()
+  }, [])
+
+  function handleAdditionImage(event) {
+    const files = Array.from(event.target.files);
+    if (files.length > 10) {
+      alert("You can only select up to 10 images.");
+      return;
+    }
+    setAdditionalImg(files)
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -50,6 +136,14 @@ export default function AddNewEvent() {
     data.append("event_description", formData.description);
     data.append("event_date", formData.date);
     data.append("event_image", formData.eventImage);
+    additionalImg.forEach((img) => {
+      data.append("event_more_images[]", img);
+    });
+    data.append("album", selectedOption === "yes" ? "true" : selectedAlbum);
+
+    // for (const [key, value] of data.entries()) {
+    //   console.log(key, value);
+    // }
 
     try {
       const response = await axios.post(
@@ -70,6 +164,13 @@ export default function AddNewEvent() {
           date: "",
           eventImage: null,
         });
+        setFormData((prevData) => ({
+          ...prevData,
+          eventImage: null,
+        }));
+        setAdditionalImg(null);
+        setSelectedOption("")
+        setSelectedAlbum(null)
         setLoading(false);
         getAllEvent();
       } else {
@@ -80,62 +181,6 @@ export default function AddNewEvent() {
       console.error("Error adding event:", error);
       alert("An error occurred while adding the event.");
       setLoading(false);
-    }
-  };
-
-  const getAllEvent = async () => {
-    const formData = new FormData();
-    formData.append("event_list", "event_list");
-
-    try {
-      const response = await axios.post(
-        "https://www.gdsons.co.in/draft/sjs/event-listapi",
-        formData
-      );
-
-      setAllEvent(response?.data);
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error fetching gallery images:", error);
-    }
-  };
-
-  useEffect(() => {
-    getAllEvent();
-  }, []);
-
-  const handleDelete = async (eventID) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this image?"
-    );
-
-    if (confirmDelete) {
-      try {
-        const formData = new FormData();
-        formData.append("mod", "delete_event");
-        formData.append("event_nid", eventID);
-
-        const response = await axios.post(
-          "https://www.gdsons.co.in/draft/sjs/manage-event",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
-        if (response.data[0].status == "1") {
-          alert("Image deleted successfully!");
-          await getAllEvent();
-        } else {
-          alert("Failed to delete the image. Please try again.");
-        }
-      } catch (error) {
-        console.error("Error deleting image:", error);
-        alert("An error occurred while deleting the image.");
-      }
-    } else {
-      console.log("Deletion canceled");
     }
   };
 
@@ -188,13 +233,69 @@ export default function AddNewEvent() {
                   </div>
                   <div className="col-6">
                     <label htmlFor="eventImage">
-                      Event Image <sup>*</sup>{" "}
+                      Event Main Image <sup>*</sup>{" "}
                     </label>
                     <input
                       type="file"
                       name="eventImage"
                       id="eventImage"
                       onChange={handleImageChange}
+                    ></input>
+                  </div>
+
+                  <div className="col-6" >
+                    <div className="additional-image-field-container">
+                      <div className="rdo-container">
+                        Create New Album
+                        <input
+                          type="radio"
+                          className="additional-image-Field"
+                          name="newAlbum"
+                          checked={selectedOption === "yes"}
+                          value="yes"
+                          onChange={handleOptionChange}
+                        />
+                      </div>
+                      <div className="rdo-container">
+                        Select Existing Album
+                        <input
+                          type="radio"
+                          className="additional-image-Field"
+                          name="newAlbum"
+                          checked={selectedOption === "no"}
+                          value="no"
+                          onChange={handleOptionChange}
+                        />
+                      </div>
+
+                      <select disabled={selectedOption === "yes" || selectedOption === ""}
+                        name="albums" id="albums" className="mt-3 sel"
+                        style={{ opacity: `${selectedOption === "yes" || selectedOption === "" ? '0.5' : '1'}` }}
+                        value={selectedAlbum}
+                        onChange={(e) => setSelectedAlbum(e.target.value)}>
+                        <option value=''>Select an album</option>
+                        {albumList?.map((album) => (
+                          <option key={album.album_id} value={album.album_id}>
+                            {album.album_name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+
+
+                  <div className="col-6">
+                    <label htmlFor="eventImage">
+                      Additional Event Image
+                    </label>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      max={10}
+                      name="eventImage"
+                      id="eventImage"
+                      onChange={handleAdditionImage}
                     ></input>
                   </div>
                   <div className="col-12 d-flex justify-content-center mt-4">
