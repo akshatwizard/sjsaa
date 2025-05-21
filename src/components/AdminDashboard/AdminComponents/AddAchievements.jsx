@@ -99,13 +99,13 @@ export default function AddAchievements() {
         setFormData({
           title: "",
           description: "",
-          eventImage: null,
+          eventImage: "",
         });
         setFormData((prevData) => ({
           ...prevData,
-          eventImage: null,
+          eventImage: "",
         }));
-        setAdditionalImg(null);
+        setAdditionalImg();
         setSelectedOption("")
         setSelectedAlbum(null)
         setLoading(false);
@@ -136,9 +136,6 @@ export default function AddAchievements() {
       console.error("Error fetching gallery images:", error);
     }
   };
-
-  console.log(allAchievement);
-  
 
   return (
     <section className="adminMainContent">
