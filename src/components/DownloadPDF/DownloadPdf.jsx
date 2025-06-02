@@ -49,7 +49,7 @@ export default function DownloadPdf() {
                   </h4>
                   <h6>
                     <span>Email</span> – sjsaa.info@gmail.com |{" "}
-                    <span>Contact No</span> – 9415268833 / 8808480000/9935039747
+                    <span>Contact No</span> – 9415343134 / 8808480000 / 9451173625
                   </h6>
                 </div>
               </div>
@@ -231,13 +231,13 @@ export default function DownloadPdf() {
                                       address:- To, The Board Members 2022-23,
                                       SJSAA, c/o 20, Lajpat Nagar, Maldhaiya
                                       Station Road, Varanasi – 221001. Contact
-                                      No. – 9415268833/ 8808480000
+                                      No. – 9415343134 / 8808480000 / 9451173625
                                     </p>
                                     <p style={{ fontSize: "12px" }}><span style={{ fontWeight: "600" }}>
                                       2:- Cash
                                     </span>{" "}
                                       : To any Authorized Person of Managing
-                                      Committee Members 2022 - 23</p>
+                                      Committee Members 2025 - 26</p>
                                   </div>
                                 </div>
                               </div>
