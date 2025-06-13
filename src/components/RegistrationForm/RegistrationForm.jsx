@@ -463,7 +463,7 @@ export default function RegistrationForm() {
               <div className="otherMessage">
                 <h5 style={{ textAlign: "left" }}>
                   In the meantime, please process the payment of{" "}
-                  <span style={{ color: "red", fontWeight: "500" }}>Rs. 3000</span>{" "}
+                  <span style={{ color: "red", fontWeight: "500" }}>Rs. 4000</span>{" "}
                   for Lifetime Membership of SJSAA on given QR Code and upload the confirmation Image
                 </h5>
                 <div className="row">
