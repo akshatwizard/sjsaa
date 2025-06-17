@@ -83,21 +83,6 @@ export default function ManagingCommittee() {
               <div className="col-lg-3 col-md-6  col-md-6">
                 <div className="committeeContainer">
                   <div className="othersMembersImage">
-                    <img src="/images/managing/President.png" alt="" />
-                  </div>
-                  <div className="committeeMemberDetails">
-                    <h6>XJ ABHINAV PANDEY</h6>
-                    <p>
-                      1999 Batch
-                      <br />
-                      PRESIDENT
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-3 col-md-6  col-md-6">
-                <div className="committeeContainer">
-                  <div className="othersMembersImage">
                     <img src="/images/managing/Vice-President.jpg" alt="" />
                   </div>
                   <div className="committeeMemberDetails">
@@ -105,20 +90,37 @@ export default function ManagingCommittee() {
                     <p>
                       2000 Batch
                       <br />
-                      VICE PRESIDENT
+                      PRESIDENT
                     </p>
                   </div>
                 </div>
               </div>
+
               <div className="col-lg-3 col-md-6  col-md-6">
                 <div className="committeeContainer">
                   <div className="othersMembersImage">
-                    <img src="/images/managing/Secretary.jpg" alt="" />
+                    <img src="/images/managing-committee/XJ-vivek-mehra.jpg" alt="" />
                   </div>
                   <div className="committeeMemberDetails">
-                    <h6>XJ HARSH MADHOK</h6>
+                    <h6>XJ Vivek Mehra</h6>
                     <p>
-                      1999 Batch
+                      2001 Batch
+                      <br />
+                      Vice-President
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-lg-3 col-md-6  col-md-6">
+                <div className="committeeContainer">
+                  <div className="othersMembersImage">
+                    <img src="/images/managing-committee/XJ-abhishek-basak.jpg" alt="" />
+                  </div>
+                  <div className="committeeMemberDetails">
+                    <h6>XJ Abhishek Basak</h6>
+                    <p>
+                      2000 Batch
                       <br />
                       SECRETARY
                     </p>

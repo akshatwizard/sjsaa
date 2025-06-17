@@ -23,14 +23,43 @@ export default function AllManagingMembers() {
         duration: 0.5,
         stagger: 0.09,
       });
-      gsap.from(".firstRow div",{
-        opacity:0,
-        duration:0.7,
-        stagger:0.05
+      gsap.from(".firstRow div", {
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.05
       })
     },
     { scope: members }
   );
+
+  const specialMember = [
+    { name: "XJ Rajkumar Agrawal", post: "Chairman", batch: 1982, img: "/images/managing/chairman.jpg" },
+    { name: "XJ Puneet Agrawal", post: "Vice-Chairman", batch: 1984, img: "/images/managing/Vice-Chairman.jpg" },
+    { name: "XJ Pankaj Agrawal", post: "Vice-Chairman", batch: 1989, img: "/images/managing/Vice-Chairman-02.png" },
+  ]
+  const memberInfo = [
+    { name: "XJ Abhinav Pandey", post: "Immediate Past President", batch: 1999, img: "/images/managing/President.png" },
+    { name: "XJ Digvijay Singh", post: "President", batch: 2000, img: "/images/managing/Vice-President.jpg" },
+    { name: "XJ Vivek Mehra", post: "Vice-President", batch: 2001, img: "/images/managing-committee/XJ-vivek-mehra.jpg" },
+    { name: "XJ Abhishek Basak", post: "Secretary", batch: 2000, img: "/images/managing-committee/XJ-abhishek-basak.jpg" },
+    { name: "XJ Manish Kataria", post: "Treasurer", batch: 1993, img: "/images/managing/Treasurer.png" },
+    { name: "XJ Pawan Beri", post: "Member", batch: 2000, img: "/images/managing-committee/XJ-pawan-beri.jpg" },
+    { name: "XJ Vaibhav Gupta", post: "Member", batch: 2000, img: "/images/managing-committee/XJ-vaibhav-gupta.jpg" },
+    { name: "XJ Dr. Abhinav Agrawal", post: "Member", batch: 2001, img: "/images/managing-committee/XJ-abhinav-agrawal.jpg" },
+    { name: "XJ Shikha Das", post: "Member", batch: 2001, img: "/images/managing-committee/XJ-shikha-das.jpg" },
+    { name: "XJ Apurve Mathur", post: "Member", batch: 2002, img: "/images/managing-committee/XJ-apurve-mathur.jpg" },
+    { name: "XJ Harsh Jhunjhunwala", post: "Member", batch: 2002, img: "/images/managing-committee/XJ-harsh.jpg" },
+    { name: "XJ Kartikanand Jaiswal", post: "Member", batch: 2001, img: "/images/managing-committee/XJ-kartikanand.jpg" },
+    { name: "XJ Dr. Vipin Singh", post: "Member", batch: 1999, img: "/images/managing-committee/XJ-vipin-singh.jpg" },
+    { name: "XJ Manish Gupta", post: "Member Co-Opted", batch: 2000, img: "/images/managing-committee/XJ-manish-gupta.png" },
+    { name: "XJ Safal Jaiswal", post: "Member Co-Opted", batch: 2000, img: "/images/managing-committee/XJ-safal-jaiswal.jpg" },
+    { name: "XJ Ritesh Tibrewal", post: "Member Co-Opted", batch: 1997, img: "/images/managing-committee/XJ-ritesh-tibrewal.jpg" },
+    { name: "XJ Shubhankar Chandra Chowdhary", post: "Member Co-Opted", batch: 1999, img: "/images/managing-committee/XJ-shubhankar.png" },
+    { name: "XJ Amit Verma", post: "Member Special Invitee", batch: 1993, img: "/images/managing-committee/XJ-amit-verma.jpg" },
+    { name: "XJ Deepansh Agrawal", post: "Member Special Invitee", batch: 2003, img: "/images/managing-committee/XJ-deepansh-agrawal.jpg" },
+    { name: "XJ Mohit Mohley", post: "Member Special Invitee", batch: 2003, img: "/images/managing-committee/XJ-mohit-mohley.jpg" },
+    { name: "XJ Dr. Vivek Gautam", post: "Member Special Invitee", batch: 2003, img: "/images/managing-committee/XJ-vivek-gautam.png" }
+  ];
 
 
 
@@ -41,295 +70,48 @@ export default function AllManagingMembers() {
           <h1 className="tl">All Managing Committee Members</h1>
         </div>
         <div className="row row-gap-3 firstRow">
-          <div className="col-lg-4 col-md-6 col-sm-6 ">
-            <div className="committeeContainer">
-              <div className="committeeMemberImage">
-                <img src="/images/managing/chairman.jpg" alt="" loading="lazy"/>
+
+          {
+            specialMember?.map((member) => (
+              <div className="col-lg-4 col-md-6 col-sm-6 " key={member.name}>
+                <div className="committeeContainer">
+                  <div className="committeeMemberImage">
+                    <img src={member.img} alt={member.name} loading="lazy" />
+                  </div>
+                  <div className="committeeMemberDetails">
+                    <h3>{member.name}</h3>
+                    <p>
+                      {member.batch} Batch
+                      <br />
+                      {member.post}
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div className="committeeMemberDetails">
-                <h3>XJ RAJKUMAR AGRAWAL</h3>
-                <p>
-                  1982 Batch
-                  <br /> CHAIRMAN
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-4 col-md-6 col-sm-6 ">
-            <div className="committeeContainer">
-              <div className="committeeMemberImage">
-                <img src="/images/managing/Vice-Chairman.jpg" alt="" loading="lazy"/>
-              </div>
-              <div className="committeeMemberDetails">
-                <h3>XJ PUNEET AGRAWAL</h3>
-                <p>
-                  1984 Batch
-                  <br />
-                  VICE-CHAIRMAN
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-4 col-md-6 col-sm-6 ">
-            <div className="committeeContainer">
-              <div className="committeeMemberImage">
-                <img src="/images/managing/Vice-Chairman-02.png" alt="" loading="lazy" />
-              </div>
-              <div className="committeeMemberDetails">
-                <h3>XJ PANKAJ AGRAWAL</h3>
-                <p>
-                  1989 Batch
-                  <br /> VICE-CHAIRMAN
-                </p>
-              </div>
-            </div>
-          </div>
+            ))
+          }
 
           <div className="col-lg-12">
             <div className="row row-gap-3">
-              <div className="col-lg-3 col-md-6  col-md-6">
-                <div className="committeeContainer">
-                  <div className="othersMembersImage">
-                    <img src="/images/managing/President.png" alt="" loading="lazy"/>
+              {
+                memberInfo?.map((member) => (
+                  <div className="col-lg-3 col-md-6  col-md-6" key={member.name}>
+                    <div className="committeeContainer">
+                      <div className="othersMembersImage">
+                        <img src={member.img} alt={member.name} loading="lazy" />
+                      </div>
+                      <div className="committeeMemberDetails">
+                        <h6>{member.name}</h6>
+                        <p>
+                          {member.batch} Batch
+                          <br />
+                          {member.post}
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                  <div className="committeeMemberDetails">
-                    <h6>XJ ABHINAV PANDEY</h6>
-                    <p>
-                      1999 Batch
-                      <br />
-                      PRESIDENT
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-3 col-md-6  col-md-6">
-                <div className="committeeContainer">
-                  <div className="othersMembersImage">
-                    <img src="/images/managing/Vice-President.jpg" alt="" loading="lazy"/>
-                  </div>
-                  <div className="committeeMemberDetails">
-                    <h6>XJ DIGVIJAY SINGH</h6>
-                    <p>
-                      2000 Batch
-                      <br />
-                      VICE PRESIDENT
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-3 col-md-6  col-md-6">
-                <div className="committeeContainer">
-                  <div className="othersMembersImage">
-                    <img src="/images/managing/Secretary.jpg" alt="" loading="lazy"/>
-                  </div>
-                  <div className="committeeMemberDetails">
-                    <h6>XJ HARSH MADHOK</h6>
-                    <p>
-                      1999 Batch
-                      <br />
-                      SECRETARY
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-3 col-md-6 col-md-6">
-                <div className="committeeContainer">
-                  <div className="othersMembersImage">
-                    <img src="/images/managing/Treasurer.png" alt="" loading="lazy"/>
-                  </div>
-                  <div className="committeeMemberDetails">
-                    <h6>XJ MANISH KATARIA</h6>
-                    <p>
-                      1993 Batch
-                      <br />
-                      TREASURER
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-lg-3 col-md-6  col-md-6">
-                <div className="committeeContainer">
-                  <div className="othersMembersImage">
-                    <img src="/images/managing/shubhankar.jpg" alt="" loading="lazy"/>
-                  </div>
-                  <div className="committeeMemberDetails">
-                    <h6>XJ SHUBHANKAR CHOWDHARY</h6>
-                    <p>
-                      1999 Batch
-                      <br />
-                      MEMBER
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-3 col-md-6  col-md-6">
-                <div className="committeeContainer">
-                  <div className="othersMembersImage">
-                    <img src="/images/managing/pawan.jpg" alt="" loading="lazy" />
-                  </div>
-                  <div className="committeeMemberDetails">
-                    <h6>XJ PAWAN BERI</h6>
-                    <p>
-                      2000 Batch
-                      <br />
-                      MEMBER
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-3 col-md-6  col-md-6">
-                <div className="committeeContainer">
-                  <div className="othersMembersImage">
-                    <img src="/images/managing/abhishek.jpg" alt="" loading="lazy" />
-                  </div>
-                  <div className="committeeMemberDetails">
-                    <h6>XJ ABHISHEK BASAK</h6>
-                    <p>
-                      2000 Batch
-                      <br />
-                      MEMBER
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-3 col-md-6 col-md-6">
-                <div className="committeeContainer">
-                  <div className="othersMembersImage">
-                    <img src="/images/managing/vivek-mehra.jpg" alt="" loading="lazy"/>
-                  </div>
-                  <div className="committeeMemberDetails">
-                    <h6>XJ VIVEK MEHRA</h6>
-                    <p>
-                      2001 Batch
-                      <br />
-                      MEMBER
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-lg-3 col-md-6  col-md-6">
-                <div className="committeeContainer">
-                  <div className="othersMembersImage">
-                    <img src="/images/managing/XJ-anurag.jpg" alt="" loading="lazy"/>
-                  </div>
-                  <div className="committeeMemberDetails">
-                    <h6>XJ ANURAG GOYAL</h6>
-                    <p>
-                      1999 Batch
-                      <br />
-                      MEMBER (Co-Opted)
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-3 col-md-6  col-md-6">
-                <div className="committeeContainer">
-                  <div className="othersMembersImage">
-                    <img src="/images/managing/XJ-abhinav.jpg" alt="" loading="lazy"/>
-                  </div>
-                  <div className="committeeMemberDetails">
-                    <h6>XJ ABHINAV KM</h6>
-                    <p>
-                      2001 Batch
-                      <br />
-                      MEMBER (Co-Opted)
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-3 col-md-6  col-md-6">
-                <div className="committeeContainer">
-                  <div className="othersMembersImage">
-                    <img src="/images/managing/XJ-shikha.jpg" alt="" loading="lazy"/>
-                  </div>
-                  <div className="committeeMemberDetails">
-                    <h6>XJ SHIKHA DAS</h6>
-                    <p>
-                      2001 Batch
-                      <br />
-                      MEMBER (Co-Opted)
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-3 col-md-6 col-md-6">
-                <div className="committeeContainer">
-                  <div className="othersMembersImage">
-                    <img src="/images/managing/XJ-kartikanand.jpg" alt="" loading="lazy"/>
-                  </div>
-                  <div className="committeeMemberDetails">
-                    <h6>XJ KARTIKANAND JAISWAL</h6>
-                    <p>
-                      2001 Batch
-                      <br />
-                      MEMBER (Co-Opted)
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-lg-3 col-md-6  col-md-6">
-                <div className="committeeContainer">
-                  <div className="othersMembersImage">
-                    <img src="/images/managing/XJ-Tushar.jpg" alt="" loading="lazy"/>
-                  </div>
-                  <div className="committeeMemberDetails">
-                    <h6>XJ TUSHAR AGRAWAL</h6>
-                    <p>
-                      1999 Batch
-                      <br />
-                      MEMBER (Special Invitees)
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-3 col-md-6  col-md-6">
-                <div className="committeeContainer">
-                  <div className="othersMembersImage">
-                    <img src="/images/managing/XJ-Ankur.png" alt="" loading="lazy"/>
-                  </div>
-                  <div className="committeeMemberDetails">
-                    <h6>XJ ANKUR GUPTA</h6>
-                    <p>
-                      1999 Batch
-                      <br />
-                      MEMBER (Special Invitees)
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-3 col-md-6  col-md-6">
-                <div className="committeeContainer">
-                  <div className="othersMembersImage">
-                    <img src="/images/managing/XJ-Jaideep.jpg" alt="" loading="lazy"/>
-                  </div>
-                  <div className="committeeMemberDetails">
-                    <h6>XJ JAIDEEP SINGH</h6>
-                    <p>
-                      1993 Batch
-                      <br />
-                      MEMBER (Special Invitees)
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-3 col-md-6 col-md-6">
-                <div className="committeeContainer">
-                  <div className="othersMembersImage">
-                    <img src="/images/managing/XJ-Ritesh.jpg" alt="" loading="lazy"/>
-                  </div>
-                  <div className="committeeMemberDetails">
-                    <h6>XJ RITESH TIBREWAL</h6>
-                    <p>
-                      1997 Batch
-                      <br />
-                      MEMBER (Special Invitees)
-                    </p>
-                  </div>
-                </div>
-              </div>
+                ))
+              }
             </div>
           </div>
         </div>
