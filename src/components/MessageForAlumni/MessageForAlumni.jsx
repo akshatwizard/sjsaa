@@ -10,7 +10,7 @@ export default function MessageForAlumni() {
             <div className="messageContainer">
               <div className="messageImgContainer">
                 <div className="profilePic shine">
-                  <img src="/images/managing/chairman.jpg" alt="" loading="lazy"/>
+                  <img src="/images/managing/chairman.jpg" alt="" loading="lazy" />
                 </div>
               </div>
               <div className="name">
@@ -37,25 +37,22 @@ export default function MessageForAlumni() {
             <div className="messageContainer">
               <div className="messageImgContainer">
                 <div className="profilePic shine">
-                  <img src="/images/managing/President.png" alt="" loading="lazy"/>
+                  <img src="/images/managing/new-president.jpg" alt="" loading="lazy" />
                 </div>
               </div>
               <div className="name">
-                <h5>XJ ABHINAV PANDEY</h5>
+                <h5>XJ Digvijay Singh</h5>
                 <p>PRESIDENT</p>
               </div>
               <div className="theirMessage">
                 <p>
-                  As we mark the 25th anniversary of the 1999 batch from St.
-                  John's School, BLW, Varanasi, I am honored to represent our
-                  incredible journey. These past 25 years have been a testament
-                  to the values and lessons we learned within those cherished
-                  school walls. Our bonds have only strengthened over time, and
-                  our achievements reflect the foundation laid at St. John's. As
-                  we celebrate this milestone, let's reconnect, reminisce, and
-                  renew our commitment to supporting each other and our alma
-                  mater. Together, we continue to embody the spirit of our
-                  school.
+                  It is with great pride and heartfelt emotion that I welcome you all to this milestone celebration. As President of the St. John’s Alumni Association, it is both an honor and a joy to witness the 25th anniversary of the Class of 2000. This class continues to embody the very spirit of our beloved school.
+                  <br />
+                  Founded to connect hearts beyond the classrooms, our association has grown into a diverse and united family, bonded by the values we all hold dear discipline, integrity, humility, and service. These values, instilled in us within the walls of St. John’s, have not only stood the test of time but have guided our lives in both seen and unseen ways.
+                  Today is more than a reunion it’s a return. After decades, we walk again through the corridors where our stories began. The buildings may have changed, but the spirit of St. John’s remains timeless. This is a homecoming of the heart.
+                  To my classmates from 2000, what a journey it has been from our school uniforms to our lives today. Let us take this moment to reflect, reconnect, and recommit. Let’s give back, stay engaged, and be proud torchbearers of the legacy we were gifted.
+                  <br />
+                  May future generations inherit a school and a living tradition of excellence, character, and unity.
                 </p>
               </div>
             </div>
