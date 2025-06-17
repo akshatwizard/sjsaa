@@ -15,7 +15,7 @@ export default function RegisterSuccess() {
           }}
         >
           After registration, please process the payment of{" "}
-          <span style={{ color: "red", fontWeight: "500" }}>Rs. 3000</span> for
+          <span style={{ color: "red", fontWeight: "500" }}>Rs. 4000</span> for
           Lifetime Membership of SJSAA.
         </p>
         <div className="row row-gap-4">
