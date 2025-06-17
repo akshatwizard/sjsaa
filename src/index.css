@@ -2002,6 +2002,7 @@ label {
   h6 {
     color: var(--third-color);
     margin: 0;
+    text-transform: uppercase;
   }
   h3 {
     color: var(--third-color);
