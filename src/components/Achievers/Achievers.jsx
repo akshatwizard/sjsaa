@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Fancybox from "../ImageZoom/Fancybox";
 import axios from "axios";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Achievers() {
   const [allAchievement, setAllAchievement] = useState();
+  const location = useLocation();
+  const currentPath = location.pathname;
 
   useEffect(() => {
     const getAllAchievement = async () => {
@@ -31,39 +34,51 @@ export default function Achievers() {
           <h1>Our Achievers</h1>
         </div>
         <div className="row row-gap-5">
-          {allAchievement?.map((achievements) => {
-            return (
-              <div className="col-lg-12">
-                <div className="achieversContainer">
-                  <div className="row">
-                    <div className="col-lg-3 col-md-4 col-12">
-                      <Fancybox>
-                        <div
-                          className="achieveImg"
-                          data-fancybox="gallery"
-                          href={achievements?.achievement_images}
-                        >
-                          <img
-                            src={achievements?.achievement_images}
-                            alt=""
-                            loading="lazy"
-                          />
-                        </div>
-                      </Fancybox>
-                    </div>
-                    <div className="col-lg-9 col-md-8 col-12">
-                      <h2>
-                        {achievements?.achievement_title}
-                      </h2>
-                      <p>
-                        {achievements?.achievement_details}
-                      </p>
+          {
+            (currentPath === '/' ? allAchievement?.slice(-2).reverse() : allAchievement?.reverse())?.map((achievements) => {
+              return (
+                <div className="col-lg-12">
+                  <div className="achieversContainer">
+                    <div className="row">
+                      <div className="col-lg-3 col-md-4 col-12">
+                        <Fancybox>
+                          <div
+                            className="achieveImg"
+                            data-fancybox="gallery"
+                            href={achievements?.achievement_images}
+                          >
+                            <img
+                              src={achievements?.achievement_images}
+                              alt=""
+                              loading="lazy"
+                            />
+                          </div>
+                        </Fancybox>
+                      </div>
+                      <div className="col-lg-9 col-md-8 col-12">
+                        <h2>
+                          {achievements?.achievement_title}
+                        </h2>
+                        <p>
+                          {achievements?.achievement_details}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
+              );
+            })}
+          {
+            currentPath === "/" && (
+              <div className="col-lg-12">
+                <Link
+                  to="/achievement"
+                >
+                  <button className="viewMoreBtn mt-4">View More</button>
+                </Link>
               </div>
-            );
-          })}
+            )
+          }
         </div>
       </div>
     </section>

@@ -9,13 +9,13 @@ export default function Carousel() {
         <div className="carousel-inner">
           <div className="carousel-item active" data-bs-interval="3000">
             <img
-              src="/images/banner/banner-02.jpg"
+              src="/images/banner/banner-02.png"
               className=" w-100 bann"
               alt="..."
               loading="lazy"
             />
             <img
-              src="/images/banner/mobileBanner-02.jpg"
+              src="/images/banner/mobileBanner-02.png"
               className=" w-100 mobBanner"
               alt="..."
               loading="lazy"

@@ -16,6 +16,7 @@ export default function Header() {
   const headerRef = useRef(null);
   const [dropDownOpen, setDropOpen] = useState(false);
   const [memberDropDownOpen, setMemberDropDownOpen] = useState(false);
+  const [galleryDropDownOpen, setGalleryDropDownOpen] = useState(false);
   const { loginModal, setLoginModal, container, onlyAdmin, setOnlyAdmin } =
     useContext(Context);
   const linkRef = useRef();
@@ -100,6 +101,7 @@ export default function Header() {
                 setDropOpen(false);
                 scrollToTop();
                 setMemberDropDownOpen(false);
+                setGalleryDropDownOpen(false)
               }}
             >
               Home
@@ -114,6 +116,7 @@ export default function Header() {
                 setDropOpen(false);
                 scrollToTop();
                 setMemberDropDownOpen(false);
+                setGalleryDropDownOpen(false)
               }}
             >
               About Us
@@ -125,22 +128,21 @@ export default function Header() {
               onClick={() => {
                 setDropOpen(false);
                 setMemberDropDownOpen(!memberDropDownOpen);
+                setGalleryDropDownOpen(false)
               }}
             >
               Members
               <i
                 className="fa-solid fa-angle-right"
                 style={{
-                  transform: `${
-                    !memberDropDownOpen
-                      ? "rotate(90deg) translateY(-5px)"
-                      : "rotate(-90deg) translateY(6px)"
-                  }`,
-                  color: `${
-                    !memberDropDownOpen
-                      ? "var(--text-color)"
-                      : "var(--third-color)"
-                  }`,
+                  transform: `${!memberDropDownOpen
+                    ? "rotate(90deg) translateY(-5px)"
+                    : "rotate(-90deg) translateY(6px)"
+                    }`,
+                  color: `${!memberDropDownOpen
+                    ? "var(--text-color)"
+                    : "var(--third-color)"
+                    }`,
                 }}
               ></i>
             </div>
@@ -183,24 +185,22 @@ export default function Header() {
             </ul>
           </div>
           {/* <div style={{width:"2px",height:"40px",backgroundColor:"black"}}></div> */}
-          {/* <div className="lkns">
+          <div className="lkns">
             <div
               className="navLinks"
               onClick={() => {
                 setDropOpen(!dropDownOpen);
                 setMemberDropDownOpen(false);
+                setGalleryDropDownOpen(false)
               }}
             >
-              Engage{" "}
-              <i
-               className="fa-solid fa-angle-right"
+              Events <i
+                className="fa-solid fa-angle-right"
                 style={{
-                  transform: `${
-                    !dropDownOpen ? "rotate(90deg)" : "rotate(-90deg)"
-                  }`,
-                  color: `${
-                    !dropDownOpen ? "var(--text-color)" : "var(--third-color)"
-                  }`,
+                  transform: `${!dropDownOpen ? "rotate(90deg)" : "rotate(-90deg)"
+                    }`,
+                  color: `${!dropDownOpen ? "var(--text-color)" : "var(--third-color)"
+                    }`,
                 }}
               ></i>
             </div>
@@ -211,40 +211,84 @@ export default function Header() {
                 transition: "all 0.5s",
               }}
             >
-              <li>Share Achivements</li>
-              <li>Share Opportunity</li>
+              <li
+                onClick={() => {
+                  setDropOpen(false);
+                  scrollToTop();
+                  setIsOpened(false);
+                }}
+              >
+                <Link to="/event">
+                  Events
+                </Link>{" "}
+              </li>
+              <li
+                onClick={() => {
+                  setDropOpen(false);
+                  scrollToTop();
+                  setIsOpened(false);
+                }}
+              >
+                <Link to="/achievement">
+                  Achievements
+                </Link>{" "}
+              </li>
             </ul>
-          </div> */}
-          {/* <div style={{width:"2px",height:"40px",backgroundColor:"black"}}></div> */}
+          </div>
+
           <div className="lkns">
-            <NavLink
-              to="/event"
-              className={({ isActive }) => (isActive ? "act" : "navLinks")}
+            <div
+              className="navLinks"
               onClick={() => {
-                setIsOpened(false);
                 setDropOpen(false);
-                scrollToTop();
                 setMemberDropDownOpen(false);
+                setGalleryDropDownOpen(!galleryDropDownOpen)
               }}
             >
-              Events
-            </NavLink>
-          </div>
-          {/* <div style={{width:"2px",height:"40px",backgroundColor:"black"}}></div> */}
-          <div className="lkns">
-            <NavLink
-              to="/gallery"
-              className={({ isActive }) => (isActive ? "act" : "navLinks")}
-              onClick={() => {
-                setIsOpened(false);
-                setDropOpen(false);
-                scrollToTop();
-                setMemberDropDownOpen(false);
+              Gallery <i
+                className="fa-solid fa-angle-right"
+                style={{
+                  transform: `${!galleryDropDownOpen ? "rotate(90deg)" : "rotate(-90deg)"
+                    }`,
+                  color: `${!galleryDropDownOpen ? "var(--text-color)" : "var(--third-color)"
+                    }`,
+                }}
+              ></i>
+            </div>
+            <ul
+              className="dropDownContainer"
+              style={{
+                display: `${galleryDropDownOpen ? "block" : "none"}`,
+                transition: "all 0.5s",
               }}
             >
-              Gallery
-            </NavLink>
+              <li
+                onClick={() => {
+                  setDropOpen(false);
+                  scrollToTop();
+                  setIsOpened(false);
+                  setGalleryDropDownOpen(false)
+                }}
+              >
+                <Link to="/gallery">
+                  Image Gallery
+                </Link>{" "}
+              </li>
+              <li
+                onClick={() => {
+                  setDropOpen(false);
+                  scrollToTop();
+                  setIsOpened(false);
+                  setGalleryDropDownOpen(false)
+                }}
+              >
+                <Link to="/video-gallery">
+                  Video Gallery
+                </Link>{" "}
+              </li>
+            </ul>
           </div>
+
           {isLogedIn && !onlyAdmin && (
             <div className="lkns">
               <NavLink
