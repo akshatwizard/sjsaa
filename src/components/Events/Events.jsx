@@ -112,7 +112,7 @@ export default function Events() {
                                 </div>
                                 <div className="col-lg-12 my-2">
                                   <div className="eventDescription">
-                                    <p>{event.event_details}</p>
+                                    <p>{currentPath === '/' ? event.event_details.substring(0, 120) + "..." : event.event_details}</p>
                                   </div>
                                 </div>
                               </div>
