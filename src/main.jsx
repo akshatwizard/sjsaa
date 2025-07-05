@@ -15,6 +15,7 @@ const NotFoundPage = lazy(() => import('./components/NotFound/NotFoundPage.jsx')
 const UserProfile = lazy(() => import('./components/UserProfile/UserProfile.jsx'));
 const AllManagingMembers = lazy(() => import('./components/AllManagingMembers/AllManagingMembers.jsx'));
 import Loader from './components/Loader/Loader.jsx'
+const Youtube = lazy(() => import('./components/Youtube/Youtube.jsx'));
 const Achievements = lazy(() => import('./components/Acievements/Achievements.jsx'));
 // import UpdateGallery from './components/AdminDashboard/UpdateGallery.jsx'
 const MovieGallery = lazy(() => import("./components/MovieGallery/MovieGallery.jsx"))
@@ -82,6 +83,14 @@ const router = createBrowserRouter(
         element={
           <Suspense fallback={<Loader />}>
             <Gallery />
+          </Suspense>
+        }
+      />
+      <Route
+        path='/video-gallery'
+        element={
+          <Suspense fallback={<Loader />}>
+            <Youtube />
           </Suspense>
         }
       />

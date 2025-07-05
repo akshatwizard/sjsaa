@@ -1,7 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Youtube() {
+  const location = useLocation();
+  const currentPath = location.pathname;
   return (
     <section className="sectionContainer">
       <div className="container">
@@ -23,14 +24,17 @@ export default function Youtube() {
               ></iframe>
             </div>
           </div>
-          <div className="col-lg-12">
-            <Link
-              to="https://www.youtube.com/@sjsaablw/playlists"
-              target="_blank"
-            >
-              <button className="viewMoreBtn mt-4">View More</button>
-            </Link>
-          </div>
+          {
+            currentPath === "/" && (
+              <div className="col-lg-12">
+                <Link
+                  to="/video-gallery"
+                >
+                  <button className="viewMoreBtn mt-4">View More</button>
+                </Link>
+              </div>
+            )
+          }
         </div>
       </div>
     </section>

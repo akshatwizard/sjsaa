@@ -282,7 +282,7 @@ export default function Header() {
                   setGalleryDropDownOpen(false)
                 }}
               >
-                <Link to="/video-gallery ">
+                <Link to="/video-gallery">
                   Video Gallery
                 </Link>{" "}
               </li>
