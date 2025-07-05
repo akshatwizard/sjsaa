@@ -35,7 +35,8 @@ export default function Events() {
 
   // Access the current path
   const currentPath = location.pathname;
-  
+  console.log(currentPath);
+
   useGSAP(
     () => {
       let ctx = gsap.context(() => {
@@ -75,68 +76,70 @@ export default function Events() {
         </div>
 
         <div className="row mb-5 animate">
-          {allEvent?.slice(-2).reverse().map((event) => {
-            const eventDate = new Date(event.event_date);
-            const month = eventDate.toLocaleString("default", {
-              month: "long",
-            });
-            const day = eventDate.getDate();
 
-            return (
-              <div className="col-lg-12" key={event.event_nid}>
-                <div className="add-new-event-container">
-                  <div className="eventContainer">
-                    <div className="row row-gap-3">
-                      <div className="col-lg-2 col-md-2 col-sm-3 text-center py-2">
-                        <div className="dateContainer">
-                          <p>{month}</p>
-                          <h2>{day}</h2>
+          {
+            (currentPath === "/" ? allEvent?.slice(-2).reverse() : allEvent?.reverse())?.map((event) => {
+              const eventDate = new Date(event.event_date);
+              const month = eventDate.toLocaleString("default", {
+                month: "long",
+              });
+              const day = eventDate.getDate();
+
+              return (
+                <div className="col-lg-12" key={event.event_nid}>
+                  <div className="add-new-event-container">
+                    <div className="eventContainer">
+                      <div className="row row-gap-3">
+                        <div className="col-lg-2 col-md-2 col-sm-3 text-center py-2">
+                          <div className="dateContainer">
+                            <p>{month}</p>
+                            <h2>{day}</h2>
+                          </div>
                         </div>
-                      </div>
-                      <div className="col-lg-10 col-md-10 col-sm-9">
-                        <div className="row">
-                          <div className="col-lg-9 col-md-9">
-                            <div className="row">
-                              <div className="col-lg-12">
-                                <div className="heading">
-                                  <a href="#">
-                                    <h1>
-                                      {event.event_title}
-                                      <i className="fa-solid fa-arrow-right "></i>
-                                    </h1>
-                                  </a>
+                        <div className="col-lg-10 col-md-10 col-sm-9">
+                          <div className="row">
+                            <div className="col-lg-9 col-md-9">
+                              <div className="row">
+                                <div className="col-lg-12">
+                                  <div className="heading">
+                                    <a href="#">
+                                      <h1>
+                                        {event.event_title}
+                                        <i className="fa-solid fa-arrow-right "></i>
+                                      </h1>
+                                    </a>
+                                  </div>
                                 </div>
-                              </div>
-                              <div className="col-lg-12 my-2">
-                                <div className="eventDescription">
-                                  <p>{event.event_details}</p>
+                                <div className="col-lg-12 my-2">
+                                  <div className="eventDescription">
+                                    <p>{event.event_details}</p>
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                          <div className="col-lg-3 col-md-3">
-                            <Fancybox>
-                              <div
-                                className="eventImagesContainer"
-                                data-fancybox="gallery"
-                                href={event.event_images}
-                              >
-                                <img
-                                  src={event.event_images}
-                                  alt={event.event_title}
-                                  loading="lazy"
-                                />
-                              </div>
-                            </Fancybox>
+                            <div className="col-lg-3 col-md-3">
+                              <Fancybox>
+                                <div
+                                  className="eventImagesContainer"
+                                  data-fancybox="gallery"
+                                  href={event.event_images}
+                                >
+                                  <img
+                                    src={event.event_images}
+                                    alt={event.event_title}
+                                    loading="lazy"
+                                  />
+                                </div>
+                              </Fancybox>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
 
         {currentPath === "/event" ? (

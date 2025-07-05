@@ -15,28 +15,28 @@ export default function Stories() {
             },
           }}
         > 
-          <div className="row row-gap-5">
-            <div className="col-lg-3 col-md-4 col-sm-6 col-6">
+          <div className="row row-gap-4">
+            <div className="col-lg-2 col-md-3 col-sm-4 col-6">
               <div className="storyImgContainer"  data-fancybox="gallery" href="/images/party/01.jpeg">
                 <img src="/images/party/01.jpeg" alt="" loading="lazy"/>
               </div>
             </div>
-            <div className="col-lg-3 col-md-4 col-sm-6 col-6">
+            <div className="col-lg-2 col-md-3 col-sm-4 col-6">
               <div className="storyImgContainer"data-fancybox="gallery" href="/images/party/02.jpeg">
                 <img src="/images/party/02.jpeg" alt="" loading="lazy"/>
               </div>
             </div>
-            <div className="col-lg-3 col-md-4 col-sm-6 col-6">
+            <div className="col-lg-2 col-md-3 col-sm-4 col-6">
               <div className="storyImgContainer"data-fancybox="gallery" href="/images/party/03.jpeg">
                 <img src="/images/party/03.jpeg" alt="" loading="lazy"/>
               </div>
             </div>
-            <div className="col-lg-3 col-md-4 col-sm-6 col-6">
+            <div className="col-lg-2 col-md-3 col-sm-4 col-6">
               <div className="storyImgContainer"data-fancybox="gallery" href="/images/party/04.jpeg">
                 <img src="/images/party/04.jpeg" alt="" loading="lazy"/>
               </div>
             </div>
-            <div className="col-lg-3 col-md-4 col-sm-6 col-6">
+            <div className="col-lg-2 col-md-3 col-sm-4 col-6">
               <div className="storyImgContainer"data-fancybox="gallery" href="/images/party/05.jpeg">
                 <img src="/images/party/05.jpeg" alt="" loading="lazy"/>
               </div>
@@ -46,22 +46,22 @@ export default function Stories() {
                 <img src="/images/party/06.jpeg" alt="" loading="lazy"/>
               </div>
             </div> */}
-            <div className="col-lg-3 col-md-4 col-sm-6 col-6">
+            <div className="col-lg-2 col-md-3 col-sm-4 col-6">
               <div className="storyImgContainer"data-fancybox="gallery" href="/images/party/07.jpeg">
                 <img src="/images/party/07.jpeg" alt="" loading="lazy"/>
               </div>
             </div>
-            <div className="col-lg-3 col-md-4 col-sm-6 col-6">
+            <div className="col-lg-2 col-md-3 col-sm-4 col-6">
               <div className="storyImgContainer"data-fancybox="gallery" href="/images/party/08.jpeg">
                 <img src="/images/party/08.jpeg" alt="" loading="lazy"/>
               </div>
             </div>
-            <div className="col-lg-3 col-md-4 col-sm-6 col-6">
+            <div className="col-lg-2 col-md-3 col-sm-4 col-6">
               <div className="storyImgContainer"data-fancybox="gallery" href="/images/party/09.jpeg">
                 <img src="/images/party/09.jpeg" alt="" loading="lazy"/>
               </div>
             </div>
-            <div className="col-lg-3 col-md-4 col-sm-6 col-6">
+            <div className="col-lg-2 col-md-3 col-sm-4 col-6">
               <div className="storyImgContainer"data-fancybox="gallery" href="/images/party/10.jpeg">
                 <img src="/images/party/10.jpeg" alt="" loading="lazy"/>
               </div>
