@@ -229,7 +229,7 @@ export default function Header() {
                   setIsOpened(false);
                 }}
               >
-                <Link to="/achievements ">
+                <Link to="/achievement">
                   Achievements
                 </Link>{" "}
               </li>

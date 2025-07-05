@@ -13,6 +13,7 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Events() {
   const container = useRef();
   const location = useLocation();
+  const currentPath = location.pathname;
   const [allEvent, setAllEvent] = useState();
 
   useEffect(() => {
@@ -32,10 +33,6 @@ export default function Events() {
     };
     getAllEvent();
   }, []);
-
-  // Access the current path
-  const currentPath = location.pathname;
-  console.log(currentPath);
 
   useGSAP(
     () => {

@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Fancybox from "../ImageZoom/Fancybox";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 export default function Achievers() {
   const [allAchievement, setAllAchievement] = useState();
+  const location = useLocation();
+  const currentPath = location.pathname;
 
   useEffect(() => {
     const getAllAchievement = async () => {
@@ -31,7 +34,8 @@ export default function Achievers() {
           <h1>Our Achievers</h1>
         </div>
         <div className="row row-gap-5">
-          {allAchievement?.slice(0, 2).map((achievements) => {
+          { 
+          (currentPath === '/'? allAchievement?.slice(0, 2) : allAchievement)?.map((achievements) => {
             return (
               <div className="col-lg-12">
                 <div className="achieversContainer">

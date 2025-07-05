@@ -15,15 +15,16 @@ const NotFoundPage = lazy(() => import('./components/NotFound/NotFoundPage.jsx')
 const UserProfile = lazy(() => import('./components/UserProfile/UserProfile.jsx'));
 const AllManagingMembers = lazy(() => import('./components/AllManagingMembers/AllManagingMembers.jsx'));
 import Loader from './components/Loader/Loader.jsx'
+const Achievements = lazy(() => import('./components/Acievements/Achievements.jsx'));
 // import UpdateGallery from './components/AdminDashboard/UpdateGallery.jsx'
-const MovieGallery = lazy(()=>import("./components/MovieGallery/MovieGallery.jsx"))
-const AGMElection = lazy(()=>import("./components/AGMElection/AGMElection.jsx"))
-const RegistrationForm = lazy(()=>import("./components/RegistrationForm/RegistrationForm.jsx"))
-const AdminDashboard = lazy(()=>import('./components/AdminDashboard/AdminDashboard.jsx')); 
-const PaymentPage = lazy(()=>import('./components/RegistrationForm/PaymentPage.jsx'))
-const DownloadPdf = lazy(()=>import('./components/DownloadPDF/DownloadPdf.jsx'));
-const Discussion = lazy(()=>import('./components/DiscussionForum/Discussion.jsx')) 
-const WishMe = lazy(()=>import('./components/WishMe/WishMe.jsx'));
+const MovieGallery = lazy(() => import("./components/MovieGallery/MovieGallery.jsx"))
+const AGMElection = lazy(() => import("./components/AGMElection/AGMElection.jsx"))
+const RegistrationForm = lazy(() => import("./components/RegistrationForm/RegistrationForm.jsx"))
+const AdminDashboard = lazy(() => import('./components/AdminDashboard/AdminDashboard.jsx'));
+const PaymentPage = lazy(() => import('./components/RegistrationForm/PaymentPage.jsx'))
+const DownloadPdf = lazy(() => import('./components/DownloadPDF/DownloadPdf.jsx'));
+const Discussion = lazy(() => import('./components/DiscussionForum/Discussion.jsx'))
+const WishMe = lazy(() => import('./components/WishMe/WishMe.jsx'));
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,7 +32,7 @@ const router = createBrowserRouter(
       <Route
         path='/'
         element={
-          <Suspense fallback={<Loader/>}>
+          <Suspense fallback={<Loader />}>
             <Home />
           </Suspense>
         }
@@ -39,7 +40,7 @@ const router = createBrowserRouter(
       <Route
         path='/our-alumni'
         element={
-          <Suspense fallback={<Loader/>}>
+          <Suspense fallback={<Loader />}>
             <OurAlumni />
           </Suspense>
         }
@@ -47,7 +48,7 @@ const router = createBrowserRouter(
       <Route
         path='/new-member-registration'
         element={
-          <Suspense fallback={<Loader/>}>
+          <Suspense fallback={<Loader />}>
             <RegistrationForm />
           </Suspense>
         }
@@ -55,7 +56,7 @@ const router = createBrowserRouter(
       <Route
         path='/about-us'
         element={
-          <Suspense fallback={<Loader/>}>
+          <Suspense fallback={<Loader />}>
             <AboutUs />
           </Suspense>
         }
@@ -63,15 +64,23 @@ const router = createBrowserRouter(
       <Route
         path='/event'
         element={
-          <Suspense fallback={<Loader/>}>
+          <Suspense fallback={<Loader />}>
             <UpcomingEvents />
+          </Suspense>
+        }
+      />
+      <Route
+        path='/achievement'
+        element={
+          <Suspense fallback={<Loader />}>
+            <Achievements />
           </Suspense>
         }
       />
       <Route
         path='/gallery'
         element={
-          <Suspense fallback={<Loader/>}>
+          <Suspense fallback={<Loader />}>
             <Gallery />
           </Suspense>
         }
@@ -80,7 +89,7 @@ const router = createBrowserRouter(
       <Route
         path='/gallery/album-gallery/:albumId'
         element={
-          <Suspense fallback={<Loader/>}>
+          <Suspense fallback={<Loader />}>
             <MovieGallery />
           </Suspense>
         }
@@ -88,16 +97,16 @@ const router = createBrowserRouter(
       <Route
         path='/gallery/agm-election-gallery'
         element={
-          <Suspense fallback={<Loader/>}>
+          <Suspense fallback={<Loader />}>
             <AGMElection />
           </Suspense>
         }
       />
-      
+
       <Route
         path='/managing-committee-members'
         element={
-          <Suspense fallback={<Loader/>}>
+          <Suspense fallback={<Loader />}>
             <AllManagingMembers />
           </Suspense>
         }
@@ -105,7 +114,7 @@ const router = createBrowserRouter(
       <Route
         path='/payment-page'
         element={
-          <Suspense fallback={<Loader/>}>
+          <Suspense fallback={<Loader />}>
             <PaymentPage />
           </Suspense>
         }
@@ -113,7 +122,7 @@ const router = createBrowserRouter(
       <Route
         path='/profile'
         element={
-          <Suspense fallback={<Loader/>}>
+          <Suspense fallback={<Loader />}>
             <Profile />
           </Suspense>
         }
@@ -121,7 +130,7 @@ const router = createBrowserRouter(
       <Route
         path='/user/profile/:id'
         element={
-          <Suspense fallback={<Loader/>}>
+          <Suspense fallback={<Loader />}>
             <UserProfile />
           </Suspense>
         }
@@ -129,7 +138,7 @@ const router = createBrowserRouter(
       <Route
         path='/admin/dashboard'
         element={
-          <Suspense fallback={<Loader/>}>
+          <Suspense fallback={<Loader />}>
             <AdminDashboard />
           </Suspense>
         }
@@ -137,7 +146,7 @@ const router = createBrowserRouter(
       <Route
         path='/member-preview/:id'
         element={
-          <Suspense fallback={<Loader/>}>
+          <Suspense fallback={<Loader />}>
             <DownloadPdf />
           </Suspense>
         }
@@ -146,7 +155,7 @@ const router = createBrowserRouter(
       <Route
         path='/wish-me'
         element={
-          <Suspense fallback={<Loader/>}>
+          <Suspense fallback={<Loader />}>
             <WishMe />
           </Suspense>
         }
@@ -155,17 +164,17 @@ const router = createBrowserRouter(
       <Route
         path='/members-feed'
         element={
-          <Suspense fallback={<Loader/>}>
+          <Suspense fallback={<Loader />}>
             <Discussion />
           </Suspense>
         }
       />
-      
-      
+
+
       <Route
         path='*'
         element={
-          <Suspense fallback={<Loader/>}>
+          <Suspense fallback={<Loader />}>
             <NotFoundPage />
           </Suspense>
         }
