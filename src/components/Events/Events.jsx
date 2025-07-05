@@ -35,7 +35,7 @@ export default function Events() {
 
   // Access the current path
   const currentPath = location.pathname;
-
+  
   useGSAP(
     () => {
       let ctx = gsap.context(() => {
@@ -75,7 +75,7 @@ export default function Events() {
         </div>
 
         <div className="row mb-5 animate">
-          {allEvent?.map((event) => {
+          {allEvent?.slice(-2).reverse().map((event) => {
             const eventDate = new Date(event.event_date);
             const month = eventDate.toLocaleString("default", {
               month: "long",
