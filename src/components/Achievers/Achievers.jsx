@@ -31,7 +31,7 @@ export default function Achievers() {
           <h1>Our Achievers</h1>
         </div>
         <div className="row row-gap-5">
-          {allAchievement?.map((achievements) => {
+          {allAchievement?.slice(0, 2).map((achievements) => {
             return (
               <div className="col-lg-12">
                 <div className="achieversContainer">
