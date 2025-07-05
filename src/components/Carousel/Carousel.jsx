@@ -15,7 +15,7 @@ export default function Carousel() {
               loading="lazy"
             />
             <img
-              src="/images/banner/mobileBanner-02.jpg"
+              src="/images/banner/mobileBanner-02.png"
               className=" w-100 mobBanner"
               alt="..."
               loading="lazy"
