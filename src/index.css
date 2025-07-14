@@ -733,7 +733,7 @@ body {
       position: relative;
       object-fit: cover;
       object-position: top;
-      background-color: #f08a5d;
+      background-color: #424242;
       border-radius: 50%;
       vertical-align: middle;
       border: 2px solid;
@@ -743,12 +743,12 @@ body {
       width: 200px;
 
       h4 {
-        color: #f08a5d;
+        color: var(--text-color);
         margin: 0;
       }
       p {
         margin: 0;
-        color: #171717;
+        color: var(--text-color);
       }
     }
     .qt {
@@ -763,7 +763,7 @@ body {
     position: relative;
 
     p {
-      color: #171717;
+     color: var(--text-color);
     }
   }
 }
@@ -773,18 +773,21 @@ body {
   align-items: center;
   margin-top: -5px;
 }
+
 .custom-dot-list-style li button {
-  border-color: #f08a5d;
+  border: 1px solid;
+  border-color: #fab341;
+  background-color: transparent;
 }
 .react-multi-carousel-dot--active button {
-  background: #f08a5d !important;
+  background: #fab341 !important;
 }
 .react-multiple-carousel__arrow {
-  background: #f08a5d !important;
+  background: #424242 !important;
   z-index: 1;
 }
 .react-multiple-carousel__arrow:hover {
-  background: #ffa27b !important;
+  background: #272727 !important;
 }
 
 .footerContainer {
