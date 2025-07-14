@@ -21,7 +21,7 @@ export default function AddTestimonials() {
         <section className="adminMainContent">
             <div className="container">
                 <div className="title">
-                    <h1>Add New Testimonials</h1>
+                    <h1>Add New Testimonial</h1>
                 </div>
                 <form>
                     <div className="row row-gap-2">
