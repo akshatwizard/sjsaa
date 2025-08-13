@@ -208,7 +208,7 @@ export default function DownloadPdf() {
                             <div className="data-content">
                               <span>Membership Fee:-</span>
                               <div>
-                                Life Membership Fee - Rs.3000/- ( One Time )
+                                Life Membership Fee - Rs.4000/- ( One Time )
                               </div>
                             </div>
                           </div>
@@ -225,7 +225,7 @@ export default function DownloadPdf() {
                                       <span style={{ fontWeight: "600" }}>
                                         1:- Demand Draft
                                       </span>{" "}
-                                      : – Rs.3000/- in favour of “St. John’s
+                                      : – Rs.4000/- in favour of “St. John’s
                                       School, DLW Alumni Association” payable at
                                       “VARANASI” to be dispatched of following
                                       address:- To, The Board Members 2022-23,
