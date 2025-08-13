@@ -432,6 +432,8 @@ export default function OurAlumni() {
                   <option value="membernace">Name</option>
                   <option value="batch">Batch</option>
                   <option value="location">Current Location</option>
+                  <option value="life_member">Membership Status</option>
+                  <option value="trade_category">Profession</option>
                 </select>
                 <input
                   type="text"
