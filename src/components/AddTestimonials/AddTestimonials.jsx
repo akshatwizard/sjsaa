@@ -10,7 +10,7 @@ export default function AddTestimonials() {
     });
     const [loading, setLoading] = useState(false);
     const [isUploaded, setIsUploaded] = useState(false);
-    const [allEvent, setAllEvent] = useState();
+    const [allTestimonials, setallTestimonials] = useState();
     const fileInputRef = useRef(null);
     const [clickedTestimonial, setClickedTestimonial] = useState(null);
     const [openClickedTestimonial, setOpenClickedTestimonial] = useState(false);
@@ -28,16 +28,16 @@ export default function AddTestimonials() {
             testimonial_img: e.target.files[0],
         }));
     };
-    const getAllEvent = async () => {
+    const getallTestimonials = async () => {
         try {
             const response = await axios.get("https://www.gdsons.co.in/draft/sjs/list-testimonial");
-            setAllEvent(response?.data);
+            setallTestimonials(response?.data);
         } catch (error) {
             console.error("Error fetching gallery images:", error);
         }
     };
     useEffect(() => {
-        getAllEvent();
+        getallTestimonials();
     }, []);
 
     async function handleClick(e) {
@@ -75,7 +75,7 @@ export default function AddTestimonials() {
                     fileInputRef.current.value = "";
                 }
                 setLoading(false);
-                getAllEvent();
+                getallTestimonials();
             } else {
                 alert("Failed to add the event. Please try again.");
                 setLoading(false);
@@ -135,7 +135,7 @@ export default function AddTestimonials() {
 
                         <div className="col-12 px-3">
                             <div className="row row-gap-2">
-                                {allEvent?.map((testimonial, idx) => {
+                                {allTestimonials?.map((testimonial, idx) => {
                                     const trimText = (text, maxLength = 300) => {
                                         if (!text) return { text: '', isTrimmed: false };
                                         if (text.length <= maxLength) return { text, isTrimmed: false };
@@ -225,8 +225,7 @@ export default function AddTestimonials() {
                         </div>
                     </div>
                 </div>
-            )
-            }
+            )}
 
             {clickedTestimonial !== null && openClickedTestimonial && (
                 <div className="full-testimonials-container">
@@ -242,7 +241,7 @@ export default function AddTestimonials() {
                             >
                                 <i className="fa-solid fa-xmark"></i>
                             </div>
-                            <div className="testimonials-image">
+                            <div className="box-testimonials-image">
                                 <img
                                     src={clickedTestimonial?.testimg_small}
                                     alt="Testimonial"
