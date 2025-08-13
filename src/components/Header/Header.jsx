@@ -17,6 +17,7 @@ export default function Header() {
   const [dropDownOpen, setDropOpen] = useState(false);
   const [memberDropDownOpen, setMemberDropDownOpen] = useState(false);
   const [galleryDropDownOpen, setGalleryDropDownOpen] = useState(false);
+  const [helpDropDown, setHelpDropDown] = useState(false);
   const { loginModal, setLoginModal, container, onlyAdmin, setOnlyAdmin } =
     useContext(Context);
   const linkRef = useRef();
@@ -102,6 +103,7 @@ export default function Header() {
                 scrollToTop();
                 setMemberDropDownOpen(false);
                 setGalleryDropDownOpen(false)
+                setHelpDropDown(false)
               }}
             >
               Home
@@ -117,6 +119,7 @@ export default function Header() {
                 scrollToTop();
                 setMemberDropDownOpen(false);
                 setGalleryDropDownOpen(false)
+                setHelpDropDown(false)
               }}
             >
               About Us
@@ -129,6 +132,7 @@ export default function Header() {
                 setDropOpen(false);
                 setMemberDropDownOpen(!memberDropDownOpen);
                 setGalleryDropDownOpen(false)
+                setHelpDropDown(false)
               }}
             >
               Members
@@ -192,6 +196,7 @@ export default function Header() {
                 setDropOpen(!dropDownOpen);
                 setMemberDropDownOpen(false);
                 setGalleryDropDownOpen(false)
+                setHelpDropDown(false)
               }}
             >
               Events <i
@@ -242,6 +247,7 @@ export default function Header() {
               onClick={() => {
                 setDropOpen(false);
                 setMemberDropDownOpen(false);
+                setHelpDropDown(false)
                 setGalleryDropDownOpen(!galleryDropDownOpen)
               }}
             >
@@ -268,6 +274,7 @@ export default function Header() {
                   scrollToTop();
                   setIsOpened(false);
                   setGalleryDropDownOpen(false)
+                  setHelpDropDown(false)
                 }}
               >
                 <Link to="/gallery">
@@ -280,6 +287,63 @@ export default function Header() {
                   scrollToTop();
                   setIsOpened(false);
                   setGalleryDropDownOpen(false)
+                  setHelpDropDown(false)
+                }}
+              >
+                <Link to="/video-gallery">
+                  Video Gallery
+                </Link>{" "}
+              </li>
+            </ul>
+          </div>
+
+          <div className="lkns">
+            <div
+              className="navLinks"
+              onClick={() => {
+                setDropOpen(false);
+                setMemberDropDownOpen(false);
+                setGalleryDropDownOpen(false);
+                setHelpDropDown(!helpDropDown);
+              }}
+            >
+              Help <i
+                className="fa-solid fa-angle-right"
+                style={{
+                  transform: `${!helpDropDown ? "rotate(90deg)" : "rotate(-90deg)"
+                    }`,
+                  color: `${!helpDropDown ? "var(--text-color)" : "var(--third-color)"
+                    }`,
+                }}
+              ></i>
+            </div>
+            <ul
+              className="dropDownContainer"
+              style={{
+                display: `${helpDropDown ? "block" : "none"}`,
+                transition: "all 0.5s",
+              }}
+            >
+              <li
+                onClick={() => {
+                  setDropOpen(false);
+                  scrollToTop();
+                  setIsOpened(false);
+                  setGalleryDropDownOpen(false)
+                  setHelpDropDown(false)
+                }}
+              >
+                <Link to="/gallery">
+                  Image Gallery
+                </Link>{" "}
+              </li>
+              <li
+                onClick={() => {
+                  setDropOpen(false);
+                  scrollToTop();
+                  setIsOpened(false);
+                  setGalleryDropDownOpen(false)
+                  setHelpDropDown(false)
                 }}
               >
                 <Link to="/video-gallery">
