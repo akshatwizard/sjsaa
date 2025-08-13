@@ -20,7 +20,7 @@ function Fancybox(props) {
     };
   });
 
-  return <div ref={containerRef}>{props.children}</div>;
+  return <div ref={containerRef} style={props.style}>{props.children}</div>;
 }
 
 export default Fancybox;

@@ -1,5 +1,8 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import Fancybox from "../ImageZoom/Fancybox";
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
@@ -18,311 +21,134 @@ const responsive = {
   },
 };
 export default function Testimonials() {
+  const [allTestimonials, setallTestimonials] = useState([]);
+  const [clickedTestimonial, setClickedTestimonial] = useState(null);
+  const [openClickedTestimonial, setOpenClickedTestimonial] = useState(false);
+  const getallTestimonials = async () => {
+    try {
+      const response = await axios.get("https://www.gdsons.co.in/draft/sjs/list-testimonial");
+      setallTestimonials(response?.data);
+    } catch (error) {
+      console.error("Error fetching gallery images:", error);
+    }
+  };
+  useEffect(() => {
+    getallTestimonials();
+  }, []);
+
   return (
-    <section className="sectionContainer">
-      <div className="container">
-        <div className="title">
-          <h1>Testimonials</h1>
-        </div>
-        <div className="row row-gap-3">
-          <div className="col-lg-12">
-            <div className="row">
-              <Carousel
-                responsive={responsive}
-                autoPlay={true}
-                swipeable={true}
-                draggable={true}
-                showDots={true}
-                infinite={true}
-                partialVisible={false}
-                dotListClass="custom-dot-list-style"
-              >
-                <div className=" ">
-                  <div className="testimonialsContainer">
-                    <div className="image-box">
-                      <img
-                        src="/images/testimonials/01.png"
-                        className="userProfile"
-                        alt=""
-                      />
-                      <div className="user-name">
-                        <h4>Jhone Hue</h4>
-                        <p>Alumni</p>
-                        <div className="d-flex" style={{ gap: "10px" }}>
-                          <p className="fw-500">5.0</p>
-                          <div className="rating-stars">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="18"
-                              height="17"
-                              viewBox="0 0 18 17"
-                              fill="none"
-                            >
-                              <path
-                                d="M8.45211 1.15485C8.60114 0.692846 9.25478 0.692845 9.40382 1.15484L11.0452 6.24302C11.1118 6.44954 11.304 6.58952 11.521 6.58952H16.8401C17.3236 6.58952 17.5256 7.20748 17.1354 7.49301L12.826 10.6467C12.652 10.7741 12.5792 10.9986 12.6454 11.2037L14.29 16.302C14.4388 16.7633 13.91 17.1453 13.5188 16.859L9.22324 13.7154C9.04742 13.5868 8.80851 13.5868 8.63268 13.7154L4.33708 16.859C3.94593 17.1453 3.41714 16.7633 3.56594 16.302L5.21054 11.2037C5.27673 10.9986 5.20395 10.7741 5.02997 10.6467L0.720503 7.49301C0.330336 7.20748 0.532302 6.58952 1.01579 6.58952H6.33491C6.55192 6.58952 6.74415 6.44954 6.81077 6.24302L8.45211 1.15485Z"
-                                fill="#FD961E"
-                              ></path>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="18"
-                              height="17"
-                              viewBox="0 0 18 17"
-                              fill="none"
-                            >
-                              <path
-                                d="M8.45211 1.15485C8.60114 0.692846 9.25478 0.692845 9.40382 1.15484L11.0452 6.24302C11.1118 6.44954 11.304 6.58952 11.521 6.58952H16.8401C17.3236 6.58952 17.5256 7.20748 17.1354 7.49301L12.826 10.6467C12.652 10.7741 12.5792 10.9986 12.6454 11.2037L14.29 16.302C14.4388 16.7633 13.91 17.1453 13.5188 16.859L9.22324 13.7154C9.04742 13.5868 8.80851 13.5868 8.63268 13.7154L4.33708 16.859C3.94593 17.1453 3.41714 16.7633 3.56594 16.302L5.21054 11.2037C5.27673 10.9986 5.20395 10.7741 5.02997 10.6467L0.720503 7.49301C0.330336 7.20748 0.532302 6.58952 1.01579 6.58952H6.33491C6.55192 6.58952 6.74415 6.44954 6.81077 6.24302L8.45211 1.15485Z"
-                                fill="#FD961E"
-                              ></path>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="18"
-                              height="17"
-                              viewBox="0 0 18 17"
-                              fill="none"
-                            >
-                              <path
-                                d="M8.45211 1.15485C8.60114 0.692846 9.25478 0.692845 9.40382 1.15484L11.0452 6.24302C11.1118 6.44954 11.304 6.58952 11.521 6.58952H16.8401C17.3236 6.58952 17.5256 7.20748 17.1354 7.49301L12.826 10.6467C12.652 10.7741 12.5792 10.9986 12.6454 11.2037L14.29 16.302C14.4388 16.7633 13.91 17.1453 13.5188 16.859L9.22324 13.7154C9.04742 13.5868 8.80851 13.5868 8.63268 13.7154L4.33708 16.859C3.94593 17.1453 3.41714 16.7633 3.56594 16.302L5.21054 11.2037C5.27673 10.9986 5.20395 10.7741 5.02997 10.6467L0.720503 7.49301C0.330336 7.20748 0.532302 6.58952 1.01579 6.58952H6.33491C6.55192 6.58952 6.74415 6.44954 6.81077 6.24302L8.45211 1.15485Z"
-                                fill="#FD961E"
-                              ></path>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="18"
-                              height="17"
-                              viewBox="0 0 18 17"
-                              fill="none"
-                            >
-                              <path
-                                d="M8.45211 1.15485C8.60114 0.692846 9.25478 0.692845 9.40382 1.15484L11.0452 6.24302C11.1118 6.44954 11.304 6.58952 11.521 6.58952H16.8401C17.3236 6.58952 17.5256 7.20748 17.1354 7.49301L12.826 10.6467C12.652 10.7741 12.5792 10.9986 12.6454 11.2037L14.29 16.302C14.4388 16.7633 13.91 17.1453 13.5188 16.859L9.22324 13.7154C9.04742 13.5868 8.80851 13.5868 8.63268 13.7154L4.33708 16.859C3.94593 17.1453 3.41714 16.7633 3.56594 16.302L5.21054 11.2037C5.27673 10.9986 5.20395 10.7741 5.02997 10.6467L0.720503 7.49301C0.330336 7.20748 0.532302 6.58952 1.01579 6.58952H6.33491C6.55192 6.58952 6.74415 6.44954 6.81077 6.24302L8.45211 1.15485Z"
-                                fill="#FD961E"
-                              ></path>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="18"
-                              height="17"
-                              viewBox="0 0 18 17"
-                              fill="none"
-                            >
-                              <path
-                                d="M8.45211 1.15485C8.60114 0.692846 9.25478 0.692845 9.40382 1.15484L11.0452 6.24302C11.1118 6.44954 11.304 6.58952 11.521 6.58952H16.8401C17.3236 6.58952 17.5256 7.20748 17.1354 7.49301L12.826 10.6467C12.652 10.7741 12.5792 10.9986 12.6454 11.2037L14.29 16.302C14.4388 16.7633 13.91 17.1453 13.5188 16.859L9.22324 13.7154C9.04742 13.5868 8.80851 13.5868 8.63268 13.7154L4.33708 16.859C3.94593 17.1453 3.41714 16.7633 3.56594 16.302L5.21054 11.2037C5.27673 10.9986 5.20395 10.7741 5.02997 10.6467L0.720503 7.49301C0.330336 7.20748 0.532302 6.58952 1.01579 6.58952H6.33491C6.55192 6.58952 6.74415 6.44954 6.81077 6.24302L8.45211 1.15485Z"
-                                fill="#FD961E"
-                              ></path>
-                            </svg>
-                          </div>
-                        </div>
-                      </div>
-                      <img
-                        src="https://uiparadox.co.uk/templates/teach-me/assets/media/icons/quotes.png"
-                        className="qt"
-                        alt=""
-                      />
-                    </div>
-                    <hr style={{ color: "#F08A5D" }} />
-                    <div className="testimonialsDetails">
-                      <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Pariatur sit dolore quia libero non doloribus recusandae
-                        aperiam, qui nostrum illo. Lorem ipsum dolor sit amet.
-                      </p>
-                    </div>
-                  </div>
-                </div>
+    <>
+      {
+        allTestimonials && (
+          <section className="sectionContainer">
+            <div className="container">
+              <div className="title">
+                <h1>Testimonials</h1>
+              </div>
+              <div className="row row-gap-3">
+                <div className="col-lg-12">
+                  <div className="row">
+                    <Carousel
+                      responsive={responsive}
+                      autoPlay={true}
+                      swipeable={true}
+                      draggable={true}
+                      showDots={true}
+                      infinite={true}
+                      partialVisible={false}
+                      dotListClass="custom-dot-list-style"
+                    >
 
-                <div className=" ">
-                  <div className="testimonialsContainer">
-                    <div className="image-box">
-                      <img
-                        src="/images/testimonials/02.png"
-                        className="userProfile"
-                        alt=""
-                      />
-                      <div className="user-name">
-                        <h4>Beka charles</h4>
-                        <p>Alumni</p>
-                        <div className="d-flex" style={{ gap: "10px" }}>
-                          <p className="fw-500">5.0</p>
-                          <div className="rating-stars">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="18"
-                              height="17"
-                              viewBox="0 0 18 17"
-                              fill="none"
-                            >
-                              <path
-                                d="M8.45211 1.15485C8.60114 0.692846 9.25478 0.692845 9.40382 1.15484L11.0452 6.24302C11.1118 6.44954 11.304 6.58952 11.521 6.58952H16.8401C17.3236 6.58952 17.5256 7.20748 17.1354 7.49301L12.826 10.6467C12.652 10.7741 12.5792 10.9986 12.6454 11.2037L14.29 16.302C14.4388 16.7633 13.91 17.1453 13.5188 16.859L9.22324 13.7154C9.04742 13.5868 8.80851 13.5868 8.63268 13.7154L4.33708 16.859C3.94593 17.1453 3.41714 16.7633 3.56594 16.302L5.21054 11.2037C5.27673 10.9986 5.20395 10.7741 5.02997 10.6467L0.720503 7.49301C0.330336 7.20748 0.532302 6.58952 1.01579 6.58952H6.33491C6.55192 6.58952 6.74415 6.44954 6.81077 6.24302L8.45211 1.15485Z"
-                                fill="#FD961E"
-                              ></path>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="18"
-                              height="17"
-                              viewBox="0 0 18 17"
-                              fill="none"
-                            >
-                              <path
-                                d="M8.45211 1.15485C8.60114 0.692846 9.25478 0.692845 9.40382 1.15484L11.0452 6.24302C11.1118 6.44954 11.304 6.58952 11.521 6.58952H16.8401C17.3236 6.58952 17.5256 7.20748 17.1354 7.49301L12.826 10.6467C12.652 10.7741 12.5792 10.9986 12.6454 11.2037L14.29 16.302C14.4388 16.7633 13.91 17.1453 13.5188 16.859L9.22324 13.7154C9.04742 13.5868 8.80851 13.5868 8.63268 13.7154L4.33708 16.859C3.94593 17.1453 3.41714 16.7633 3.56594 16.302L5.21054 11.2037C5.27673 10.9986 5.20395 10.7741 5.02997 10.6467L0.720503 7.49301C0.330336 7.20748 0.532302 6.58952 1.01579 6.58952H6.33491C6.55192 6.58952 6.74415 6.44954 6.81077 6.24302L8.45211 1.15485Z"
-                                fill="#FD961E"
-                              ></path>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="18"
-                              height="17"
-                              viewBox="0 0 18 17"
-                              fill="none"
-                            >
-                              <path
-                                d="M8.45211 1.15485C8.60114 0.692846 9.25478 0.692845 9.40382 1.15484L11.0452 6.24302C11.1118 6.44954 11.304 6.58952 11.521 6.58952H16.8401C17.3236 6.58952 17.5256 7.20748 17.1354 7.49301L12.826 10.6467C12.652 10.7741 12.5792 10.9986 12.6454 11.2037L14.29 16.302C14.4388 16.7633 13.91 17.1453 13.5188 16.859L9.22324 13.7154C9.04742 13.5868 8.80851 13.5868 8.63268 13.7154L4.33708 16.859C3.94593 17.1453 3.41714 16.7633 3.56594 16.302L5.21054 11.2037C5.27673 10.9986 5.20395 10.7741 5.02997 10.6467L0.720503 7.49301C0.330336 7.20748 0.532302 6.58952 1.01579 6.58952H6.33491C6.55192 6.58952 6.74415 6.44954 6.81077 6.24302L8.45211 1.15485Z"
-                                fill="#FD961E"
-                              ></path>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="18"
-                              height="17"
-                              viewBox="0 0 18 17"
-                              fill="none"
-                            >
-                              <path
-                                d="M8.45211 1.15485C8.60114 0.692846 9.25478 0.692845 9.40382 1.15484L11.0452 6.24302C11.1118 6.44954 11.304 6.58952 11.521 6.58952H16.8401C17.3236 6.58952 17.5256 7.20748 17.1354 7.49301L12.826 10.6467C12.652 10.7741 12.5792 10.9986 12.6454 11.2037L14.29 16.302C14.4388 16.7633 13.91 17.1453 13.5188 16.859L9.22324 13.7154C9.04742 13.5868 8.80851 13.5868 8.63268 13.7154L4.33708 16.859C3.94593 17.1453 3.41714 16.7633 3.56594 16.302L5.21054 11.2037C5.27673 10.9986 5.20395 10.7741 5.02997 10.6467L0.720503 7.49301C0.330336 7.20748 0.532302 6.58952 1.01579 6.58952H6.33491C6.55192 6.58952 6.74415 6.44954 6.81077 6.24302L8.45211 1.15485Z"
-                                fill="#FD961E"
-                              ></path>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="18"
-                              height="17"
-                              viewBox="0 0 18 17"
-                              fill="none"
-                            >
-                              <path
-                                d="M8.45211 1.15485C8.60114 0.692846 9.25478 0.692845 9.40382 1.15484L11.0452 6.24302C11.1118 6.44954 11.304 6.58952 11.521 6.58952H16.8401C17.3236 6.58952 17.5256 7.20748 17.1354 7.49301L12.826 10.6467C12.652 10.7741 12.5792 10.9986 12.6454 11.2037L14.29 16.302C14.4388 16.7633 13.91 17.1453 13.5188 16.859L9.22324 13.7154C9.04742 13.5868 8.80851 13.5868 8.63268 13.7154L4.33708 16.859C3.94593 17.1453 3.41714 16.7633 3.56594 16.302L5.21054 11.2037C5.27673 10.9986 5.20395 10.7741 5.02997 10.6467L0.720503 7.49301C0.330336 7.20748 0.532302 6.58952 1.01579 6.58952H6.33491C6.55192 6.58952 6.74415 6.44954 6.81077 6.24302L8.45211 1.15485Z"
-                                fill="#FD961E"
-                              ></path>
-                            </svg>
-                          </div>
-                        </div>
-                      </div>
-                      <img
-                        src="https://uiparadox.co.uk/templates/teach-me/assets/media/icons/quotes.png"
-                        className="qt"
-                        alt=""
-                      />
-                    </div>
-                    <hr style={{ color: "#F08A5D" }} />
-                    <div className="testimonialsDetails">
-                      <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Pariatur sit dolore quia libero non doloribus recusandae
-                        aperiam, qui nostrum illo. Lorem ipsum dolor sit amet.
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                      {allTestimonials?.map((testimonial, idx) => {
+                        const trimText = (text, maxLength = 300) => {
+                          if (!text) return { text: '', isTrimmed: false };
+                          if (text?.length <= maxLength) return { text, isTrimmed: false };
+                          return {
+                            text: text.substring(0, maxLength).trim() + '...',
+                            isTrimmed: true
+                          };
+                        };
+                        const { text: trimmedText, isTrimmed } = trimText(testimonial?.testmsg, 200);
 
-                <div className=" ">
-                  <div className="testimonialsContainer">
-                    <div className="image-box">
-                      <img
-                        src="/images/testimonials/03.png"
-                        className="userProfile"
-                        alt=""
-                      />
-                      <div className="user-name">
-                        <h4>Anney taylor</h4>
-                        <p>Alumni</p>
-                        <div className="d-flex" style={{ gap: "10px" }}>
-                          <p className="fw-500">5.0</p>
-                          <div className="rating-stars">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="18"
-                              height="17"
-                              viewBox="0 0 18 17"
-                              fill="none"
-                            >
-                              <path
-                                d="M8.45211 1.15485C8.60114 0.692846 9.25478 0.692845 9.40382 1.15484L11.0452 6.24302C11.1118 6.44954 11.304 6.58952 11.521 6.58952H16.8401C17.3236 6.58952 17.5256 7.20748 17.1354 7.49301L12.826 10.6467C12.652 10.7741 12.5792 10.9986 12.6454 11.2037L14.29 16.302C14.4388 16.7633 13.91 17.1453 13.5188 16.859L9.22324 13.7154C9.04742 13.5868 8.80851 13.5868 8.63268 13.7154L4.33708 16.859C3.94593 17.1453 3.41714 16.7633 3.56594 16.302L5.21054 11.2037C5.27673 10.9986 5.20395 10.7741 5.02997 10.6467L0.720503 7.49301C0.330336 7.20748 0.532302 6.58952 1.01579 6.58952H6.33491C6.55192 6.58952 6.74415 6.44954 6.81077 6.24302L8.45211 1.15485Z"
-                                fill="#FD961E"
-                              ></path>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="18"
-                              height="17"
-                              viewBox="0 0 18 17"
-                              fill="none"
-                            >
-                              <path
-                                d="M8.45211 1.15485C8.60114 0.692846 9.25478 0.692845 9.40382 1.15484L11.0452 6.24302C11.1118 6.44954 11.304 6.58952 11.521 6.58952H16.8401C17.3236 6.58952 17.5256 7.20748 17.1354 7.49301L12.826 10.6467C12.652 10.7741 12.5792 10.9986 12.6454 11.2037L14.29 16.302C14.4388 16.7633 13.91 17.1453 13.5188 16.859L9.22324 13.7154C9.04742 13.5868 8.80851 13.5868 8.63268 13.7154L4.33708 16.859C3.94593 17.1453 3.41714 16.7633 3.56594 16.302L5.21054 11.2037C5.27673 10.9986 5.20395 10.7741 5.02997 10.6467L0.720503 7.49301C0.330336 7.20748 0.532302 6.58952 1.01579 6.58952H6.33491C6.55192 6.58952 6.74415 6.44954 6.81077 6.24302L8.45211 1.15485Z"
-                                fill="#FD961E"
-                              ></path>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="18"
-                              height="17"
-                              viewBox="0 0 18 17"
-                              fill="none"
-                            >
-                              <path
-                                d="M8.45211 1.15485C8.60114 0.692846 9.25478 0.692845 9.40382 1.15484L11.0452 6.24302C11.1118 6.44954 11.304 6.58952 11.521 6.58952H16.8401C17.3236 6.58952 17.5256 7.20748 17.1354 7.49301L12.826 10.6467C12.652 10.7741 12.5792 10.9986 12.6454 11.2037L14.29 16.302C14.4388 16.7633 13.91 17.1453 13.5188 16.859L9.22324 13.7154C9.04742 13.5868 8.80851 13.5868 8.63268 13.7154L4.33708 16.859C3.94593 17.1453 3.41714 16.7633 3.56594 16.302L5.21054 11.2037C5.27673 10.9986 5.20395 10.7741 5.02997 10.6467L0.720503 7.49301C0.330336 7.20748 0.532302 6.58952 1.01579 6.58952H6.33491C6.55192 6.58952 6.74415 6.44954 6.81077 6.24302L8.45211 1.15485Z"
-                                fill="#FD961E"
-                              ></path>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="18"
-                              height="17"
-                              viewBox="0 0 18 17"
-                              fill="none"
-                            >
-                              <path
-                                d="M8.45211 1.15485C8.60114 0.692846 9.25478 0.692845 9.40382 1.15484L11.0452 6.24302C11.1118 6.44954 11.304 6.58952 11.521 6.58952H16.8401C17.3236 6.58952 17.5256 7.20748 17.1354 7.49301L12.826 10.6467C12.652 10.7741 12.5792 10.9986 12.6454 11.2037L14.29 16.302C14.4388 16.7633 13.91 17.1453 13.5188 16.859L9.22324 13.7154C9.04742 13.5868 8.80851 13.5868 8.63268 13.7154L4.33708 16.859C3.94593 17.1453 3.41714 16.7633 3.56594 16.302L5.21054 11.2037C5.27673 10.9986 5.20395 10.7741 5.02997 10.6467L0.720503 7.49301C0.330336 7.20748 0.532302 6.58952 1.01579 6.58952H6.33491C6.55192 6.58952 6.74415 6.44954 6.81077 6.24302L8.45211 1.15485Z"
-                                fill="#FD961E"
-                              ></path>
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="18"
-                              height="17"
-                              viewBox="0 0 18 17"
-                              fill="none"
-                            >
-                              <path
-                                d="M8.45211 1.15485C8.60114 0.692846 9.25478 0.692845 9.40382 1.15484L11.0452 6.24302C11.1118 6.44954 11.304 6.58952 11.521 6.58952H16.8401C17.3236 6.58952 17.5256 7.20748 17.1354 7.49301L12.826 10.6467C12.652 10.7741 12.5792 10.9986 12.6454 11.2037L14.29 16.302C14.4388 16.7633 13.91 17.1453 13.5188 16.859L9.22324 13.7154C9.04742 13.5868 8.80851 13.5868 8.63268 13.7154L4.33708 16.859C3.94593 17.1453 3.41714 16.7633 3.56594 16.302L5.21054 11.2037C5.27673 10.9986 5.20395 10.7741 5.02997 10.6467L0.720503 7.49301C0.330336 7.20748 0.532302 6.58952 1.01579 6.58952H6.33491C6.55192 6.58952 6.74415 6.44954 6.81077 6.24302L8.45211 1.15485Z"
-                                fill="#FD961E"
-                              ></path>
-                            </svg>
+                        return (
+                          <div key={idx}>
+                            <div className="testimonialsContainer">
+                              <div className="image-box">
+                                <Fancybox style={{ height: '200px' }}>
+                                  <div
+                                    style={{ height: '200px' }}
+                                    data-fancybox="gallery"
+                                    href={testimonial.testimg_large}
+                                  >
+                                    <img
+                                      src={testimonial.testimg_small}
+                                      className="userProfile"
+                                      alt=""
+                                    />
+                                  </div>
+                                </Fancybox>
+                                <img
+                                  src="https://uiparadox.co.uk/templates/teach-me/assets/media/icons/quotes.png"
+                                  className="qt"
+                                  alt=""
+                                />
+                              </div>
+                              <hr style={{ color: "#919191ff" }} />
+                              <div className="testimonialsDetails">
+                                <p>
+                                  {trimmedText}
+                                </p>
+                                {isTrimmed && (
+                                  <span className="testimonials-rdmor"
+                                    onClick={() => {
+                                      setOpenClickedTestimonial(true);
+                                      setClickedTestimonial(testimonial)
+                                    }}>
+                                    Read more
+                                  </span>
+                                )}
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                      <img
-                        src="https://uiparadox.co.uk/templates/teach-me/assets/media/icons/quotes.png"
-                        className="qt"
-                        alt=""
-                      />
-                    </div>
-                    <hr style={{ color: "#F08A5D" }} />
-                    <div className="testimonialsDetails">
-                      <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Pariatur sit dolore quia libero non doloribus recusandae
-                        aperiam, qui nostrum illo. Lorem ipsum dolor sit amet.
-                      </p>
-                    </div>
+                        );
+                      })}
+
+                    </Carousel>
                   </div>
                 </div>
-              </Carousel>
+              </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
+            {clickedTestimonial !== null && openClickedTestimonial && (
+              <div className="full-testimonials-container">
+                <div className="full-testimonials-wraper">
+                  <div className="full-testimonials-box">
+                    <div
+                      className="testimonials-box-close-btn"
+                      onClick={() => {
+                        setOpenClickedTestimonial(false);
+                        setClickedTestimonial(null);
+                      }}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      <i className="fa-solid fa-xmark"></i>
+                    </div>
+                    <div className="box-testimonials-image">
+                      <img
+                        src={clickedTestimonial?.testimg_small}
+                        alt="Testimonial"
+                        className="modal-testimonial-image"
+                      />
+                    </div>
+                    <p>
+                      {clickedTestimonial?.testmsg || 'No testimonial text available'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+          </section>
+        )
+      }
+    </>
   );
 }

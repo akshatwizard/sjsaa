@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import Loader from "../Loader/Loader";
+const Testimonials = lazy(() => import("../Testimonials/Testimonials"));
 const Carousel = lazy(() => import("../Carousel/Carousel"));
 const MessageForAlumni = lazy(() =>
   import("../MessageForAlumni/MessageForAlumni")
@@ -51,6 +52,9 @@ export default function Home() {
       </Suspense>
       <Suspense fallback={<Loader />}>
         <Achievers />
+      </Suspense>
+      <Suspense fallback={<Loader />}>
+        <Testimonials />
       </Suspense>
     </>
   );

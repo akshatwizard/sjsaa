@@ -7,6 +7,7 @@ const AddMembers = lazy(() => import("./AdminComponents/AddMembers.jsx"));
 const GalleryUpdate = lazy(() => import("./AdminComponents/GalleryUpdate.jsx"));
 const OurAlumni = lazy(() => import("../OurAlumni/OurAlumni.jsx"));
 const AddNewEvent = lazy(() => import("./AdminComponents/AddNewEvent.jsx"));
+const AddTestimonials = lazy(() => import("../AddTestimonials/AddTestimonials.jsx"));
 const AddAchievements = lazy(() =>
   import("./AdminComponents/AddAchievements.jsx")
 );
@@ -145,7 +146,7 @@ export default function AdminDashboard() {
                 <div
                   id="event"
                   className={`${selectedTab === "event" ? "activeTab" : ""}`}
-                  onClick={handleClick} // Move onClick here
+                  onClick={handleClick}
                 >
                   <i className="fa-solid fa-calendar-days"></i>
                   <span>Add Events</span>
@@ -157,12 +158,25 @@ export default function AdminDashboard() {
                   id="achievements"
                   className={`${selectedTab === "achievements" ? "activeTab" : ""
                     }`}
-                  onClick={handleClick} // Move onClick here
+                  onClick={handleClick}
                 >
                   <i className="fa-solid fa-star"></i>
                   <span>Add Achievement</span>
                 </div>
               </div>
+
+              <div className="adminlink">
+                <div
+                  id="testimonials"
+                  className={`${selectedTab === "testimonials" ? "activeTab" : ""
+                    }`}
+                  onClick={handleClick}
+                >
+                  <i className="fa-solid fa-certificate"></i>
+                  <span>Add Testimonials</span>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
@@ -235,6 +249,12 @@ export default function AdminDashboard() {
         {selectedTab === "achievements" && (
           <Suspense fallback={<Loader />}>
             <AddAchievements />
+          </Suspense>
+        )}
+
+        {selectedTab === "testimonials" && (
+          <Suspense fallback={<Loader />}>
+            <AddTestimonials />
           </Suspense>
         )}
 
