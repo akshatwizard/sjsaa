@@ -1,14 +1,19 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ComponentLoader from "../ComponentLoader/ComponentLoader";
+import axios from "axios";
+import Fancybox from "../ImageZoom/Fancybox";
 
 export default function AddTestimonials() {
     const [formData, setFormData] = useState({
-        username: "",
-        testimonial: "",
+        testimonial_msg: "",
+        testimonial_img: null
     });
     const [loading, setLoading] = useState(false);
     const [isUploaded, setIsUploaded] = useState(false);
-
+    const [allEvent, setAllEvent] = useState();
+    const fileInputRef = useRef(null);
+    const [clickedTestimonial, setClickedTestimonial] = useState(null);
+    const [openClickedTestimonial, setOpenClickedTestimonial] = useState(false);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -17,6 +22,72 @@ export default function AddTestimonials() {
             [name]: value,
         }));
     };
+    const handleImageChange = (e) => {
+        setFormData((prevData) => ({
+            ...prevData,
+            testimonial_img: e.target.files[0],
+        }));
+    };
+    const getAllEvent = async () => {
+        try {
+            const response = await axios.get("https://www.gdsons.co.in/draft/sjs/list-testimonial");
+            setAllEvent(response?.data);
+        } catch (error) {
+            console.error("Error fetching gallery images:", error);
+        }
+    };
+    useEffect(() => {
+        getAllEvent();
+    }, []);
+
+    async function handleClick(e) {
+        e.preventDefault();
+        setLoading(true);
+
+        if (formData.testimonial_msg === '' || formData.testimonial_img === null) {
+            alert("Please fill all the fields...!");
+            setLoading(false);
+            return;
+        }
+
+        const data = new FormData();
+        data.append("Mod", "addTestimonial");
+        data.append("testimonial_msg", formData.testimonial_msg);
+        data.append("testimonial_img", formData.testimonial_img);
+
+        try {
+            const response = await axios.post(
+                "https://www.gdsons.co.in/draft/sjs/add-testimonial", data,
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    }
+                }
+            );
+
+            if (response?.data[0]?.status == "1") {
+                setIsUploaded(true);
+                setFormData({
+                    testimonial_msg: "",
+                    testimonial_img: null
+                });
+                if (fileInputRef.current) {
+                    fileInputRef.current.value = "";
+                }
+                setLoading(false);
+                getAllEvent();
+            } else {
+                alert("Failed to add the event. Please try again.");
+                setLoading(false);
+            }
+
+        } catch (error) {
+            console.error("Error adding event:", error);
+            alert("An error occurred while adding the event.");
+            setLoading(false);
+        }
+    }
+
     return (
         <section className="adminMainContent">
             <div className="container">
@@ -29,40 +100,98 @@ export default function AddTestimonials() {
                             <div className="add-new-event-container">
                                 <div className="row row-gap-2">
                                     <div className="col-6">
-                                        <label htmlFor="username">
-                                            User Name <sup>*</sup>{" "}
+                                        <label htmlFor="testimonial_img">
+                                            Testimonial Image <sup>*</sup>{" "}
                                         </label>
                                         <input
-                                            placeholder="User Name"
-                                            name="username"
-                                            id="username"
-                                            value={formData.username}
-                                            onChange={handleInputChange}
+                                            type="file"
+                                            name="testimonial_img"
+                                            id="testimonial_img"
+                                            ref={fileInputRef}
+                                            onChange={handleImageChange}
                                         />
                                     </div>
                                     <div className="col-6">
-                                        <label htmlFor="testimonial">
-                                            User Testimonial <sup>*</sup>{" "}
+                                        <label htmlFor="testimonial_msg">
+                                            Testimonial Message<sup>*</sup>{" "}
                                         </label>
                                         <textarea
-                                            placeholder="User Testimonial"
-                                            name="testimonial"
-                                            id="testimonial"
-                                            value={formData.testimonial}
+                                            placeholder="Testimonial Message"
+                                            name="testimonial_msg"
+                                            id="testimonial_msg"
+                                            value={formData.testimonial_msg}
                                             onChange={handleInputChange}
+                                            rows={5}
                                         ></textarea>
                                     </div>
                                     <div className="col-12 d-flex justify-content-center mt-4">
-                                        <button type="submit">
+                                        <button type="submit" onClick={handleClick}>
                                             {loading ? <ComponentLoader /> : "Add"}
                                         </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <div className="col-12 px-3">
+                            <div className="row row-gap-2">
+                                {allEvent?.map((testimonial, idx) => {
+                                    const trimText = (text, maxLength = 300) => {
+                                        if (!text) return { text: '', isTrimmed: false };
+                                        if (text.length <= maxLength) return { text, isTrimmed: false };
+                                        return {
+                                            text: text.substring(0, maxLength).trim() + '...',
+                                            isTrimmed: true
+                                        };
+                                    };
+                                    const { text: trimmedText, isTrimmed } = trimText(testimonial?.testmsg, 300);
+
+                                    return (
+                                        <div className="col-6 px-1" key={idx}>
+                                            <div className="testimonialsContainer h-full w-full" style={{ margin: 0 }}>
+                                                <div className="image-box">
+                                                    <Fancybox>
+                                                        <div
+                                                            data-fancybox="gallery"
+                                                            href={testimonial.testimg_large}
+                                                        >
+                                                            <img
+                                                                src={testimonial.testimg_small}
+                                                                className="userProfile"
+                                                                alt=""
+                                                            />
+                                                        </div>
+                                                    </Fancybox>
+                                                    <img
+                                                        src="https://uiparadox.co.uk/templates/teach-me/assets/media/icons/quotes.png"
+                                                        className="qt"
+                                                        alt=""
+                                                    />
+                                                </div>
+                                                <hr style={{ color: "#919191ff" }} />
+                                                <div className="testimonialsDetails">
+                                                    <p>
+                                                        {trimmedText}
+                                                    </p>
+                                                    {isTrimmed && (
+                                                        <span className="testimonials-rdmor"
+                                                            onClick={() => {
+                                                                setOpenClickedTestimonial(true);
+                                                                setClickedTestimonial(testimonial)
+                                                            }}>
+                                                            Read more
+                                                        </span>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
                     </div>
                 </form>
-            </div>
+            </div >
             {isUploaded && (
                 <div className="upload-modal">
                     <div className="upload-modal-body">
@@ -96,7 +225,38 @@ export default function AddTestimonials() {
                         </div>
                     </div>
                 </div>
+            )
+            }
+
+            {clickedTestimonial !== null && openClickedTestimonial && (
+                <div className="full-testimonials-container">
+                    <div className="full-testimonials-wraper">
+                        <div className="full-testimonials-box">
+                            <div
+                                className="testimonials-box-close-btn"
+                                onClick={() => {
+                                    setOpenClickedTestimonial(false);
+                                    setClickedTestimonial(null);
+                                }}
+                                style={{ cursor: 'pointer' }}
+                            >
+                                <i className="fa-solid fa-xmark"></i>
+                            </div>
+                            <div className="testimonials-image">
+                                <img
+                                    src={clickedTestimonial?.testimg_small}
+                                    alt="Testimonial"
+                                    className="modal-testimonial-image"
+                                />
+                            </div>
+                            <p>
+                                {clickedTestimonial?.testmsg || 'No testimonial text available'}
+                            </p>
+                        </div>
+                    </div>
+                </div>
             )}
-        </section>
+
+        </section >
     )
 }

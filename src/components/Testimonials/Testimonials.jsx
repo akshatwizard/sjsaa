@@ -45,10 +45,6 @@ export default function Testimonials() {
                         className="userProfile"
                         alt=""
                       />
-                      <div className="user-name">
-                        <h4>Jhone Hue</h4>
-                        <p>Alumni</p>
-                      </div>
                       <img
                         src="https://uiparadox.co.uk/templates/teach-me/assets/media/icons/quotes.png"
                         className="qt"
@@ -74,10 +70,6 @@ export default function Testimonials() {
                         className="userProfile"
                         alt=""
                       />
-                      <div className="user-name">
-                        <h4>Beka charles</h4>
-                        <p>Alumni</p>
-                      </div>
                       <img
                         src="https://uiparadox.co.uk/templates/teach-me/assets/media/icons/quotes.png"
                         className="qt"
@@ -103,10 +95,6 @@ export default function Testimonials() {
                         className="userProfile"
                         alt=""
                       />
-                      <div className="user-name">
-                        <h4>Anney taylor</h4>
-                        <p>Alumni</p>
-                      </div>
                       <img
                         src="https://uiparadox.co.uk/templates/teach-me/assets/media/icons/quotes.png"
                         className="qt"
