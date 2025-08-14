@@ -39,7 +39,7 @@ export default function Testimonials() {
   return (
     <>
       {
-        allTestimonials && (
+        allTestimonials.length !== 0 && (
           <section className="sectionContainer">
             <div className="container">
               <div className="title">
