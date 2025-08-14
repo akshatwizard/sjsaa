@@ -735,7 +735,7 @@ body {
       display: inline-block;
       position: relative;
       object-fit: cover;
-      object-position: center;
+      object-position: top;
       background-color: #424242;
       vertical-align: middle;
       border: 2px solid;
