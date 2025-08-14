@@ -129,7 +129,6 @@ export default function Header() {
             <div
               className="navLinks"
               onClick={() => {
-                setIsOpened(false);
                 setMemberDropDownOpen(!memberDropDownOpen);
                 setGalleryDropDownOpen(false)
                 setDropOpen(false);
@@ -191,7 +190,6 @@ export default function Header() {
             <div
               className="navLinks"
               onClick={() => {
-                setIsOpened(false);
                 setDropOpen(!dropDownOpen);
                 setMemberDropDownOpen(false);
                 setGalleryDropDownOpen(false)
@@ -250,7 +248,6 @@ export default function Header() {
             <div
               className="navLinks"
               onClick={() => {
-                setIsOpened(false);
                 setDropOpen(false);
                 setMemberDropDownOpen(false);
                 setHelpDropDown(false)
@@ -311,7 +308,6 @@ export default function Header() {
                 setMemberDropDownOpen(false);
                 setGalleryDropDownOpen(false);
                 setHelpDropDown(!helpDropDown);
-                setIsOpened(false);
               }}
             >
               Help <i
