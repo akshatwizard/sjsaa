@@ -17,6 +17,7 @@ export default function Header() {
   const [dropDownOpen, setDropOpen] = useState(false);
   const [memberDropDownOpen, setMemberDropDownOpen] = useState(false);
   const [galleryDropDownOpen, setGalleryDropDownOpen] = useState(false);
+  const [helpDropDown, setHelpDropDown] = useState(false);
   const { loginModal, setLoginModal, container, onlyAdmin, setOnlyAdmin } =
     useContext(Context);
   const linkRef = useRef();
@@ -102,6 +103,7 @@ export default function Header() {
                 scrollToTop();
                 setMemberDropDownOpen(false);
                 setGalleryDropDownOpen(false)
+                setHelpDropDown(false)
               }}
             >
               Home
@@ -117,6 +119,7 @@ export default function Header() {
                 scrollToTop();
                 setMemberDropDownOpen(false);
                 setGalleryDropDownOpen(false)
+                setHelpDropDown(false)
               }}
             >
               About Us
@@ -126,9 +129,11 @@ export default function Header() {
             <div
               className="navLinks"
               onClick={() => {
-                setDropOpen(false);
+                setIsOpened(false);
                 setMemberDropDownOpen(!memberDropDownOpen);
                 setGalleryDropDownOpen(false)
+                setDropOpen(false);
+                setHelpDropDown(false)
               }}
             >
               Members
@@ -158,6 +163,9 @@ export default function Header() {
                   setMemberDropDownOpen(false);
                   scrollToTop();
                   setIsOpened(false);
+                  setGalleryDropDownOpen(false)
+                  setDropOpen(false);
+                  setHelpDropDown(false)
                 }}
               >
                 <Link to="/new-member-registration">
@@ -169,18 +177,12 @@ export default function Header() {
                   setMemberDropDownOpen(false);
                   scrollToTop();
                   setIsOpened(false);
+                  setGalleryDropDownOpen(false)
+                  setDropOpen(false);
+                  setHelpDropDown(false)
                 }}
               >
                 <Link to="/our-alumni">All Alumni List</Link>
-              </li>
-              <li
-                onClick={() => {
-                  setMemberDropDownOpen(false);
-                  scrollToTop();
-                  setIsOpened(false);
-                }}
-              >
-                <Link to="/payment-page">Registration Process</Link>
               </li>
             </ul>
           </div>
@@ -189,9 +191,11 @@ export default function Header() {
             <div
               className="navLinks"
               onClick={() => {
+                setIsOpened(false);
                 setDropOpen(!dropDownOpen);
                 setMemberDropDownOpen(false);
                 setGalleryDropDownOpen(false)
+                setHelpDropDown(false)
               }}
             >
               Events <i
@@ -216,6 +220,9 @@ export default function Header() {
                   setDropOpen(false);
                   scrollToTop();
                   setIsOpened(false);
+                  setMemberDropDownOpen(false);
+                  setGalleryDropDownOpen(false)
+                  setHelpDropDown(false)
                 }}
               >
                 <Link to="/event">
@@ -227,6 +234,9 @@ export default function Header() {
                   setDropOpen(false);
                   scrollToTop();
                   setIsOpened(false);
+                  setMemberDropDownOpen(false);
+                  setGalleryDropDownOpen(false)
+                  setHelpDropDown(false)
                 }}
               >
                 <Link to="/achievement">
@@ -240,8 +250,10 @@ export default function Header() {
             <div
               className="navLinks"
               onClick={() => {
+                setIsOpened(false);
                 setDropOpen(false);
                 setMemberDropDownOpen(false);
+                setHelpDropDown(false)
                 setGalleryDropDownOpen(!galleryDropDownOpen)
               }}
             >
@@ -268,6 +280,7 @@ export default function Header() {
                   scrollToTop();
                   setIsOpened(false);
                   setGalleryDropDownOpen(false)
+                  setHelpDropDown(false)
                 }}
               >
                 <Link to="/gallery">
@@ -280,11 +293,67 @@ export default function Header() {
                   scrollToTop();
                   setIsOpened(false);
                   setGalleryDropDownOpen(false)
+                  setHelpDropDown(false)
                 }}
               >
                 <Link to="/video-gallery">
                   Video Gallery
                 </Link>{" "}
+              </li>
+            </ul>
+          </div>
+
+          <div className="lkns">
+            <div
+              className="navLinks"
+              onClick={() => {
+                setDropOpen(false);
+                setMemberDropDownOpen(false);
+                setGalleryDropDownOpen(false);
+                setHelpDropDown(!helpDropDown);
+                setIsOpened(false);
+              }}
+            >
+              Help <i
+                className="fa-solid fa-angle-right"
+                style={{
+                  transform: `${!helpDropDown ? "rotate(90deg)" : "rotate(-90deg)"
+                    }`,
+                  color: `${!helpDropDown ? "var(--text-color)" : "var(--third-color)"
+                    }`,
+                }}
+              ></i>
+            </div>
+            <ul
+              className="dropDownContainer"
+              style={{
+                display: `${helpDropDown ? "block" : "none"}`,
+                transition: "all 0.5s",
+              }}
+            >
+              <li
+                onClick={() => {
+                  setMemberDropDownOpen(false);
+                  scrollToTop();
+                  setIsOpened(false);
+                  setGalleryDropDownOpen(false)
+                  setHelpDropDown(false)
+                }}
+              >
+                <Link to="/payment-page">Payment Details</Link>
+              </li>
+              <li
+                onClick={() => {
+                  setDropOpen(false);
+                  scrollToTop();
+                  setIsOpened(false);
+                  setGalleryDropDownOpen(false)
+                  setHelpDropDown(false)
+                }}
+              >
+                <Link to="https://gdsons.co.in/draft/sjs/SJSAAWebsite-User-Guide-2025.pdf" download={true} target="_blank" rel="noopener noreferrer">
+                  Registration & Login Process
+                </Link>
               </li>
             </ul>
           </div>
