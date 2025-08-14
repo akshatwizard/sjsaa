@@ -340,7 +340,7 @@ export default function Header() {
                   setHelpDropDown(false)
                 }}
               >
-                <Link to="/payment-page">Registration Process</Link>
+                <Link to="/payment-page">Payment Details</Link>
               </li>
               <li
                 onClick={() => {
@@ -351,9 +351,9 @@ export default function Header() {
                   setHelpDropDown(false)
                 }}
               >
-                <Link to="#">
-                  Help
-                </Link>{" "}
+                <Link to="https://gdsons.co.in/draft/sjs/SJSAAWebsite-User-Guide-2025.pdf" download={true} target="_blank" rel="noopener noreferrer">
+                  Registration & Login Process
+                </Link>
               </li>
             </ul>
           </div>
