@@ -129,9 +129,10 @@ export default function Header() {
             <div
               className="navLinks"
               onClick={() => {
-                setDropOpen(false);
+                setIsOpened(false);
                 setMemberDropDownOpen(!memberDropDownOpen);
                 setGalleryDropDownOpen(false)
+                setDropOpen(false);
                 setHelpDropDown(false)
               }}
             >
@@ -162,6 +163,9 @@ export default function Header() {
                   setMemberDropDownOpen(false);
                   scrollToTop();
                   setIsOpened(false);
+                  setGalleryDropDownOpen(false)
+                  setDropOpen(false);
+                  setHelpDropDown(false)
                 }}
               >
                 <Link to="/new-member-registration">
@@ -173,18 +177,12 @@ export default function Header() {
                   setMemberDropDownOpen(false);
                   scrollToTop();
                   setIsOpened(false);
+                  setGalleryDropDownOpen(false)
+                  setDropOpen(false);
+                  setHelpDropDown(false)
                 }}
               >
                 <Link to="/our-alumni">All Alumni List</Link>
-              </li>
-              <li
-                onClick={() => {
-                  setMemberDropDownOpen(false);
-                  scrollToTop();
-                  setIsOpened(false);
-                }}
-              >
-                <Link to="/payment-page">Registration Process</Link>
               </li>
             </ul>
           </div>
@@ -193,6 +191,7 @@ export default function Header() {
             <div
               className="navLinks"
               onClick={() => {
+                setIsOpened(false);
                 setDropOpen(!dropDownOpen);
                 setMemberDropDownOpen(false);
                 setGalleryDropDownOpen(false)
@@ -221,6 +220,9 @@ export default function Header() {
                   setDropOpen(false);
                   scrollToTop();
                   setIsOpened(false);
+                  setMemberDropDownOpen(false);
+                  setGalleryDropDownOpen(false)
+                  setHelpDropDown(false)
                 }}
               >
                 <Link to="/event">
@@ -232,6 +234,9 @@ export default function Header() {
                   setDropOpen(false);
                   scrollToTop();
                   setIsOpened(false);
+                  setMemberDropDownOpen(false);
+                  setGalleryDropDownOpen(false)
+                  setHelpDropDown(false)
                 }}
               >
                 <Link to="/achievement">
@@ -245,6 +250,7 @@ export default function Header() {
             <div
               className="navLinks"
               onClick={() => {
+                setIsOpened(false);
                 setDropOpen(false);
                 setMemberDropDownOpen(false);
                 setHelpDropDown(false)
@@ -305,6 +311,7 @@ export default function Header() {
                 setMemberDropDownOpen(false);
                 setGalleryDropDownOpen(false);
                 setHelpDropDown(!helpDropDown);
+                setIsOpened(false);
               }}
             >
               Help <i
@@ -326,16 +333,14 @@ export default function Header() {
             >
               <li
                 onClick={() => {
-                  setDropOpen(false);
+                  setMemberDropDownOpen(false);
                   scrollToTop();
                   setIsOpened(false);
                   setGalleryDropDownOpen(false)
                   setHelpDropDown(false)
                 }}
               >
-                <Link to="/gallery">
-                  Image Gallery
-                </Link>{" "}
+                <Link to="/payment-page">Registration Process</Link>
               </li>
               <li
                 onClick={() => {
@@ -346,8 +351,8 @@ export default function Header() {
                   setHelpDropDown(false)
                 }}
               >
-                <Link to="/video-gallery">
-                  Video Gallery
+                <Link to="#">
+                  Help
                 </Link>{" "}
               </li>
             </ul>
