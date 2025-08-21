@@ -29,7 +29,7 @@ export default function Carousel() {
               loading="lazy"
             />
             <img
-              src="/images/banner/sjsaa-mjm-mobile.jpg"
+              src="/images/banner/sjsaa-mjm-mob.jpg"
               className=" w-100 mobBanner"
               alt="St Johns School DLW Alumni Association MJM Tournament"
               loading="lazy"
