@@ -23,6 +23,20 @@ export default function Carousel() {
           </div>
           <div className="carousel-item" data-bs-interval="3000">
             <img
+              src="/images/banner/sjsaa-mjm-desktop.jpg"
+              className=" w-100 bann"
+              alt="St Johns School DLW Alumni Association MJM Tournament"
+              loading="lazy"
+            />
+            <img
+              src="/images/banner/sjsaa-mjm-mobile.jpg"
+              className=" w-100 mobBanner"
+              alt="St Johns School DLW Alumni Association MJM Tournament"
+              loading="lazy"
+            />
+          </div>
+          <div className="carousel-item" data-bs-interval="3000">
+            <img
               src="/images/banner/banner-03.jpg"
               className=" w-100 bann"
               alt="..."
