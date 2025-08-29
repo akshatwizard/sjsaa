@@ -216,7 +216,7 @@ export default function RegistrationForm() {
                         type="number"
                         id="batch"
                         name="batch"
-                        placeholder="Batch Ex :- 1998"
+                        placeholder="1998"
                         value={userData.batch}
                         onChange={handleInputChange}
                         required
@@ -459,7 +459,7 @@ export default function RegistrationForm() {
         <section className="successMessgaeContainer">
           <div className="successMessage">
             <div className="success-message">
-              <h1 className="success-message__title">Thanks for your Pesence!</h1>
+              <h1 className="success-message__title">Thanks</h1>
               <div className="otherMessage">
                 <h5 style={{ textAlign: "left" }}>
                   In the meantime, please process the payment of{" "}
