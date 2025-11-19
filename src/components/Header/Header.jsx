@@ -181,7 +181,7 @@ export default function Header() {
                   setHelpDropDown(false)
                 }}
               >
-                <Link to="https://formbuilder.ccavenue.com/live/icici-bank/st-johns-alumni-trust" target="_blank">
+                <Link to="https://forms.gle/cdiq6rKdY6gDKGMx8" target="_blank">
                   Non-Life Member Registration
                 </Link>{" "}
               </li>

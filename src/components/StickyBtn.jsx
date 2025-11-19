@@ -1,0 +1,12 @@
+import React from 'react'
+import { Link } from 'react-router-dom'
+
+export default function StickyBtn() {
+    return (
+        <div className='sticky-button-container'>
+            <Link to={"https://formbuilder.ccavenue.com/live/icici-bank/st-johns-alumni-trust"} target='_blank'>
+                Gala Night Ticket
+            </Link>
+        </div>
+    )
+}
