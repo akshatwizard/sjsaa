@@ -168,7 +168,21 @@ export default function Header() {
                 }}
               >
                 <Link to="/new-member-registration">
-                  New Member Registration
+                  Life Member Registration
+                </Link>{" "}
+              </li>
+              <li
+                onClick={() => {
+                  setMemberDropDownOpen(false);
+                  scrollToTop();
+                  setIsOpened(false);
+                  setGalleryDropDownOpen(false)
+                  setDropOpen(false);
+                  setHelpDropDown(false)
+                }}
+              >
+                <Link to="https://forms.gle/cdiq6rKdY6gDKGMx8" target="_blank">
+                  Non-Life Member Registration
                 </Link>{" "}
               </li>
               <li

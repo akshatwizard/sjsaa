@@ -4141,3 +4141,45 @@ label {
     }
   }
 }
+
+.sticky-button-container {
+  position: fixed;
+  right: 35px;
+  bottom: 35px;
+  z-index: 999;
+  animation: springIn 0.6s cubic-bezier(0.22, 1.61, 0.36, 1) forwards;
+
+  a {
+    position: relative;
+    padding: 8px 24px;
+    background: linear-gradient(135deg, #155dfc, #4a6df5);
+    color: white;
+    font-weight: 400;
+    font-size: 22px;
+    border-radius: 30px;
+    transition: transform 0.25s cubic-bezier(0.22, 1.61, 0.36, 1),
+      box-shadow 0.25s ease;
+    box-shadow: 0 6px 18px rgba(21, 93, 252, 0.25);
+
+    &:hover {
+      transform: scale(1.1); /* spring-like hover */
+      box-shadow: 0 12px 28px rgba(21, 93, 252, 0.35);
+    }
+  }
+}
+@keyframes springIn {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+  80% {
+    transform: scale(0.92);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

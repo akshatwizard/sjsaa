@@ -1,6 +1,7 @@
 import { Outlet, useLocation } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
+import StickyBtn from "./components/StickyBtn";
 
 export default function App() {
   const location = useLocation();
@@ -10,6 +11,7 @@ export default function App() {
     <>
       {!hideNavAndFooter && <Header />}
       <Outlet />
+      <StickyBtn/>
       {!hideNavAndFooter && <Footer />}
     </>
   );
