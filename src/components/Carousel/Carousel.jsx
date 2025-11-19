@@ -21,20 +21,6 @@ export default function Carousel() {
               loading="lazy"
             />
           </div>
-          <a href="/images/banner/mjm-letter.jpg" target="_blank" className="carousel-item" data-bs-interval="3000">
-            <img
-              src="/images/banner/sjsaa-mjm-desktop.jpg"
-              className=" w-100 bann"
-              alt="St Johns School DLW Alumni Association MJM Tournament"
-              loading="lazy"
-            />
-            <img
-              src="/images/banner/sjsaa-mjm-mob.jpg"
-              className=" w-100 mobBanner"
-              alt="St Johns School DLW Alumni Association MJM Tournament"
-              loading="lazy"
-            />
-          </a>
           <div className="carousel-item" data-bs-interval="3000">
             <img
               src="/images/banner/banner-03.jpg"
