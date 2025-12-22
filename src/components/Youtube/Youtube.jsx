@@ -29,7 +29,9 @@ export default function Youtube() {
               <div className="col-lg-12">
                 <Link
                   to="https://www.youtube.com/channel/UC-ls3LOsV45juXqXia1uVjQ"
-                >
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >
                   <button className="viewMoreBtn mt-4">View More</button>
                 </Link>
               </div>
