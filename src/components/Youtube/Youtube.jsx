@@ -28,7 +28,7 @@ export default function Youtube() {
             currentPath === "/" && (
               <div className="col-lg-12">
                 <Link
-                  to="/video-gallery"
+                  to="https://www.youtube.com/channel/UC-ls3LOsV45juXqXia1uVjQ"
                 >
                   <button className="viewMoreBtn mt-4">View More</button>
                 </Link>
