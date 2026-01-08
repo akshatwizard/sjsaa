@@ -1434,8 +1434,10 @@ table {
 
 .successMessage {
   position: relative;
-  height: 500px;
-  width: 800px;
+  height: 100%;
+  max-height: 600px;
+  max-width: 900px;
+  width: 100%;
   background-color: var(--text-color);
   border-radius: 15px;
   padding: 30px 20px;
@@ -4179,5 +4181,17 @@ label {
   }
   100% {
     transform: translateY(0); /* back down */
+  }
+}
+
+.principals{
+  width: 100%;
+  height: max-content;
+  border-radius: 24px;
+  overflow: hidden;
+
+  img{
+    width: 100%;
+    height: auto;
   }
 }
