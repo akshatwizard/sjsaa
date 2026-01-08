@@ -5,6 +5,7 @@ const ManagingCommittee = lazy(() =>
 );
 
 import ComponentLoader from "../ComponentLoader/ComponentLoader.jsx";
+import Principals from "../Principals/principals.jsx";
 export default function About() {
   return (
     <>
@@ -13,6 +14,9 @@ export default function About() {
       </Suspense>
       <Suspense fallback={<ComponentLoader />}>
         <ManagingCommittee />
+      </Suspense>
+      <Suspense fallback={<ComponentLoader />}>
+        <Principals />
       </Suspense>
     </>
   );

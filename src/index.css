@@ -4181,3 +4181,15 @@ label {
     transform: translateY(0); /* back down */
   }
 }
+
+.principals{
+  width: 100%;
+  height: max-content;
+  border-radius: 24px;
+  overflow: hidden;
+
+  img{
+    width: 100%;
+    height: auto;
+  }
+}
