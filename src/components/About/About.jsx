@@ -3,9 +3,10 @@ const AboutUs = lazy(() => import("../AboutUs/AboutUs"));
 const ManagingCommittee = lazy(() =>
   import("../ManagingCommittee/ManagingCommittee")
 );
-
+const Principals = lazy(() => import("../Principals/principals.jsx"))
 import ComponentLoader from "../ComponentLoader/ComponentLoader.jsx";
-import Principals from "../Principals/principals.jsx";
+
+
 export default function About() {
   return (
     <>
