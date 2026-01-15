@@ -16,6 +16,7 @@ const ManagingCommittee = lazy(() =>
 const Achievers = lazy(() => import("../Achievers/Achievers"));
 const Youtube = lazy(() => import("../Youtube/Youtube"));
 const WishMe = lazy(() => import("../WishMe/WishMe"));
+const Principals = lazy(() => import("../Principals/principals.jsx"))
 
 export default function Home() {
   return (
@@ -26,8 +27,11 @@ export default function Home() {
       {/* <Suspense fallback={<Loader />}>
         <Sponsor />
       </Suspense> */}
-      <Suspense fallback={<Loader />}>
+      {/* <Suspense fallback={<Loader />}>
         <AboutUs />
+      </Suspense> */}
+      <Suspense fallback={<Loader />}>
+        <Principals />
       </Suspense>
       <Suspense fallback={<Loader />}>
         <ManagingCommittee />
