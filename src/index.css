@@ -4187,7 +4187,7 @@ label {
 .principals{
   width: 100%;
   height: max-content;
-  border-radius: 24px;
+  border-radius: 16px;
   overflow: hidden;
 
   img{
@@ -4202,5 +4202,5 @@ label {
   padding-left: 12px;
   color: white;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 10px;
 }

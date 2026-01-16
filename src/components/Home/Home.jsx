@@ -31,10 +31,10 @@ export default function Home() {
         <AboutUs />
       </Suspense> */}
       <Suspense fallback={<Loader />}>
-        <Principals />
+        <ManagingCommittee />
       </Suspense>
       <Suspense fallback={<Loader />}>
-        <ManagingCommittee />
+        <Principals />
       </Suspense>
       <Suspense fallback={<Loader />}>
         <Youtube />

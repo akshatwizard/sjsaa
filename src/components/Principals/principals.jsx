@@ -67,10 +67,10 @@ export default function Principals() {
                     <h1 className="tl">Our Principals</h1>
                 </div>
                 {/* ref={fancyboxRef} */}
-                <div className="row row-gap-4">
+                <div className="row row-gap-2">
                     {
                         princpals_list.map((data) => (
-                            <div className="col-lg-3 col-md-4 col-6" data-fancybox="gallery" data-src={data.uri} data-thumb-src={data.uri} data-caption={data.name}>
+                            <div className="col-lg-2 col-md-3 col-sm-4 col-6 p-1" data-fancybox="gallery" data-src={data.uri} data-thumb-src={data.uri} data-caption={data.name}>
                                 <div key={data.name} className="principals">
                                     <img src={data.uri} alt={data.name} loading="lazy" />
                                 </div>
