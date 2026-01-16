@@ -16,6 +16,7 @@ import Loader from "../Loader/Loader.jsx";
 import Fancybox from "../ImageZoom/Fancybox.jsx";
 const UpdateEmail = lazy(() => import("../UpdateEmail/UpdateEmail.jsx"));
 import * as XLSX from "xlsx";
+import ComponentLoader from "../ComponentLoader/ComponentLoader.jsx";
 
 export default function OurAlumni() {
   const { setLoginModal, isAdmin, onlyAdmin, loading, setLoading } = useContext(Context);
@@ -32,8 +33,9 @@ export default function OurAlumni() {
   const [memberAllData, setMemberAllData] = useState([]);
   const [isRegistrationSuccess, setIsRegistrationSuccess] = useState(false);
   const [isUploaded, setIsUploaded] = useState(false);
-  const [paymentImage, setPaymentImage] = useState(null)
   const [errors, setErrors] = useState({});
+  const [paymentImage, setPaymentImage] = useState(null)
+  const [selectedUserId, setSelectedUserId] = useState()
 
   function handlePaymentImage(e) {
     const file = e.target.files[0];
@@ -442,6 +444,47 @@ export default function OurAlumni() {
     }
   }
 
+  async function handlePaymentSubmission(event) {
+    event.preventDefault();
+    if (!selectedUserId) {
+      return "Invalid user...!"
+    }
+    const uploadError = {};
+    if (!paymentImage) {
+      uploadError.paymentImageError = "Payment Confirmation Image is Required";
+      setErrors(uploadError);
+      return Object.keys(uploadError).length === 0;
+    }
+    setLoading(true);
+    const formData = new FormData();
+    formData.append("Mod", "memRegistration");
+    formData.append("memnid", selectedUserId);
+    formData.append("profilePic", paymentImage);
+    // for (const [key, value] of formData.entries()) {
+    //   console.log(key, value);
+    // }
+    try {
+      const response = await axios.post(
+        "https://www.gdsons.co.in/draft/sjs/mem-registration",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      setLoading(false);
+      setIsRegistrationSuccess(false);
+      setPaymentImage(null);
+      setIsUploaded(true);
+      setSelectedUserId(null);
+    } catch (error) {
+      setLoading(false);
+      console.error("There was an error submitting the form:", error);
+    }
+
+  }
+
   return (
     <section className="sectionContainer">
       <div className="container">
@@ -621,7 +664,7 @@ export default function OurAlumni() {
                             : <div
                               className="btn btn-light"
                               style={{ padding: "5px", fontSize: "15px" }}
-                              onClick={() => setIsRegistrationSuccess(true)}
+                              onClick={() => (setIsRegistrationSuccess(true), setSelectedUserId(product?.mnid))}
                             >
                               Register
                             </div>
@@ -707,7 +750,7 @@ export default function OurAlumni() {
                     {errors.paymentImageError && <p className="error">{errors.paymentImageError}</p>}
 
                     <div className="regSubmitBtn">
-                      <button>
+                      <button onClick={handlePaymentSubmission}>
                         {loading ? <ComponentLoader /> : "Submit Now"}
                       </button>
                     </div>
@@ -717,7 +760,7 @@ export default function OurAlumni() {
               </div>
             </div>
             <div className="success-close-btn">
-              <span onClick={() => setIsRegistrationSuccess(false)}>
+              <span onClick={() => (setIsRegistrationSuccess(false),setSelectedUserId(null),setPaymentImage(null))}>
                 <i className="fa-solid fa-xmark"></i>
               </span>
             </div>
@@ -749,7 +792,7 @@ export default function OurAlumni() {
               />
             </svg>
 
-            <p>Registration Form Submitted Successfully You will get an approvel email after few Hours. <br /> Thanks...!</p>
+            <p>Payment detail Submitted Successfully You will get an approvel email after few Hours. <br /> Thanks...!</p>
             <div
               className="modalCloseBtn"
               onClick={() => {
