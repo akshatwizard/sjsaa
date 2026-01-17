@@ -165,7 +165,7 @@ export default function RegistrationForm() {
       })
       setProfilePic(null);
       setPaymentImage(null)
-      isUploaded(true)
+      setIsUploaded(true)
     } catch (error) {
       setLoading(false);
       console.error("There was an error submitting the form:", error);
