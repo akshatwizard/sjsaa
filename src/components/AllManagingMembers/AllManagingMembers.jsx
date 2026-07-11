@@ -56,6 +56,9 @@ export default function AllManagingMembers() {
     { name: "XJ Dr. Vaibhav Jaiswal", post: "Member (Co-Opted)", batch: 2001, img: "/images/managing-committee/xj-vaibhav-jaiswal.jpeg" },
     { name: "XJ Dr. Swaroop Patel", post: "Member (Co-Opted)", batch: 2004, img: "/images/managing-committee/xj-swaroop-patel.jpeg" },
     { name: "XJ CA Vishal Ashar", post: "Member (Co-Opted)", batch: 2004, img: "/images/managing-committee/no-photo.png" },
+  ];
+
+  const specialInvitees = [
     { name: "XJ Sanjeev Jaipuria", post: "Member (Special Invitee)", batch: 1984, img: "/images/managing-committee/xj-sanjeev-jaipuria.jpeg" },
     { name: "XJ Rajeev Chawla", post: "Member (Special Invitee)", batch: 1984, img: "/images/managing-committee/xj-rajeev-chawla.jpeg" },
     { name: "XJ Sanjay Banerjee", post: "Member (Special Invitee)", batch: 1988, img: "/images/managing-committee/xj-sanjay-banerjee.jpeg" },
@@ -127,6 +130,27 @@ export default function AllManagingMembers() {
               }
             </div>
           </div>
+        </div>
+
+        <div className="title" style={{ marginTop: "60px" }}>
+          <h2>Special Invitees</h2>
+        </div>
+        <div className="row row-gap-3">
+          {
+            specialInvitees?.map((member) => (
+              <div className="col-lg-3 col-md-6 col-md-6" key={member.name}>
+                <div className="committeeContainer">
+                  <div className="othersMembersImage">
+                    <img src={member.img} alt={member.name} loading="lazy" />
+                  </div>
+                  <div className="committeeMemberDetails">
+                    <h6>{member.name}</h6>
+                    <p>{member.batch} Batch</p>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
         </div>
       </div>
     </section>
