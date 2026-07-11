@@ -305,7 +305,15 @@ export default function LoginModal() {
   }
 
   return (
-    <section className="loginModalContainer">
+    <section
+      className="loginModalContainer"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          setLoginModal(false);
+          setOtpButtonClicked(false);
+        }
+      }}
+    >
       <div className="formContainer">
         <div className="LoginTitle">
           <h1>Login</h1>
