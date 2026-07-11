@@ -52,7 +52,7 @@ export default function MessageForAlumni() {
         </div>
         <div className="row row-gap-5">
           {messages.map((person) => (
-            <div className="col-lg-6 col-md-6 colsm-12" key={person.id}>
+            <div className="col-lg-4 col-md-6 colsm-12" key={person.id}>
               <div className="messageContainer">
                 <div className="messageImgContainer">
                   <div className="profilePic shine">
