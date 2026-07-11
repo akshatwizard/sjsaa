@@ -226,7 +226,7 @@ export default function OurAlumni() {
     const tableColumn = [
       "Sr. No.",
       "Name",
-      // "Joined Year",
+      "Joining Year",
       "Batch",
       "M'Ship Status",
       "Date of Birth",
@@ -251,7 +251,7 @@ export default function OurAlumni() {
       const memberDetails = [
         index + 1,
         member.membernace || "N/A",
-        // member.joiningyear || "N/A",
+        member.joiningyear || "N/A",
         member.batch || "N/A",
         member.life_member || "N/A",
         member.dob || "N/A",
@@ -281,10 +281,11 @@ export default function OurAlumni() {
         2: { cellWidth: 20 },
         3: { cellWidth: 20 },
         4: { cellWidth: 20 },
-        5: { cellWidth: 30 },
-        6: { cellWidth: 20 },
-        7: { cellWidth: 30 },
+        5: { cellWidth: 20 },
+        6: { cellWidth: 30 },
+        7: { cellWidth: 20 },
         8: { cellWidth: 30 },
+        9: { cellWidth: 30 },
       },
       styles: {
         overflow: "linebreak",
@@ -540,6 +541,7 @@ export default function OurAlumni() {
                     <th>Name</th>
                     <th>Membership Id</th>
                     <th>Batch</th>
+                    <th>Joining Year</th>
                     {hideCol ? (
                       <th>Membership Status</th>
                     ) : (
@@ -602,6 +604,7 @@ export default function OurAlumni() {
                       </td>
                       <td>{product.memid}</td>
                       <td>{product?.batch || "not provided"}</td>
+                      <td>{product?.joiningyear || ""}</td>
 
                       {hideCol ? (
                         <td>
