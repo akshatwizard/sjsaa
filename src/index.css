@@ -4374,3 +4374,22 @@ label {
   font-weight: 500;
   font-size: 10px;
 }
+
+.committeeActionButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 50px;
+
+  .viewMoreBtn {
+    position: static;
+    left: auto;
+    transform: none;
+
+    &:hover {
+      transform: scale(1.15);
+    }
+  }
+}
