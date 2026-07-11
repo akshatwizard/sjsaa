@@ -33,7 +33,12 @@ export default function UpdatePassword({ closeBtn }) {
   }
 
   return (
-    <section className="passwordModal">
+    <section
+      className="passwordModal"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) closeBtn(false);
+      }}
+    >
       <div className="formContainer">
         <div className="passwordTitle">
           <h2>Update Password</h2>
