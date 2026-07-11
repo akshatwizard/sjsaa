@@ -27,6 +27,20 @@ export default function ManagingCommittee() {
     },
     { scope: members }
   );
+
+  const specialMember = [
+    { name: "XJ RAJKUMAR AGRAWAL", post: "CHAIRMAN", batch: 1982, img: "/images/managing/chairman.jpg" },
+    { name: "XJ PUNEET AGRAWAL", post: "VICE-CHAIRMAN", batch: 1984, img: "/images/managing-committee/xj-puneet-agrawal.jpg" },
+    { name: "XJ PANKAJ AGRAWAL", post: "VICE-CHAIRMAN", batch: 1989, img: "/images/managing-committee/xj-pankaj-agrawal.jpg" },
+  ];
+
+  const featuredMembers = [
+    { name: "XJ VIVEK MEHRA", post: "PRESIDENT", batch: 2001, img: "/images/managing/vivek-mehra.jpg" },
+    { name: "XJ APURVE MATHUR", post: "VICE-PRESIDENT", batch: 2002, img: "/images/managing-committee/xj-apurve-mathur.jpg" },
+    { name: "XJ SHIKHA DAS", post: "SECRETARY", batch: 2001, img: "/images/managing-committee/xj-shikha-das.jpg" },
+    { name: "XJ MANISH KATARIA", post: "TREASURER", batch: 1993, img: "/images/managing-committee/xj-manish-kataria.jpg" },
+  ];
+
   return (
     <section className="sectionContainer" ref={members}>
       <div className="container">
@@ -34,114 +48,42 @@ export default function ManagingCommittee() {
           <h1 className="tl">Managing Committee</h1>
         </div>
         <div className="row row-gap-3">
-          <div className="col-lg-4 col-md-6 col-sm-6 ">
-            <div className="committeeContainer">
-              <div className="committeeMemberImage">
-                <img src="/images/managing/chairman.jpg" alt="" />
-              </div>
-              <div className="committeeMemberDetails">
-                <h3>XJ RAJKUMAR AGRAWAL</h3>
-                <p>
-                  1982 Batch
-                  <br /> CHAIRMAN
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-4 col-md-6 col-sm-6 ">
-            <div className="committeeContainer">
-              <div className="committeeMemberImage">
-                <img src="/images/managing/Vice-Chairman.jpg" alt="" />
-              </div>
-              <div className="committeeMemberDetails">
-                <h3>XJ PUNEET AGRAWAL</h3>
-                <p>
-                  1984 Batch
-                  <br />
-                  VICE-CHAIRMAN
-                </p>
+          {specialMember.map((member) => (
+            <div className="col-lg-4 col-md-6 col-sm-6 " key={member.name}>
+              <div className="committeeContainer">
+                <div className="committeeMemberImage">
+                  <img src={member.img} alt={member.name} />
+                </div>
+                <div className="committeeMemberDetails">
+                  <h3>{member.name}</h3>
+                  <p>
+                    {member.batch} Batch
+                    <br /> {member.post}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="col-lg-4 col-md-6 col-sm-6 ">
-            <div className="committeeContainer">
-              <div className="committeeMemberImage">
-                <img src="/images/managing/Vice-Chairman-02.png" alt="" />
-              </div>
-              <div className="committeeMemberDetails">
-                <h3>XJ PANKAJ AGRAWAL</h3>
-                <p>
-                  1989 Batch
-                  <br /> VICE-CHAIRMAN
-                </p>
-              </div>
-            </div>
-          </div>
+          ))}
 
           <div className="col-lg-12">
             <div className="row row-gap-3">
-              <div className="col-lg-3 col-md-6  col-md-6">
-                <div className="committeeContainer">
-                  <div className="othersMembersImage">
-                    <img src="/images/managing/Vice-President.jpg" alt="" />
-                  </div>
-                  <div className="committeeMemberDetails">
-                    <h6>XJ DIGVIJAY SINGH</h6>
-                    <p>
-                      2000 Batch
-                      <br />
-                      PRESIDENT
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-lg-3 col-md-6  col-md-6">
-                <div className="committeeContainer">
-                  <div className="othersMembersImage">
-                    <img src="/images/managing-committee/XJ-vivek-mehra.jpg" alt="" />
-                  </div>
-                  <div className="committeeMemberDetails">
-                    <h6>XJ Vivek Mehra</h6>
-                    <p>
-                      2001 Batch
-                      <br />
-                      Vice-President
-                    </p>
+              {featuredMembers.map((member) => (
+                <div className="col-lg-3 col-md-6  col-md-6" key={member.name}>
+                  <div className="committeeContainer">
+                    <div className="othersMembersImage">
+                      <img src={member.img} alt={member.name} />
+                    </div>
+                    <div className="committeeMemberDetails">
+                      <h6>{member.name}</h6>
+                      <p>
+                        {member.batch} Batch
+                        <br />
+                        {member.post}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-
-              <div className="col-lg-3 col-md-6  col-md-6">
-                <div className="committeeContainer">
-                  <div className="othersMembersImage">
-                    <img src="/images/managing-committee/XJ-abhishek-basak.jpg" alt="" />
-                  </div>
-                  <div className="committeeMemberDetails">
-                    <h6>XJ Abhishek Basak</h6>
-                    <p>
-                      2000 Batch
-                      <br />
-                      SECRETARY
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-3 col-md-6 col-md-6">
-                <div className="committeeContainer">
-                  <div className="othersMembersImage">
-                    <img src="/images/managing/Treasurer.png" alt="" />
-                  </div>
-                  <div className="committeeMemberDetails">
-                    <h6>XJ MANISH KATARIA</h6>
-                    <p>
-                      1993 Batch
-                      <br />
-                      TREASURER
-                    </p>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
