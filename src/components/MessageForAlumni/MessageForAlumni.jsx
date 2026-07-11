@@ -7,22 +7,30 @@ const messages = [
     role: "CHAIRMAN",
     image: "/images/managing/chairman.jpg",
     preview:
-      "As we celebrate 40 years of the St. John's School, BLW, Varanasi Alumni Association, I am filled with immense pride and gratitude. Founded with a vision to connect and support our diverse alumni family, the association has grown into a vibrant community. Our journey over these decades reflects our collective achievements and the enduring spirit of St. John's. Together, we have built lasting friendships, supported one another, and contributed to society. As we look to the future, let's continue to uphold the values instilled in us and strengthen the bonds that unite us.",
+      "It is with immense gratitude and humility that I accept the responsibility of serving once again as the Chairman of the St. John's School DLW Alumni Association for the next two years. This opportunity has been made possible only because of your love, trust, and unwavering support. I sincerely thank each one of you for the confidence you have reposed in me. Together, we have a shared vision of taking our prestigious Alumni Association to greater heights.",
     paragraphs: [
-      "As we celebrate 40 years of the St. John's School, BLW, Varanasi Alumni Association, I am filled with immense pride and gratitude. Founded with a vision to connect and support our diverse alumni family, the association has grown into a vibrant community. Our journey over these decades reflects our collective achievements and the enduring spirit of St. John's. Together, we have built lasting friendships, supported one another, and contributed to society. As we look to the future, let's continue to uphold the values instilled in us and strengthen the bonds that unite us.",
+      "It is with immense gratitude and humility that I accept the responsibility of serving once again as the Chairman of the St. John's School DLW Alumni Association for the next two years. This opportunity has been made possible only because of your love, trust, and unwavering support. I sincerely thank each one of you for the confidence you have reposed in me.",
+      "Together, we have a shared vision of taking our prestigious Alumni Association to greater heights. With your active participation and cooperation, we plan to organize meaningful, engaging, and enjoyable programs that will strengthen the bonds of friendship, fellowship, and belonging among our members. Our guiding motto, \u201cBonded Forever,\u201d will continue to inspire all our efforts.",
+      "This year marks the Silver Jubilee of the Batch of 2001. I extend my heartfelt congratulations and best wishes to all members of this batch and look forward to their enthusiastic participation and valuable support in the Association's activities.",
+      "I warmly invite every member to participate actively in all our events and initiatives. Your involvement, suggestions, and support are the greatest strengths of our Association.",
+      "Finally, my heartfelt congratulations to XJ Vivek Mehra, and his entire team. I am confident that, together, we will build a stronger, more vibrant Alumni Association and create many memorable milestones in the years ahead.",
     ],
   },
   {
     id: "president",
-    name: "XJ Digvijay Singh",
+    name: "XJ Vivek Mehra",
     role: "PRESIDENT",
-    image: "/images/managing/new-president.jpg",
+    image: "/images/managing/vivek-mehra.jpg",
     preview:
-      "It is with great pride and heartfelt emotion that I welcome you all to this milestone celebration. As President of the St. John\u2019s Alumni Association, it is both an honor and a joy to witness the 25th anniversary of the Class of 2000. This class continues to embody the very spirit of our beloved school. Founded to connect hearts beyond the classrooms, our association has grown into a diverse and united family, bonded by the values we all hold dear discipline, integrity, humility, and service.",
+      "It is an absolute honour to address you as your Alumni Association President. Our alma mater gave us the foundation to build our dreams, and today, my vision is to take this incredible association to unprecedented heights. To achieve this, our core mission is simple yet powerful: connection. An alumni association is only as strong as its network. We want to bridge the gap between generations, reconnect with lost friends, and ensure that every single past student feels they have a vibrant, active community to call home.",
     paragraphs: [
-      "It is with great pride and heartfelt emotion that I welcome you all to this milestone celebration. As President of the St. John\u2019s Alumni Association, it is both an honor and a joy to witness the 25th anniversary of the Class of 2000. This class continues to embody the very spirit of our beloved school.",
-      "Founded to connect hearts beyond the classrooms, our association has grown into a diverse and united family, bonded by the values we all hold dear discipline, integrity, humility, and service. These values, instilled in us within the walls of St. John\u2019s, have not only stood the test of time but have guided our lives in both seen and unseen ways. Today is more than a reunion it\u2019s a return. After decades, we walk again through the corridors where our stories began. The buildings may have changed, but the spirit of St. John\u2019s remains timeless. This is a homecoming of the heart. To my classmates from 2000, what a journey it has been from our school uniforms to our lives today. Let us take this moment to reflect, reconnect, and recommit. Let\u2019s give back, stay engaged, and be proud torchbearers of the legacy we were gifted.",
-      "May future generations inherit a school and a living tradition of excellence, character, and unity.",
+      "It is an absolute honour to address you as your Alumni Association President. Our alma mater gave us the foundation to build our dreams, and today, my vision is to take this incredible association to unprecedented heights. To achieve this, our core mission is simple yet powerful: connection.",
+      "An alumni association is only as strong as its network. We want to bridge the gap between generations, reconnect with lost friends, and ensure that every single past student feels they have a vibrant, active community to call home.",
+      "On behalf of the Batch of 2001, I am thrilled to announce that this year's flagship event is going to be unforgettable. We are throwing a spectacular, high-energy Gala Night that promises to be an absolute blast!",
+      "Whether you want to walk down memory lane, dance the night away, or simply raise a toast to the good old days, this is the night to do it. Mark your calendars, spread the word, and get ready for a celebration that will set a new benchmark for our association.",
+      "To the students currently passing out of the school: your journey with our school doesn't end at graduation. In fact, a whole new chapter is just beginning. I strongly urge every single one of you to officially join the Alumni Association immediately.",
+      "Here is why your membership is your greatest asset: You become part of a massive, lifelong web of professionals across the globe. XJhonians currently hold esteemed posts and leadership positions across diverse industries. By joining, you gain direct access to these industry stalwarts, who are ready to guide, mentor, and help you navigate your career path. No matter where you go in the world, you will always find a fellow XJhonian ready to lend a hand.",
+      "Let us come together to make this year historic. Let's connect, grow, and celebrate the shared bond that makes us who we are.",
     ],
   },
   {
