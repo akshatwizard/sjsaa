@@ -125,7 +125,12 @@ export default function UpdateEmail({ closeBtn, userDetails }) {
   };
 
   return (
-    <section className="updateEmailContainer">
+    <section
+      className="updateEmailContainer"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) closeBtn();
+      }}
+    >
       <div className="formContainer">
         <div className="updateTitle">
           <h1>Update Email</h1>
