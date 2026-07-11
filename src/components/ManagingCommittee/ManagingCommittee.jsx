@@ -109,15 +109,7 @@ export default function ManagingCommittee() {
           </div>
         </div>
 
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            gap: "20px",
-            flexWrap: "wrap",
-            marginTop: "50px",
-          }}
-        >
+        <div className="committeeActionButtons">
           <Link to={"/managing-committee-members"} onClick={scrollToTop}>
             <button className="viewMoreBtn">View More Members</button>
           </Link>
