@@ -1727,28 +1727,32 @@ table {
 }
 
 .modalCloseBtn {
-  position: absolute;
-  width: 40px;
-  height: 40px;
+  position: fixed;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  border: 2px solid var(--primary-color);
-  right: 15px;
-  top: 15px;
+  border: 2px solid var(--third-color);
+  background-color: var(--secondry-color);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+  right: 20px;
+  top: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 5px;
   cursor: pointer;
-  transition: border-color 0.5s;
+  z-index: 999999;
+  transition: border-color 0.3s, background-color 0.3s;
 
   i {
-    color: var(--primary-color);
-    font-size: 20px;
-    transition: color 0.5s, transform 0.2s;
+    color: var(--third-color);
+    font-size: 22px;
+    transition: color 0.3s, transform 0.2s;
   }
 
   &:hover {
     border: 2px solid #c40c0c;
+    background-color: #2e2e2e;
   }
   &:hover i {
     color: #c40c0c;
