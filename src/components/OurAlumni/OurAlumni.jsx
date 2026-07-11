@@ -221,8 +221,7 @@ export default function OurAlumni() {
     doc.setFontSize(25);
     doc.text("St John's School Alumni Association", 50, 25);
     doc.setLineWidth(0.5);
-    doc.line(0, 45, 250, 45);
-
+    doc.line(10, 45, 200, 45);
     const tableColumn = [
       "Sr. No.",
       "Name",
@@ -269,12 +268,11 @@ export default function OurAlumni() {
       tableRows.push(memberDetails);
     });
 
-    doc.autoTable({
+doc.autoTable({
       head: [tableColumn],
       body: tableRows,
       startY: 50,
-      tableWidth: 210,
-      margin: { left: 0 },
+      margin: { left: 10, right: 10 },
       columnStyles: {
         0: { cellWidth: 10 },
         1: { cellWidth: 30 },
