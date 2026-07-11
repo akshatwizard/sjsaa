@@ -109,7 +109,15 @@ export default function ManagingCommittee() {
           </div>
         </div>
 
-        <div style={{ display: "flex", gap: "20px", flexWrap: "wrap", marginTop: "50px" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            gap: "20px",
+            flexWrap: "wrap",
+            marginTop: "50px",
+          }}
+        >
           <Link to={"/managing-committee-members"} onClick={scrollToTop}>
             <button className="viewMoreBtn">View More Members</button>
           </Link>
@@ -124,7 +132,12 @@ export default function ManagingCommittee() {
       </div>
 
       {showSpecialInvitees && (
-        <div className="messageDetailModal">
+        <div
+          className="messageDetailModal"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setShowSpecialInvitees(false);
+          }}
+        >
           <div className="formContainer specialInviteesModal">
             <div
               className="modalCloseBtn"
