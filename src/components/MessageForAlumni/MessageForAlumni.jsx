@@ -88,7 +88,12 @@ export default function MessageForAlumni() {
       </div>
 
       {activePerson && (
-        <div className="messageDetailModal">
+        <div
+          className="messageDetailModal"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setActivePerson(null);
+          }}
+        >
           <div className="formContainer">
             <div
               className="modalCloseBtn"
