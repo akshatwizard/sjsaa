@@ -54,20 +54,20 @@ export default function UserProfile() {
                     <h3>{memberData?.title || "Name not available"}</h3>
                     <p>Batch : <strong>{memberData?.batch || "Batch not available"}</strong></p>
                     <p>
-                      Alumni Joining Year:-{" "}
+                      Alumni Joining Year : <strong>{" "}
                       {memberData?.joining_year === " "
                         ? "Alumni Joining year not available "
-                        : memberData?.joining_year}
+                        : memberData?.joining_year}</strong>
                     </p>
                     <p>
-                      Currently Working as:-{" "}
+                      Currently Working as : <strong>{" "}
                       {memberData?.trade_category === " "
                         ? "Trade not available"
-                        : memberData?.trade_category}
+                        : memberData?.trade_category}</strong>
                     </p>
                     <p>
-                      Current Location:-{" "}
-                      {memberData?.location || "Location not available"}
+                      Current Location : <strong>{" "}
+                      {memberData?.location || "Location not available"}</strong>
                     </p>
                     <div className="socialMediaIcons">
                       {memberData?.facebook?.trim() ? (
