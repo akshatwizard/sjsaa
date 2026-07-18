@@ -52,7 +52,7 @@ export default function UserProfile() {
                 <div className="row row-gap-3">
                   <div className="col-lg-6">
                     <h3>{memberData?.title || "Name not available"}</h3>
-                    <p>Batch:- {memberData?.batch || "Batch not available"}</p>
+                    <p>Batch : <strong>{memberData?.batch || "Batch not available"}</strong></p>
                     <p>
                       Alumni Joining Year:-{" "}
                       {memberData?.joining_year === " "
