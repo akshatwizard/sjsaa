@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../../context/Context";
 import axios from "axios";
 import ComponentLoader from "../ComponentLoader/ComponentLoader";
@@ -29,6 +29,14 @@ export default function LoginModal() {
   const [otpSentMessage, setOtpSentMessage] = useState("");
   const { isLogedIn, setIsLogedIn } = useContext(Context);
   const [wrongOTP, setWrongOTP] = useState(false);
+  const [resendCooldown, setResendCooldown] = useState(0);
+
+  // Countdown timer that ticks the resend cooldown down to 0.
+  useEffect(() => {
+    if (resendCooldown <= 0) return;
+    const timer = setTimeout(() => setResendCooldown(resendCooldown - 1), 1000);
+    return () => clearTimeout(timer);
+  }, [resendCooldown]);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -94,6 +102,37 @@ export default function LoginModal() {
     setStep("enterOtp");
   }
 
+  // Core OTP request. Shared by the initial "Send OTP" and the "Resend OTP" link.
+  async function requestOtp(isResend = false) {
+    const payload = new FormData();
+    payload.append("emailid", otpData.emailid);
+    payload.append("Mod", otpData.Mod);
+    setLoading(true);
+    try {
+      await axios.post(
+        "https://www.gdsons.co.in/draft/sjs/user-generate-otp",
+        payload,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      setIsOtpSend(true);
+      setOtpSentMessage(
+        isResend ? "OTP resent successfully!" : "OTP sent successfully!"
+      );
+      setWrongOTP(false);
+      setResendCooldown(30); // lock the resend link for 30s
+      setLoading(false);
+    } catch (error) {
+      console.error("Failed to send OTP:", error);
+      setLoading(false);
+      setOtpSentMessage("Failed to send OTP. Please try again.");
+      setIsLogedIn(false);
+    }
+  }
+
   async function sendOtp(event) {
     event.preventDefault();
     if (!otpData.emailid) {
@@ -104,30 +143,12 @@ export default function LoginModal() {
       }, 4000);
       return;
     }
-    const formData = new FormData();
-    formData.append("emailid", otpData.emailid);
-    formData.append("Mod", otpData.Mod);
-    setLoading(true);
-    try {
-      const response = await axios.post(
-        "https://www.gdsons.co.in/draft/sjs/user-generate-otp",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      // console.log(response.data);
-      setIsOtpSend(true);
-      setOtpSentMessage("OTP sent successfully!");
-      setLoading(false);
-    } catch (error) {
-      console.error("Failed to send OTP:", error);
-      setLoading(false);
-      setOtpSentMessage("Failed to send OTP. Please try again.");
-      setIsLogedIn(false);
-    }
+    await requestOtp(false);
+  }
+
+  async function handleResendOtp() {
+    if (resendCooldown > 0 || loading) return; // ignore clicks during cooldown
+    await requestOtp(true);
   }
 
   async function handleOptLogin(event) {
@@ -295,6 +316,32 @@ export default function LoginModal() {
               >
                 {wrongOTP ? "Wrong OTP enter. Please try again." : ""}
               </p>
+              {isOtpSend && (
+                <p
+                  style={{
+                    margin: "8px 0 0",
+                    textAlign: "right",
+                    width: "100%",
+                  }}
+                >
+                  {resendCooldown > 0 ? (
+                    <span style={{ color: "#bbb" }}>
+                      Resend OTP in {resendCooldown}s
+                    </span>
+                  ) : (
+                    <span
+                      onClick={handleResendOtp}
+                      style={{
+                        color: "yellow",
+                        cursor: "pointer",
+                        textDecoration: "underline",
+                      }}
+                    >
+                      Didn't receive it? Resend OTP
+                    </span>
+                  )}
+                </p>
+              )}
             </form>
           </div>
         );
