@@ -42,6 +42,15 @@ export default function Profile() {
 
   const [profilePic, setProfilePic] = useState(null);
 
+  // Tracks which long-text field (if any) is currently shown in the expanded modal.
+  // Values: null | "aboutMe" | "address"
+  const [expandedField, setExpandedField] = useState(null);
+
+  const expandedFieldLabels = {
+    aboutMe: "About Me",
+    address: "Address",
+  };
+
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     setFullUserData((prevValue) => {
@@ -62,7 +71,7 @@ export default function Profile() {
   }
 
   useEffect(() => {
-    if (passwordModal || showSuccessMessage) {
+    if (passwordModal || showSuccessMessage || expandedField) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "auto";
@@ -70,7 +79,7 @@ export default function Profile() {
     return () => {
       document.body.style.overflow = "auto";
     };
-  }, [passwordModal, showSuccessMessage]);
+  }, [passwordModal, showSuccessMessage, expandedField]);
 
   useEffect(() => {
     if (!isLogedIn) {
@@ -462,7 +471,18 @@ export default function Profile() {
                                 />
                               </div>
                               <div className="col-lg-6">
-                                <label htmlFor="address">Address</label>
+                                <div className="labelWithExpand">
+                                  <label htmlFor="address">Address</label>
+                                  <button
+                                    type="button"
+                                    className="expandFieldBtn"
+                                    onClick={() => setExpandedField("address")}
+                                    aria-label="Expand Address field"
+                                    title="Expand"
+                                  >
+                                    <i className="fa-solid fa-expand"></i>
+                                  </button>
+                                </div>
                                 <input
                                   type="text"
                                   placeholder="Address"
@@ -473,7 +493,18 @@ export default function Profile() {
                                 />
                               </div>
                               <div className="col-lg-6">
-                                <label htmlFor="aboutMe">About Me</label>
+                                <div className="labelWithExpand">
+                                  <label htmlFor="aboutMe">About Me</label>
+                                  <button
+                                    type="button"
+                                    className="expandFieldBtn"
+                                    onClick={() => setExpandedField("aboutMe")}
+                                    aria-label="Expand About Me field"
+                                    title="Expand"
+                                  >
+                                    <i className="fa-solid fa-expand"></i>
+                                  </button>
+                                </div>
                                 <textarea
                                   type="text"
                                   placeholder="About Me"
@@ -569,6 +600,37 @@ export default function Profile() {
       {passwordModal && <UpdatePassword closeBtn={setPasswordModal} />}
       {showSuccessMessage && (
         <SuccessMessage status={() => setShowSuccessMessage(false)} />
+      )}
+      {expandedField && (
+        <div
+          className="expandModalOverlay"
+          onClick={() => setExpandedField(null)}
+        >
+          <div
+            className="expandModalBox"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="expandModalHeader">
+              <h4>{expandedFieldLabels[expandedField]}</h4>
+              <button
+                type="button"
+                className="expandModalCloseBtn"
+                onClick={() => setExpandedField(null)}
+                aria-label="Close"
+              >
+                <i className="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+            <textarea
+              id={expandedField}
+              className="expandModalTextarea"
+              value={fullUserData[expandedField]}
+              disabled={!isFormEditable}
+              onChange={handleInputChange}
+              autoFocus
+            ></textarea>
+          </div>
+        </div>
       )}
     </section>
   );
