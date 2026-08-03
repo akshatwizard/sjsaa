@@ -4526,3 +4526,49 @@ label {
     }
   }
 }
+.loginPromptContainer {
+  width: 100%;
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 1px solid #3a3a3a;
+
+  h6 {
+    color: var(--third-color);
+    font-size: 18px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+
+  p {
+    color: var(--text-color);
+    margin: 6px 0;
+  }
+
+  .loginPromptBtn {
+    margin-top: 10px;
+    padding: 8px 30px;
+    background-color: var(--third-color);
+    color: var(--primary-color);
+    border: 1px solid var(--third-color);
+    font-size: 17px;
+    font-weight: 500;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+
+    &:hover {
+      background-color: transparent;
+      color: var(--third-color);
+    }
+  }
+
+  .loginPromptSecondary {
+    margin-top: 20px;
+
+    .applyMembershipBtn {
+      display: inline-block;
+      margin-top: 8px;
+      margin-bottom: 8px;
+      padding: 8px 20px;
+      background-color: transparent;
+      color: var(--third-color);
