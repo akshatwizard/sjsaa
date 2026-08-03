@@ -5,6 +5,18 @@ import ComponentLoader from "../ComponentLoader/ComponentLoader";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
+// Decides where to send the member right after a successful login.
+// If they opened the login modal while viewing another member's public
+// profile (/user/profile/:id), send them back to that same page instead
+// of the generic /profile edit page.
+function getPostLoginRedirectPath() {
+  const path = window.location.pathname;
+  if (/^\/user\/profile\/[^/]+\/?$/.test(path)) {
+    return path;
+  }
+  return "/profile";
+}
+
 export default function LoginModal() {
   const [step, setStep] = useState("enterPassword");
   const { setLoginModal } = useContext(Context);
@@ -76,7 +88,7 @@ export default function LoginModal() {
         if (response.data.role === "Webadmin") {
           window.location.href = "/admin/dashboard";
         } else {
-          window.location.href = "/profile";
+          window.location.href = getPostLoginRedirectPath();
         }
       }
       else if (response.data.login === "notLifeMember") {
@@ -178,7 +190,7 @@ export default function LoginModal() {
         setLoading(false);
         setLoginModal(false);
         setIsLogedIn(true);
-        navigator("/profile");
+        navigator(getPostLoginRedirectPath());
         setWrongOTP(false);
       } else {
         setLoading(false);
