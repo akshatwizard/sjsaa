@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { Context } from "../../context/Context";
 
 export default function UserProfile() {
   const [memberData, setMemberData] = useState({});
   const { id } = useParams();
+  const { isLogedIn } = useContext(Context);
 
   useEffect(() => {
     async function fetchMember() {
@@ -119,12 +121,68 @@ export default function UserProfile() {
                   <div className="col-lg-6">
                     <div className="summary">
                       <h6>About Me</h6>
-                      <p>
+                      <p className="preserveLineBreaks">
                         {memberData?.about_me?.trim() ? memberData?.about_me : ""}
                       </p>
                     </div>
                   </div>
                 </div>
+
+                {isLogedIn && (
+                  <div className="additionalDetails">
+                    <h6>Additional Details</h6>
+                    <div className="row row-gap-3">
+                      <div className="col-lg-6">
+                        <p>
+                          Email : <strong>{memberData?.email_id?.trim() || "Not available"}</strong>
+                        </p>
+                        <p>
+                          Contact No : <strong>{memberData?.mobile_number_one?.trim() || "Not available"}</strong>
+                        </p>
+                        {memberData?.mobile_number_two?.trim() ? (
+                          <p>
+                            Contact No 2 : <strong>{memberData.mobile_number_two}</strong>
+                          </p>
+                        ) : (
+                          ""
+                        )}
+                        <p>
+                          DOB :{" "}
+                          <strong>
+                            {memberData?.birth_date
+                              ? memberData.birth_date.split(" ")[0]
+                              : "Not available"}
+                          </strong>
+                        </p>
+                        <p>
+                          Qualification : <strong>{memberData?.qualification?.trim() || "Not available"}</strong>
+                        </p>
+                        <p>
+                          House you belonged : <strong>{memberData?.house?.trim() || "Not available"}</strong>
+                        </p>
+                      </div>
+                      <div className="col-lg-6">
+                        <p>
+                          Address : <strong>{memberData?.address?.trim() || "Not available"}</strong>
+                        </p>
+                        <p>
+                          Name of Spouse : <strong>{memberData?.spouse_name?.trim() || "Not available"}</strong>
+                        </p>
+                        <p>
+                          Wedding Date :{" "}
+                          <strong>
+                            {memberData?.anniversary
+                              ? memberData.anniversary.split(" ")[0]
+                              : "Not available"}
+                          </strong>
+                        </p>
+                        <p>
+                          Details of Children : <strong>{memberData?.children_details?.trim() || "Not available"}</strong>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
