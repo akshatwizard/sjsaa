@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { Context } from "../../context/Context";
 
 export default function UserProfile() {
   const [memberData, setMemberData] = useState({});
   const { id } = useParams();
-  const { isLogedIn } = useContext(Context);
+  const { isLogedIn, setLoginModal } = useContext(Context);
 
   useEffect(() => {
     async function fetchMember() {
@@ -127,6 +127,43 @@ export default function UserProfile() {
                     </div>
                   </div>
                 </div>
+
+                {!isLogedIn && (
+                  <div className="loginPromptContainer">
+                    <h6>
+                      Login to connect with{" "}
+                      {memberData?.title?.trim() ? memberData.title : "this alumnus"}
+                    </h6>
+                    <p>
+                      Sign in to view{" "}
+                      {memberData?.title?.trim() ? memberData.title : "this alumnus"}
+                      &apos;s contact details, address, and more.
+                    </p>
+                    <button
+                      type="button"
+                      className="loginPromptBtn"
+                      onClick={() => setLoginModal(true)}
+                    >
+                      Login
+                    </button>
+
+                    <div className="loginPromptSecondary">
+                      <p>Not a member yet?</p>
+                      <Link
+                        to="/new-member-registration"
+                        className="applyMembershipBtn"
+                      >
+                        Apply for SJSAA Life Membership
+                      </Link>
+                      <p>
+                        or write to us at{" "}
+                        <a href="mailto:sjsaa.info@gmail.com">
+                          sjsaa.info@gmail.com
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                )}
 
                 {isLogedIn && (
                   <div className="additionalDetails">
