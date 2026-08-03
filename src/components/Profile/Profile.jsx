@@ -288,7 +288,7 @@ export default function Profile() {
                   ></div>
                   <div className="summary">
                     <h6>About Me</h6>
-                    <p>{userData?.about_me}</p>
+                    <p className="preserveLineBreaks">{userData?.about_me}</p>
                   </div>
                 </div>
               </div>
