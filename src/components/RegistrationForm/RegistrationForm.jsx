@@ -25,7 +25,8 @@ export default function RegistrationForm() {
     wedding: "",
     address: "",
     Mod: "addMember",
-    joiningYear: new Date().toISOString().slice(0, 10),
+    joiningYear: String(new Date().getFullYear()),
+    lifeMember: "Life", // registration is for Lifetime Membership (Rs. 4000)
   });
   const { loading, setLoading } = useContext(Context);
 
@@ -161,7 +162,9 @@ export default function RegistrationForm() {
         children: "",
         wedding: "",
         address: "",
-        joiningYear: new Date().toISOString().slice(0, 10),
+        Mod: "addMember",
+        joiningYear: String(new Date().getFullYear()),
+        lifeMember: "Life",
       })
       setProfilePic(null);
       setPaymentImage(null)
